@@ -1,0 +1,28 @@
+.NavBarBody {
+    //background-color: #FFFFFF;
+    height: 25vh;
+    width: 100vw;
+    background-image: url('../resources/NavBarBKGND.png');
+    background-size: 100vw;
+    background-repeat: no-repeat;
+    position: fixed;
+    top: 0;
+}
+
+.NavBarLogoBox {
+    background-image: url('../resources/NavBarLogoBKGND.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 25vh;
+    width: 20vw;
+    position: fixed;
+    top: 0;
+    left: 2vw;
+    //background-color: #09d3ac;
+}
+
+.NavBarLogo {
+    position: fixed;
+    top: 0.5vw;
+    left: 5vw;
+}
