@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import TOSNavBar from './Components/TOSNavBar'
+import TOSNavBar from './components/TOSNavBar'
 
 function App() {
   return (
