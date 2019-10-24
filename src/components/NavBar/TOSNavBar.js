@@ -1,6 +1,6 @@
 import React from 'react';
 import './TOSNavBar.css';
-import TOSLogo from '../resources/TOSLogo.png';
+import TOSLogo from '../../resources/TOSLogo.png';
 
 class TOSNavBar extends React.Component {
     render() {

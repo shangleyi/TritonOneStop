@@ -2,7 +2,7 @@
     //background-color: #FFFFFF;
     height: 25vh;
     width: 100vw;
-    background-image: url('../resources/NavBarBKGND.png');
+    background-image: url('../../resources/NavBarBKGND.png');
     background-size: 100vw;
     background-repeat: no-repeat;
     position: fixed;
@@ -10,7 +10,7 @@
 }
 
 .NavBarLogoBox {
-    background-image: url('../resources/NavBarLogoBKGND.png');
+    background-image: url('../../resources/NavBarLogoBKGND.png');
     background-size: contain;
     background-repeat: no-repeat;
     height: 25vh;
