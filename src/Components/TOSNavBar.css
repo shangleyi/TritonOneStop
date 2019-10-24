@@ -24,5 +24,7 @@
 .NavBarLogo {
     position: fixed;
     top: 0.5vw;
-    left: 5vw;
+    left: 4.5vw;
+    height: 23vh;
+    width: auto;
 }

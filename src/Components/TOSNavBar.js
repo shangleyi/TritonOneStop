@@ -7,7 +7,7 @@ class TOSNavBar extends React.Component {
         return (
             <div className="NavBarBody">
                 <div className="NavBarLogoBox">
-                    <img className="NavBarLogo" src={TOSLogo} width="200" height="200" />
+                    <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} />
                 </div>
             </div>
         );
