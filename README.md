@@ -1,4 +1,9 @@
 # Triton One Stop Frontend
+## Install
+In **triton_one_stop** directory
+```powershell
+npm install
+```
 ## Run
 In **triton_one_stop** directory
 ```powershell
