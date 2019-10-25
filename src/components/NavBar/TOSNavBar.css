@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Big+Shoulders+Text&display=swap');
+
 .NavBarBody {
     //background-color: #FFFFFF;
     height: 25vh;
@@ -27,4 +29,21 @@
     left: 4.5vw;
     height: 23vh;
     width: auto;
+}
+
+.NavBarMenu {
+    background: #09d3ac;
+    float: right;
+    display: flex;
+}
+
+.NavBarMenuButton {
+    background: red;
+    margin-right: 30px;
+}
+
+.NavBarMenuButtonTxt {
+    color: white;
+    font-family: 'Big Shoulders Text', cursive;
+    font-size: 40px;
 }
