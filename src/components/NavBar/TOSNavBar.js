@@ -50,7 +50,7 @@ class TOSNavBarSearchBar extends React.Component {
     render() {
         return (
             <div>
-                <input placeholder="Search..."/>
+                <input placeholder="Search  .." className="input-box"/>
                 <button>Search</button>
             </div>
         );
