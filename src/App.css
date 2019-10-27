@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-image: url('resources/WebsiteBKGND.png');
+  background-image: url('./resources/WebsiteBKGND.png');
   background-size: cover;
   background-position: bottom;
 }
