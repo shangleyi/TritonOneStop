@@ -23,3 +23,9 @@
 .App-link {
   color: #09d3ac;
 }
+
+/* remember to check this file before submit */
+.rows .row {
+  display: inline-block;
+  flex-direction: column;
+}
