@@ -15,10 +15,10 @@ class TOSNavBar extends React.Component {
                 <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} onClick={this.logoClick} />
                 <div className="NavBarMenu">
                     <div className="button-container">
-                        <TOSNavBarMenuButton buttonText="ButtonA" />
-                        <TOSNavBarMenuButton buttonText="ButtonB" />
-                        <TOSNavBarMenuButton buttonText="ButtonC" />
+                        <TOSNavBarMenuButton buttonText="Resource" />
+                        <TOSNavBarMenuButton buttonText="Event" />
                     </div>
+                    <TOSLogger/>
                     <div className="search-container">
                         <TOSNavBarSearchBar />
                     </div>
@@ -28,11 +28,30 @@ class TOSNavBar extends React.Component {
     }
 }
 
+class TOSLogger extends React.Component {
+    render() {
+        return (
+            <div>
+                <div className="logger-container">
+                    <p className="loggerTxt">User Name:</p>
+                    <input placeholder="Name"/>
+                </div>
+                <div className="logger-container">
+                    <p className="loggerTxt">Password:</p>
+                    <input placeholder="PW"/>
+                </div>
+            </div>
+        );
+    }
+
+}
+
 class TOSNavBarSearchBar extends React.Component {
     render() {
         return (
             <div>
-                <img src="http://via.placeholder.com/300x100" />
+                <input placeholder="Search..."/>
+                <button>Search</button>
             </div>
         );
     };
@@ -42,12 +61,18 @@ class TOSNavBarMenuButton extends React.Component {
     constructor(props){
         super(props);
         this.buttonText=this.props.buttonText;
+        this.state={buttonText: this.props.buttonText};
+    }
+
+    buttonClick() {
+        console.log('Clicked logo');
+        // TODO shall return to front page
     }
 
     render() {
         return (
-            <div className="NavBarMenuButton">
-                <h1 className="NavBarMenuButtonTxt">{this.buttonText}</h1>
+            <div className="NavBarMenuButtonContainer">
+                <button className="NavBarMenuButton" onClick={this.buttonClick}>{this.buttonText}</button>
             </div>
         );
     }

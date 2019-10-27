@@ -9,33 +9,57 @@
     width: 100%;
     height: 100px;
     display: flex;
-    overflow: paged-x;
+    overflow: visible;
 }
 
 .NavBarLogo {
     height: 100%;
     float: left;
-    margin-left: 7%;
+    margin-left: 5%;
 }
 
 .NavBarMenu {
     display: flex;
+    width: 80%;
 }
 
 .button-container {
     float: left;
     display: flex;
+    width: 60%
 }
 .search-container {
     float: right;
+    display: flex;
+    flex-direction: row;
+    margin-left: 3%;
+    margin-top: 3%;
+}
+
+.NavBarMenuButtonContainer {
+    margin: 30px 15px 0 15px;
 }
 
 .NavBarMenuButton {
-    margin-right: 30px;
-}
-
-.NavBarMenuButtonTxt {
     color: white;
     font-family: 'Big Shoulders Text', cursive;
     font-size: 40px;
+    background-color: transparent;
+    border: none;
+}
+
+.NavBarMenuButton:hover {
+    color: yellow;
+}
+
+.logger-container {
+    display: flex;
+    height: 40px;
+    margin-top: 5px;
+}
+
+.logger-container .loggerTxt {
+    color: white;
+    width: 100px;
+    align-self: center;
 }
