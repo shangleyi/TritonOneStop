@@ -1,6 +1,6 @@
 import React from 'react';
 import './TOSNavBar.css';
-import TOSLogo from '../../resources/TOSLogo.png';
+import TOSLogo from '../../resources/NavBarLogo.png';
 
 class TOSNavBar extends React.Component {
 
@@ -12,15 +12,17 @@ class TOSNavBar extends React.Component {
     render() {
         return (
             <div className="NavBarBody">
-                <div className="NavBarLogoBox">
-                    <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} onClick={this.logoClick} />
+                <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} onClick={this.logoClick} />
+                <div className="NavBarMenu">
+                    <div className="button-container">
+                        <TOSNavBarMenuButton buttonText="ButtonA" />
+                        <TOSNavBarMenuButton buttonText="ButtonB" />
+                        <TOSNavBarMenuButton buttonText="ButtonC" />
+                    </div>
+                    <div className="search-container">
+                        <TOSNavBarSearchBar />
+                    </div>
                 </div>
-                <nav className="NavBarMenu">
-                    <TOSNavBarMenuButton buttonText="ButtonA" />
-                    <TOSNavBarMenuButton buttonText="ButtonB" />
-                    <TOSNavBarMenuButton buttonText="ButtonC" />
-                    <TOSNavBarSearchBar />
-                </nav>
             </div>
         );
     }
