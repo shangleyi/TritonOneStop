@@ -16,18 +16,18 @@ class Main extends Component{
         return (
             <div className="App">
                 <TOSNavBarBar/>
-                <div className="App-eventLayout">
-                    <div className="App-events">
+                <div className="App-mainLayout">
+                    <div className="App-mainSquare">
                         <Square/>
                         <Square/>
                         <Square/>
                     </div>
-                    <div className="App-events">
+                    <div className="App-mainSquare">
                         <Square/>
                         <Square/>
                         <Square/>
                     </div>
-                    <div className="App-events">
+                    <div className="App-mainSquare">
                         <Square/>
                         <Square/>
                         <Square/>
