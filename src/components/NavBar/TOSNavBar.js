@@ -9,6 +9,7 @@ class TOSNavBar extends React.Component {
         super(props);
         this.handleClickResource = this.handleClickResource.bind(this);
         this.handleClickEvent = this.handleClickEvent.bind(this);
+        this.handleClickMain = this.handleClickMain.bind(this);
     }
     logoClick() {
         console.log('Clicked logo');
@@ -23,10 +24,14 @@ class TOSNavBar extends React.Component {
         this.props.history.push("/event");
     };
 
+    handleClickMain = () => {
+        this.props.history.push("/");
+    };
+
     render() {
         return (
             <div className="NavBarBody">
-                <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} />
+                <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} onClick={this.handleClickMain}/>
                 <div className="NavBarMenu">
                     <div className="button-container">
                         <TOSNavBarMenuButton onPress={this.handleClickResource} buttonText="Resource" />
