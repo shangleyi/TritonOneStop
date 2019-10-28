@@ -3,8 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import TOSNavBar from './components/NavBar/TOSNavBar'
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import Resource from "./routes/Resource"
-import Main from "./routes/Main"
+import Resource from "./routes/Resource";
+import Main from "./routes/Main";
+import Events from "./routes/Events";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <div>
           <Route exact path="/resource" component={Resource}/>
           <Route exact path="/" component={Main}/>
+          <Route exact path="/event" component={Events}/>
         </div>
     </Router>
   );
