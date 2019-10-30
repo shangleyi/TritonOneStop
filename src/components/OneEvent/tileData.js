@@ -1,6 +1,5 @@
 import image from './5230508_orig.jpg';
 import piazza from './Piazza-Icon.png';
-import BKGND from './WebsiteBKGND.png';
 import canvas from './canvas.png';
 import careerCenter from './career-center.jpg';
 import financialAid from './financial-aid.png';
@@ -67,10 +66,6 @@ export const tileData = [
     {
         img: piazza,
         title: "piazza",
-    },
-    {
-        img: BKGND,
-        title: "BKGND",
     },
     {
         img: canvas,
