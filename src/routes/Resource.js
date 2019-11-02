@@ -9,6 +9,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import {tileData} from '../components/OneEvent/tileData';
+import ResourceCard from "../components/ResourceCard";
 
 // const useStyles = makeStyles((theme: Theme) =>
 //   createStyles({
@@ -56,26 +57,30 @@ class Resource extends Component{
             }),
         );
         return (
-            <div className={classes.root}>
+            <div>
                 <NavBar/>
+            <div className={classes.root}>  
+                
                 <GridList cellHeight={180} className={classes.gridList}>
                     <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
                         <ListSubheader component="div">Resources</ListSubheader>
                     </GridListTile>
                     {tileData.map(tile => (
-                    <GridListTile key={tile.img}>
-                        <img src={tile.img} alt={tile.title} />
-                        <GridListTileBar
-                            title={tile.title}
-                            actionIcon={
-                                <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                                <InfoIcon />
-                                </IconButton>
-                            }
-                        />
-                    </GridListTile>
+                    // <GridListTile key={tile.img}>
+                    //     <img src={tile.img} alt={tile.title} />
+                    //     <GridListTileBar
+                    //         title={tile.title}
+                    //         actionIcon={
+                    //             <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
+                    //             <InfoIcon />
+                    //             </IconButton>
+                    //         }
+                    //     />
+                    // </GridListTile>
+                        <ResourceCard key={tile} tile={tile}/>
                     ))}
                 </GridList>
+                </div>
             </div>
         )
     }

@@ -9,7 +9,7 @@
     width: 100%;
     height: 100px;
     display: flex;
-    overflow: visible;
+    overflow: scroll;
 }
 
 .NavBarLogo {
