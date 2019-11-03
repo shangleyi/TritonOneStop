@@ -1,11 +1,8 @@
 import React from 'react';
 import './TOSNavBar.css';
 import TOSLogo from '../../resources/NavBarLogo.png';
-<<<<<<< HEAD
 import searchicon from '../../resources/search_icon.png';
-=======
 import {Route, withRouter, Redirect} from 'react-router-dom';
->>>>>>> 94040dae0339de1a2c1946927541ae0f015ceed9
 
 class TOSNavBar extends React.Component {
 
