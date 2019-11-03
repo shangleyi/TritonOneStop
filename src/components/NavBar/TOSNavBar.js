@@ -1,6 +1,7 @@
 import React from 'react';
 import './TOSNavBar.css';
 import TOSLogo from '../../resources/NavBarLogo.png';
+import searchicon from '../../resources/search_icon.png';
 
 class TOSNavBar extends React.Component {
 
@@ -49,9 +50,9 @@ class TOSLogger extends React.Component {
 class TOSNavBarSearchBar extends React.Component {
     render() {
         return (
-            <div>
-                <input placeholder="Search  .." className="input-box"/>
-                <button>Search</button>
+            <div className="search-bar">
+                <input placeholder="   Search....." className="search-input-box"/>
+                <button className="search-button"><img className="search-icon" alt="searchicon" src={searchicon}></img></button>
             </div>
         );
     };
