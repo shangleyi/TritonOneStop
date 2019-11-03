@@ -50,6 +50,7 @@ class Resource extends Component{
                 gridList: {
                     width: 500,
                     height: 450,
+                    transform: 'translateZ(0)',
                 },
                 icon: {
                     lor: 'rgba(255, 255, 255, 0.54)',
@@ -61,22 +62,11 @@ class Resource extends Component{
                 <NavBar/>
             <div className={classes.root}>  
                 
-                <GridList cellHeight={180} className={classes.gridList}>
-                    <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+                <GridList style={{marginLeft: 345}}cellHeight={180} className={classes.gridList}>
+                    <GridListTile key="Subheader" cols={2} style={{ height: 'auto', }}>
                         <ListSubheader component="div">Resources</ListSubheader>
                     </GridListTile>
                     {tileData.map(tile => (
-                    // <GridListTile key={tile.img}>
-                    //     <img src={tile.img} alt={tile.title} />
-                    //     <GridListTileBar
-                    //         title={tile.title}
-                    //         actionIcon={
-                    //             <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                    //             <InfoIcon />
-                    //             </IconButton>
-                    //         }
-                    //     />
-                    // </GridListTile>
                         <ResourceCard key={tile} tile={tile}/>
                     ))}
                 </GridList>
