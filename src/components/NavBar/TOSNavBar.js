@@ -5,7 +5,6 @@ import searchicon from '../../resources/search_icon.png';
 import {Route, withRouter, Redirect} from 'react-router-dom';
 
 class TOSNavBar extends React.Component {
-
     constructor(props) {
         super(props);
         this.handleClickResource = this.handleClickResource.bind(this);
@@ -38,7 +37,7 @@ class TOSNavBar extends React.Component {
                         <TOSNavBarMenuButton onPress={this.handleClickResource} buttonText="Resource" />
                         <TOSNavBarMenuButton onPress={this.handleClickEvent} buttonText="Event" />
                     </div>
-                    <TOSLogger/>
+                    <TOSLogger loggedIn={false}/>
                     <div className="search-container">
                         <TOSNavBarSearchBar />
                     </div>
@@ -49,19 +48,73 @@ class TOSNavBar extends React.Component {
 }
 
 class TOSLogger extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state={isLoggedIn: false};
+        this.handleLoginClick = this.handleLoginClick.bind(this);
+        this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    }
+
+    handleLoginClick() {
+        this.setState({isLoggedIn: true});
+    }
+
+    handleLogoutClick() {
+        this.setState({isLoggedIn: false});
+    }
+
     render() {
+        if(!this.state.isLoggedIn) {
+            return(
+                <div>
+                    <div className="logger-container">
+                        <p className="loggerTxt">User Name:</p>
+                        <input placeholder="Name"/>
+                        <button className="logger-button" onClick={this.handleLoginClick}>Login</button>
+                    </div>
+                    <div className="logger-container">
+                        <p className="loggerTxt">Password:</p>
+                        <input placeholder="PW"/>
+                        <button className="logger-button">SignUp</button>
+                    </div>
+                </div>
+            );
+        }
+        else {
+            return(
+                <div className="logged-in-container">
+                    <p className="loggerTxt">Logged In As: $$Put user name here$$</p>
+                    <button className="logger-button" onClick={this.handleLogoutClick}>Log Out</button>
+                </div>
+            );
+        }
+        /*
         return (
-            <div>
-                <div className="logger-container">
-                    <p className="loggerTxt">User Name:</p>
-                    <input placeholder="Name"/>
-                </div>
-                <div className="logger-container">
-                    <p className="loggerTxt">Password:</p>
-                    <input placeholder="PW"/>
-                </div>
+            <div className="logger-frame">
+                {
+                    loggedIn && <div>
+                        <div className="logger-container">
+                            <p className="loggerTxt">User Name:</p>
+                            <input placeholder="Name"/>
+                            <button className="logger-button" onClick={setLoggedIn(true)}>Login</button>
+                        </div>
+                        <div className="logger-container">
+                            <p className="loggerTxt">Password:</p>
+                            <input placeholder="PW"/>
+                            <button className="logger-button">SignUp</button>
+                        </div>
+                    </div>
+                }
+                {
+                    !loggedIn && <div className="logged-in-container">
+                        <p className="loggerTxt">Logged In As: $$Put user name here$$</p>
+                        <button className="logger-button" onClick={setLoggedIn(false)}>Log Out</button>
+                    </div>
+                }
             </div>
         );
+        *.
+         */
     }
 
 }
@@ -71,7 +124,7 @@ class TOSNavBarSearchBar extends React.Component {
         return (
             <div className="search-bar">
                 <input placeholder="   Search....." className="search-input-box"/>
-                <button className="search-button"><img className="search-icon" alt="searchicon" src={searchicon}></img></button>
+                <button className="search-button"></button>
             </div>
         );
     };
