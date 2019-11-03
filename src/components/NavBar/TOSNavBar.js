@@ -1,23 +1,45 @@
 import React from 'react';
 import './TOSNavBar.css';
 import TOSLogo from '../../resources/NavBarLogo.png';
+<<<<<<< HEAD
 import searchicon from '../../resources/search_icon.png';
+=======
+import {Route, withRouter, Redirect} from 'react-router-dom';
+>>>>>>> 94040dae0339de1a2c1946927541ae0f015ceed9
 
 class TOSNavBar extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.handleClickResource = this.handleClickResource.bind(this);
+        this.handleClickEvent = this.handleClickEvent.bind(this);
+        this.handleClickMain = this.handleClickMain.bind(this);
+    }
     logoClick() {
         console.log('Clicked logo');
         // TODO shall return to front page
     }
 
+    handleClickResource = () => {
+        this.props.history.push("/resource");
+    };
+
+    handleClickEvent = () => {
+        this.props.history.push("/event");
+    };
+
+    handleClickMain = () => {
+        this.props.history.push("/");
+    };
+
     render() {
         return (
             <div className="NavBarBody">
-                <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} onClick={this.logoClick} />
+                <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} onClick={this.handleClickMain}/>
                 <div className="NavBarMenu">
                     <div className="button-container">
-                        <TOSNavBarMenuButton buttonText="Resource" />
-                        <TOSNavBarMenuButton buttonText="Event" />
+                        <TOSNavBarMenuButton onPress={this.handleClickResource} buttonText="Resource" />
+                        <TOSNavBarMenuButton onPress={this.handleClickEvent} buttonText="Event" />
                     </div>
                     <TOSLogger/>
                     <div className="search-container">
@@ -65,19 +87,13 @@ class TOSNavBarMenuButton extends React.Component {
         this.state={buttonText: this.props.buttonText};
     }
 
-    buttonClick() {
-        console.log('Clicked logo');
-        // TODO shall return to front page
-    }
-
     render() {
+        const {onPress} = this.props;
         return (
             <div className="NavBarMenuButtonContainer">
-                <button className="NavBarMenuButton" onClick={this.buttonClick}>{this.buttonText}</button>
+                <button className="NavBarMenuButton" onClick={onPress}>{this.buttonText}</button>
             </div>
         );
     }
 }
-
-export default TOSNavBar;
-
+export default withRouter(TOSNavBar);
