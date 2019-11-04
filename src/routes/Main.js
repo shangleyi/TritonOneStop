@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {Redirect} from "react-router-dom";
-import NarBar from "../components/NavBar/TOSNavBar"
+import TOSNavBar from "../components/NavBar/TOSNavBar";
 import '../App.css';
 import logo from '../logo.svg';
-import TOSNavBarBar from "../components/NavBar/TOSNavBar";
-import Square from "../components/MainPageSquare/Square";
+import {MainSquareMap} from "../components/MainPageSquare/MainSquareMap";
 import WebsiteBKGND from '../resources/WebsiteBKGND.png';
-
+import MainMap from "../components/MainMap.js";
 class Main extends Component{
     constructor(props){
         super(props)
@@ -15,24 +14,10 @@ class Main extends Component{
     render() {
         return (
             <div className="App">
-                <TOSNavBarBar/>
-                <div className="App-mainLayout">
-                    <div className="App-mainSquare">
-                        <Square/>
-                        <Square/>
-                        <Square/>
-                    </div>
-                    <div className="App-mainSquare">
-                        <Square/>
-                        <Square/>
-                        <Square/>
-                    </div>
-                    <div className="App-mainSquare">
-                        <Square/>
-                        <Square/>
-                        <Square/>
-                    </div>
-                </div>
+                <TOSNavBar/>
+                {MainSquareMap.map(tile => (
+                    <MainMap key={tile} tile={tile}/>
+                ))}
             </div>
         )
     }
