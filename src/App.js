@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import Resource from "./routes/Resource";
 import Main from "./routes/Main";
 import Events from "./routes/Events";
+import CoursePlanner from "./routes/CoursePlanner"
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route exact path="/resource" component={Resource}/>
           <Route exact path="/" component={Main}/>
           <Route exact path="/event" component={Events}/>
+          <Route exact path="/courseplanner" component={CoursePlanner}/>
         </div>
     </Router>
   );

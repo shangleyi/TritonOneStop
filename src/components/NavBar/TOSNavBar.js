@@ -10,6 +10,7 @@ class TOSNavBar extends React.Component {
         this.handleClickResource = this.handleClickResource.bind(this);
         this.handleClickEvent = this.handleClickEvent.bind(this);
         this.handleClickMain = this.handleClickMain.bind(this);
+        this.handleClickCoursePlanner = this.handleClickCoursePlanner.bind(this);
     }
 
     handleLoggedIn(){
@@ -32,6 +33,10 @@ class TOSNavBar extends React.Component {
         this.props.history.push("/");
     };
 
+    handleClickCoursePlanner = () => {
+        this.props.history.push("/courseplanner");
+    };
+
     render() {
         return (
             <div className="NavBarBody">
@@ -40,6 +45,7 @@ class TOSNavBar extends React.Component {
                     <div className="button-container">
                         <TOSNavBarMenuButton onPress={this.handleClickResource} buttonText="Resource" />
                         <TOSNavBarMenuButton onPress={this.handleClickEvent} buttonText="Event" />
+                        <TOSNavBarMenuButton onPress={this.handleClickCoursePlanner} buttonText="CoursePlanner" />
                     </div>
                     <TOSLogger handleLoggedIn={this.handleLoggedIn.bind(this)} handleLoggedOut={this.handleLoggedOut.bind(this)}/>
                     <div className="search-container">
