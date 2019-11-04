@@ -19,12 +19,12 @@ const useStyles = makeStyles({
     },
 });
 
-function createData(name, credits, hours, grade, gpa) {
-    return { name, credits, hours, grade, gpa};
+function createData(hours, grade, gpa) {
+    return {hours, grade, gpa};
 }
 
 const rows = [
-    createData(<OneCourseName/>, <Credits/>, 6.0, "A", 4.0),
+    createData(6.0, "A", 4.0),
 ];
 
 export default function SimpleTable() {
@@ -33,13 +33,16 @@ export default function SimpleTable() {
     return (
         <Paper className={classes.root}>
             <Table className={classes.table} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell align="right">Avg. Hours</TableCell>
+                        <TableCell align="right">Avg. Grade&nbsp;(g)</TableCell>
+                        <TableCell align="right">Avg. GPA&nbsp;(g)</TableCell>
+                    </TableRow>
+                </TableHead>
                 <TableBody>
                     {rows.map(row => (
                         <TableRow key={row.name}>
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.credits}</TableCell>
                             <TableCell align="right">{row.hours}</TableCell>
                             <TableCell align="right">{row.grade}</TableCell>
                             <TableCell align="right">{row.gpa}</TableCell>

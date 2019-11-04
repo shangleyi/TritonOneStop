@@ -21,17 +21,14 @@ export default function GroupedSelect() {
     return (
         <div>
             <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="grouped-native-select">Grouping</InputLabel>
+                <InputLabel htmlFor="grouped-native-select">Units</InputLabel>
                 <Select native defaultValue="" input={<Input id="grouped-native-select" />}>
-                    <option value="" />
-                    <optgroup label="Category 1">
-                        <option value={1}>Option 1</option>
-                        <option value={2}>Option 2</option>
-                    </optgroup>
-                    <optgroup label="Category 2">
-                        <option value={3}>Option 3</option>
-                        <option value={4}>Option 4</option>
-                    </optgroup>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                        <option value={6}>6</option>
                 </Select>
             </FormControl>
         </div>

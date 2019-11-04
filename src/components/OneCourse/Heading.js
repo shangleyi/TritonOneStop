@@ -33,19 +33,15 @@ export default function SimpleTable() {
     return (
         <Paper className={classes.root}>
             <Table className={classes.table} aria-label="simple table">
-                <TableBody>
-                    {rows.map(row => (
-                        <TableRow key={row.name}>
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.credits}</TableCell>
-                            <TableCell align="right">{row.hours}</TableCell>
-                            <TableCell align="right">{row.grade}</TableCell>
-                            <TableCell align="right">{row.gpa}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Course</TableCell>
+                        <TableCell align="right">No. of Credits</TableCell>
+                        <TableCell align="right">Avg. Hours</TableCell>
+                        <TableCell align="right">Avg. Grade&nbsp;(g)</TableCell>
+                        <TableCell align="right">Avg. GPA&nbsp;(g)</TableCell>
+                    </TableRow>
+                </TableHead>
             </Table>
         </Paper>
     );
