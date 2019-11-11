@@ -30,7 +30,7 @@ export default function ImgMediaCard(props) {
           component="img"
           alt={tile.title}
           height="140"
-          image={require(`${tile.imgURL}`)}
+          src={`${tile.imgURL}`}
           title={tile.title}
         />
         <CardContent>
