@@ -1,7 +1,6 @@
 .App {
   text-align: center;
   min-height: 100vh;
-  z-index: -50;
 }
 
 .background {
@@ -11,66 +10,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   background-image: url('./resources/WebsiteBKGND.png');
   background-size: cover;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  //background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-}
-
-.App-events{
-  display:flex;
-  flex-direction: row;
-}
-
-.App-eventLayout{
-  max-width: 80%;
-  display: block;
-  margin-top: 3%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.App-mainSquare{
-  max-width: 70%;
-  max-height: 80%;
-  display:flex;
-  flex-direction: row;
-}
-
-.App-mainLayout{
-  max-width: 100%;
-  position: relative;
-  float:none;
-  display: block;
-  margin-left: 25%;
-  #margin-right: auto;
-  margin-top: 2%;
-}
-.App {
-  text-align: center;
-  background-image: url('./resources/WebsiteBKGND.png');
-  background-size: cover;
-  background-position: bottom;
-  min-height: 100vh;
 }
 
 .App-logo {
