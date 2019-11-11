@@ -26,6 +26,7 @@ export default function ImgMediaCard(props) {
   const classes = useStyles();
   const { tile } = props;
   console.log(tile);
+ 
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -47,9 +48,9 @@ export default function ImgMediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <ListItem primaryText = "Edit" value="Edit" linkButton={true} href='https://www.google.com'>
+        <Button href="./resource" size="small" color="primary">
           Edit
-        </ListItem>
+        </Button>
         <Button target="_blank" href={tile.More} size="small" color="primary" > 
           Learn More
         </Button>
