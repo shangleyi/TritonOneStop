@@ -37,13 +37,15 @@ class Resource extends Component{
                     id: doc.id,
                     title: doc.data().title,
                     content: doc.data().content,
-                    imgURL: doc.data().imgURL
+                    imgURL: doc.data().imgURL,
+                    Category: doc.data().Category
                 });
                 searchTiles.push({
                     id: doc.id,
                     title: doc.data().title,
                     content: doc.data().content,
-                    imgURL: doc.data().imgURL
+                    imgURL: doc.data().imgURL,
+                    Category: doc.data().Category
                 });
             });
             currentComponent.setState({tiles: tiles});
@@ -124,12 +126,20 @@ class Resource extends Component{
                 <NavBar/>
                 <div className={classes.root}>  
 
+                <Autocomplete
+                    freeSolo
+                    autoHightlight
+                    options={displayTiles.map(tile => tile.Category)}
+                    renderInput={params => (
+                    <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
+                    )}/>
+
                     <Autocomplete
                     freeSolo
                     autoHightlight
                     options={displayTiles.map(tile => tile.title)}
                     renderInput={params => (
-                    <TextField {...params} hint="search" margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
+                    <TextField {...params} placeholder="search.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
                     )}/>
                         
                     <GridList style={{marginLeft: 50,marginRight: 'auto'}}cellHeight={180} className={classes.gridList}>
