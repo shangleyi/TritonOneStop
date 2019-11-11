@@ -83,7 +83,6 @@ class Resource extends Component{
             let dataList = this.state.tiles.filter(item => {
                 if (e.target.value.trim() !== "") { 
                     if (!item['title'] || item['title'].toUpperCase().indexOf(e.target.value.toUpperCase()) === -1) {
-                        console.log("false")
                         return false
                     }
                 }
