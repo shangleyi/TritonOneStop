@@ -57,7 +57,7 @@ export const MainSquareMap = [
     
     {
         img: handshake,
-        title: "HandShake(UCSD LINKIN)",
+        title: "HandShake",
         URL: "https://ucsd.joinhandshake.com/login",
         More: "https://www.joinhandshake.com/students/how-it-works/"
     },
