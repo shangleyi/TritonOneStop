@@ -49,11 +49,9 @@ class TOSNavBar extends React.Component {
 
     handleLogIn(){
         console.log("HandleLogIn: ATTEMPT");
-        /*
-        console.log("Handle Login: Before Login:", "\nUser ID: ", db_login.auth().currentUser.uid,
+        console.log("Handle LogIn: Before Log In:",
+            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
-
-         */
 
         // Actual login
         try{
@@ -65,15 +63,18 @@ class TOSNavBar extends React.Component {
             alert(error);
             console.log("NavBar: Log-In: FALSE");
         }
+
+        console.log("Handle LogIn: After Log In:",
+            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
+            "\nLocalStorage: ", localStorage.getItem("UserName"));
     }
 
     handleSignUp(){
         console.log("handleSignUp: ATTEMPT");
-        /*
-        console.log("Handle SignUp: Before SignUp:", "\nUser ID: ", db_login.auth().currentUser.uid,
+        console.log("Handle SignUp: Before SignUp:",
+            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
 
-         */
         try{
             db_login.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW);
             console.log("NavBar: SignUp");
@@ -82,16 +83,16 @@ class TOSNavBar extends React.Component {
             alert(error);
             console.log("Failed to SignUp");
         }
-        /*
-        console.log("Handle SignUp: After SignUp:", "\nUser ID: ", db_login.auth().currentUser.uid,
+
+        console.log("Handle SignUp: After SignUp:",
+            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
-            
-         */
     }
 
     handleLogOut(){
         console.log("HandleLogOut: ATTEMPT");
-        console.log("Handle LogOut: Before Logout:", "\nUser ID: ", db_login.auth().currentUser.uid,
+        console.log("Handle LogOut: Before Logout:",
+            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
         console.log("NavBar: Log-In: FALSE");
 
@@ -99,7 +100,8 @@ class TOSNavBar extends React.Component {
         localStorage.setItem("UserName", null);
         this.setState({isLoggedIn: false});
 
-        console.log("Handle LogOut: After Logout:", "\nUser ID: ", db_login.auth().currentUser.uid,
+        console.log("Handle LogOut: After Logout:",
+            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
     }
 
@@ -134,19 +136,19 @@ class TOSNavBar extends React.Component {
                     <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} onClick={this.handleClickMain}/>
                     <div className="NavBarMenu">
                         <div className="button-container">
-                            <TOSNavBarMenuButton onPress={this.handleClickResource} buttonText="Resource"/>
-                            <TOSNavBarMenuButton onPress={this.handleClickEvent} buttonText="Event"/>
-                            <TOSNavBarMenuButton onPress={this.handleClickCoursePlanner} buttonText="CoursePlanner"/>
+                            <TOSNavBarMenuButton onPress={this.handleClickResource} buttonText="Resource" width="200px"/>
+                            <TOSNavBarMenuButton onPress={this.handleClickEvent} buttonText="Event" width="200px"/>
+                            <TOSNavBarMenuButton onPress={this.handleClickCoursePlanner} buttonText="CoursePlanner" width="200px"/>
                         </div>
                         <div>
                             <div className="logger-container">
-                                <p className="loggerTxt">User Name:</p>
-                                <input placeholder="Name" onChange={this.handleUsernameChange}/>
+                                <p className="loggerTxt">Email:</p>
+                                <input className="logger-input" placeholder="Name" onChange={this.handleUsernameChange}/>
                                 <button className="logger-button" onClick={this.handleLogIn}>Login</button>
                             </div>
                             <div className="logger-container">
                                 <p className="loggerTxt">Password:</p>
-                                <input placeholder="PW" onChange={this.handlePWChange}/>
+                                <input className="logger-input" placeholder="PW" onChange={this.handlePWChange} type="password"/>
                                 <button className="logger-button" onClick={this.handleSignUp}>SignUp</button>
                             </div>
                         </div>
@@ -188,7 +190,7 @@ class TOSNavBarSearchBar extends React.Component {
         return (
             <div className="search-bar">
                 <input placeholder="   Search....." className="search-input-box"/>
-                <button className="search-button"></button>
+                <button className="search-button"/>
             </div>
         );
     };

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Big+Shoulders+Text&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Work+Sans&display=swap');
 
 .NavBarBody {
     //background-color: #FFFFFF;
@@ -40,11 +41,43 @@
     font-size: 40px;
     background-color: transparent;
     border: none;
+    text-align: center;
+    align-self: center;
 }
 
-.NavBarMenuButton:hover {
+.NavBarMenuButton:hover, .NavBarMenuButton:active {
     color: yellow;
+    letter-spacing: 1px;
+    transition: all 280ms ease-in-out;
 }
+
+.NavBarMenuButton:after,
+.NavBarMenuButton:before {
+    backface-visibility: hidden;
+    border: 1px solid #182b49;
+    bottom: 0;
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    transition: all 280ms ease-in-out;
+    width: 0;
+}
+
+.NavBarMenuButton:hover:after,
+.NavBarMenuButton:hover:before {
+    backface-visibility: hidden;
+    border-color: #fff;
+    transition: width 350ms ease-in-out;
+    width: 70%;
+}
+
+.NavBarMenuButton:hover:before {
+    bottom: auto;
+    top: 0;
+    width: 70%;
+}
+
 
 .logger-frame {
     height: 100px;
@@ -60,12 +93,40 @@
 
 .logger-container .loggerTxt {
     color: white;
-    width: 100px;
-    align-self: center;
+    font-family:'Work Sans', sans-serif;
+    font-size: 18px;
+    width: 150px;
+    height: 30px;
+    text-align: right;
+    margin-top: 9px;
+}
+
+.logger-container .logger-input {
+    margin-left: 5px;
+    margin-top: 7px;
+    background: transparent;
+    height: 20px;
+    width: 150px;
+    padding-left: 2px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: white;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    color: cornsilk;
+    font-size: 15px;
 }
 
 .logger-button {
+    margin-left: 5px;
     width: 70px;
+    font-family:'Work Sans', sans-serif;
+    font-size: 15px;
+    height: 37px;
+    border-radius: 40px;
+    border: none;
+    background: white;
 }
 
 .logged-in-container {
