@@ -153,7 +153,10 @@ class Resource extends Component{
             <div>
                 <NavBar/>
                 <div className={classes.root}>  
-
+                <div style={{display: 'flex'}}>
+                <span>
+                    Category:
+                </span>
                 <Autocomplete
                     freeSolo
                     autoHightlight
@@ -161,7 +164,9 @@ class Resource extends Component{
                     renderInput={params => (
                     <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleCategoryChange} />
                     )}/>
-
+                <span>
+                    Resource:
+                </span>
                     <Autocomplete
                     freeSolo
                     autoHightlight
@@ -169,7 +174,7 @@ class Resource extends Component{
                     renderInput={params => (
                     <TextField {...params} placeholder="search.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
                     )}/>
-                        
+                </div>   
                     <GridList style={{marginLeft: 50,marginRight: 'auto'}}cellHeight={180} className={classes.gridList}>
                             <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
                                 <ListSubheader component="div">Resources</ListSubheader>
