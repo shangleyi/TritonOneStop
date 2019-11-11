@@ -9,43 +9,92 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import {tileData} from '../components/OneEvent/tileData';
-import ResourceCard from "../components/ResourceCard";
+import ImgMediaCard from "../components/ResourceCard";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-
+import db from "../base";
 
 class Resource extends Component{
     constructor(props){
-        super(props)
+        super(props);
+        this.state = {
+            tiles: [],
+            searchTiles: [],
+        };
+        this.componentDidMount = this.componentDidMount.bind(this);
+        // this.search = this.search.bind(this);
+        // this.clearSearch = this.clearSearch.bind(this);
+        this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
     }
 
-    // renderItemByTypes(header="Untitled", content="None", index) {
-    //     {tileData.map(() => (
-    //         <ResourceCard key={this.tile} tile={this.tile}/>
-    //     ))}
+    componentDidMount() {
+        let tiles = [];
+        let currentComponent = this;
+        let searchTiles = [];
+        db.collection("resources").get().then(function(querySnapshot){
+            querySnapshot.forEach(function(doc) {
+                tiles.push({
+                    id: doc.id,
+                    title: doc.data().title,
+                    content: doc.data().content,
+                    imgURL: doc.data().imgURL
+                });
+                searchTiles.push({
+                    id: doc.id,
+                    title: doc.data().title,
+                    content: doc.data().content,
+                    imgURL: doc.data().imgURL
+                });
+            });
+            currentComponent.setState({tiles: tiles});
+            currentComponent.setState({searchTiles: searchTiles});
+        })
+        .catch(function(error) {
+            console.log("Error getting docs: ", error);
+        });
+        
+    }
+    // search() {
+    //     console.log(this.state.searchStr)
+    //     let dataList = this.state.tiles.filter(item => {
+    //         if (this.state.searchStr.trim() !== "") { 
+    //           if (!item['title'] || item['title'].indexOf(this.state.searchStr) === -1) {
+    //               console.log("false")
+    //             return false
+    //           }
+    //         }
+    //         return true
+    //     })
+    //     this.setState({tiles: dataList});
+    //     console.log(this.state.tiles)
+    // }
 
-    //     if(index < 3) {
-    //       return <ResourceCard key={this.tile} tile={this.tile}/>
-    //     }
-    //     else if(index <5){
-    //       return <ResourceCard key={this.tile} tile={this.tile}/>
-    //     }
-    //     else if(index <7){
-    //       return <ResourceCard key={this.tile} tile={this.tile}/>
-    //     }
-    //     else if(index <10){
-    //         return <ResourceCard key={this.tile} tile={this.tile}/>
-    //     }
-    //     else if(index <14){
-    //         return <ResourceCard key={this.tile} tile={this.tile}/>
-    //     }
-    //     else
-    //     {
-    //         return <ResourceCard key={this.tile} tile={this.tile}/>
-    //     }
-    //   };
+    // clearSearch() {
+    //     this.setState({searchStr: ""});
+    //     this.search();
+    // }
+
+    handleTextFieldChange (e) {
+        let tiles = this.state.tiles;
+        if(e.target.value === '') {
+            this.setState({searchTiles: tiles});
+        }
+        else {
+            let dataList = this.state.tiles.filter(item => {
+                if (e.target.value.trim() !== "") { 
+                    if (!item['title'] || item['title'].toUpperCase().indexOf(e.target.value.toUpperCase()) === -1) {
+                        console.log("false")
+                        return false
+                    }
+                }
+                return true
+            })
+            this.setState({searchTiles: dataList});
+        }
+    }
 
     render() {
+        let displayTiles = this.state.searchTiles;
         const classes = makeStyles((theme: Theme) =>
             createStyles({
                 root: {
@@ -73,25 +122,24 @@ class Resource extends Component{
         return (
             <div>
                 <NavBar/>
-            <div className={classes.root}>  
+                <div className={classes.root}>  
 
-            <Autocomplete
-        freeSolo
-        autoHightlight
-        options={tileData.map(tile => tile.title)}
-        renderInput={params => (
-          <TextField {...params} hint="search" margin="normal" variant="outlined" fullWidth />
-        )}/>
-                
-            <GridList style={{marginLeft: 50,marginRight: 'auto'}}cellHeight={180} className={classes.gridList}>
-                    <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
-                        <ListSubheader component="div">Resources</ListSubheader>
-                    </GridListTile>
-                    {tileData.map(tile => (
-                        <ResourceCard key={tile} tile={tile}/>
-                    ))}
-                    {/* {tileData.map((tile, index) => this.renderItemByTypes(tile.title, tile.content, index))} */}
-                </GridList>
+                    <Autocomplete
+                    freeSolo
+                    autoHightlight
+                    options={displayTiles.map(tile => tile.title)}
+                    renderInput={params => (
+                    <TextField {...params} hint="search" margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
+                    )}/>
+                        
+                    <GridList style={{marginLeft: 50,marginRight: 'auto'}}cellHeight={180} className={classes.gridList}>
+                            <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
+                                <ListSubheader component="div">Resources</ListSubheader>
+                            </GridListTile>
+                            {displayTiles.map((tile,i) => {
+                                return <ImgMediaCard key={i} tile={tile}/>
+                            })}
+                    </GridList>
                 </div>
             </div>
         )
