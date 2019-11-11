@@ -191,14 +191,14 @@
     color: white;
 }
 
-.logged-in-container .logger-button {
+.logout-button {
     background: transparent;
     border: none;
     color: white;
     text-decoration: underline;
 }
 
-.logged-in-container .logger-button:hover{
+.logout-button:hover{
     color: #ffcd00;
 }
 

@@ -14,6 +14,7 @@ class Events extends Component{
         return (
             <div className="App">
                 <TOSNavBarBar/>
+                <div className="background"/>
                 <div className="App-eventLayout">
                     <div className="App-events">
                         <OneEvent/>

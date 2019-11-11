@@ -1,9 +1,20 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  z-index: -50;
+}
+
+.background {
+  display: flex;
+  overflow: hidden;
+  z-index: -30;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
   background-image: url('./resources/WebsiteBKGND.png');
   background-size: cover;
-  background-position: bottom;
-  min-height: 100vh;
 }
 
 .App-logo {

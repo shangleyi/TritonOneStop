@@ -191,7 +191,7 @@ class TOSNavBar extends React.Component {
                         <div>
                             <div className="logged-in-container">
                                 <p className="loggerTxt">Logged In As: {this.state.userName}</p>
-                                <button className="logger-button" onClick={this.handleLogOut}>Log Out</button>
+                                <button className="logout-button" onClick={this.handleLogOut}>Log Out</button>
                             </div>
                         </div>
                     </div>

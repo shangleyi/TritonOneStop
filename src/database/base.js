@@ -1,13 +1,14 @@
 import * as firebase from "firebase";
 
 const db_login = firebase.initializeApp({
-    apiKey: "AIzaSyCMV9qy-nDCVWb3v032HL4d2miCv_QcdaY",
-    authDomain: "tos-login-testing.firebaseapp.com",
-    databaseURL: "https://tos-login-testing.firebaseio.com",
-    projectId: "tos-login-testing",
-    storageBucket: "tos-login-testing.appspot.com",
-    messagingSenderId: "350853688425",
-    appId: "1:350853688425:web:64747999ebf45a0a5946f8"
+    apiKey: "AIzaSyC1VDQFaNAR0KfEkeGOzsvn8Tjgu9pSZuY",
+    authDomain: "tostest1-5e30d.firebaseapp.com",
+    databaseURL: "https://tostest1-5e30d.firebaseio.com",
+    projectId: "tostest1-5e30d",
+    storageBucket: "tostest1-5e30d.appspot.com",
+    messagingSenderId: "361688524473",
+    appId: "1:361688524473:web:00abbd313778b3dc2a5d68",
+    measurementId: "G-6353F9VP82"
 });
 
 export default db_login;

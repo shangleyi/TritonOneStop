@@ -16,6 +16,7 @@ class CoursePlanner extends Component{
         return (
             <div className="App">
                 <TOSNavBarBar/>
+                <div className="background"/>
                 <Heading/>
                 <OneCourse/>
                 <OneCourse/>

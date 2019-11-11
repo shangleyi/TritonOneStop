@@ -15,6 +15,7 @@ class Main extends Component{
         return (
             <div className="App">
                 <TOSNavBar/>
+                <div className="background"/>
                 {MainSquareMap.map(tile => (
                     <MainMap key={tile} tile={tile}/>
                 ))}
