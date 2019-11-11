@@ -21,8 +21,10 @@ class OneCourseName extends Component{
         this.state = {
             courseArray : [],
             deptArray: [],
+            classArray:[]
         };
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.matchCourse = this.matchCourse.bind(this);
     }
 
     componentDidMount() {
@@ -32,7 +34,7 @@ class OneCourseName extends Component{
         db.collection("courses").get().then(function(querySnapshot){
             querySnapshot.forEach(function(doc) {
                 courseArray.push({
-                    id: doc.id,
+                    id: doc.data().id,
                     course: doc.data().course,
                     dep: doc.data().dep,
                     gpa_actual: doc.data().gpa_actual,
@@ -56,15 +58,35 @@ class OneCourseName extends Component{
         })
     }
 
+    matchCourse(e){
+        let classArray = [];
+        let courseArray = this.state.courseArray;
+        let deptArray = this.state.deptArray;
+        let department = "";
+
+        deptArray.map((item) => {
+            if (item.id == e.target.value){
+                department = item.dep;
+            }
+        })
+
+        courseArray.map((item) => {
+            if (item.dep == department) {
+                classArray.push({number: item.number})
+            }
+        })
+        this.setState({classArray:classArray});
+    }
+
     render() {
         return (
                 <div>
                 <FormControl className={useStyles.formControl}>
                     <InputLabel htmlFor="grouped-native-select">Department</InputLabel>
-                    <Select native defaultValue="" input={<Input id="grouped-native-select"/>}>
+                    <Select native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.matchCourse}>
                         <option value=""/>
                         {this.state.deptArray.map((item) => (
-                            <option> {item.dep} </option>
+                            <option value={item.id}> {item.dep} </option>
                             )
                         )}
                     </Select>
@@ -73,14 +95,10 @@ class OneCourseName extends Component{
                     <InputLabel htmlFor="grouped-native-select">Course</InputLabel>
                     <Select native defaultValue="" input={<Input id="grouped-native-select"/>}>
                         <option value=""/>
-                        <optgroup label="Category 1">
-                            <option value={1}>Option 1</option>
-                            <option value={2}>Option 2</option>
-                        </optgroup>
-                        <optgroup label="Category 2">
-                            <option value={3}>Option 3</option>
-                            <option value={4}>Option 4</option>
-                        </optgroup>
+                        {this.state.classArray.map((item) => (
+                                <option value={item.id}> {item.number} </option>
+                            )
+                        )}
                     </Select>
                 </FormControl>
             </div>
