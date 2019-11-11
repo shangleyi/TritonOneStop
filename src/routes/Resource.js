@@ -20,17 +20,20 @@ class Resource extends Component{
         this.state = {
             tiles: [],
             searchTiles: [],
+            CategoryTiles: []
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         // this.search = this.search.bind(this);
         // this.clearSearch = this.clearSearch.bind(this);
         this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
+        this.handleCategoryChange = this.handleCategoryChange.bind(this);
     }
 
     componentDidMount() {
         let tiles = [];
         let currentComponent = this;
         let searchTiles = [];
+        let CategoryTiles = [];
         db.collection("resources").get().then(function(querySnapshot){
             querySnapshot.forEach(function(doc) {
                 tiles.push({
@@ -47,9 +50,14 @@ class Resource extends Component{
                     imgURL: doc.data().imgURL,
                     Category: doc.data().Category
                 });
+                CategoryTiles.push(doc.data().Category)
             });
+            
+            CategoryTiles = Array.from(new Set(CategoryTiles));
+            console.log(CategoryTiles)
             currentComponent.setState({tiles: tiles});
             currentComponent.setState({searchTiles: searchTiles});
+            currentComponent.setState({CategoryTiles: CategoryTiles});
         })
         .catch(function(error) {
             console.log("Error getting docs: ", error);
@@ -77,6 +85,7 @@ class Resource extends Component{
     // }
 
     handleTextFieldChange (e) {
+        console.log(this.state.tiles);
         let tiles = this.state.tiles;
         if(e.target.value === '') {
             this.setState({searchTiles: tiles});
@@ -94,8 +103,28 @@ class Resource extends Component{
         }
     }
 
+    handleCategoryChange(e) {
+        let tiles = this.state.tiles;
+        
+        if(e.target.value === '') {
+            this.setState({searchTiles: tiles});
+        }
+        else {
+            let dataList = this.state.tiles.filter(item => {
+                if (e.target.value.trim() !== "") { 
+                    if (!item['Category'] || item['Category'].toUpperCase().indexOf(e.target.value.toUpperCase()) === -1) {
+                        return false
+                    }
+                }
+                return true
+            })
+            this.setState({searchTiles: dataList});
+        }
+    }
+
     render() {
         let displayTiles = this.state.searchTiles;
+        let CategoryTiles = this.state.CategoryTiles;
         const classes = makeStyles((theme: Theme) =>
             createStyles({
                 root: {
@@ -128,9 +157,9 @@ class Resource extends Component{
                 <Autocomplete
                     freeSolo
                     autoHightlight
-                    options={displayTiles.map(tile => tile.Category)}
+                    options={CategoryTiles.map(Category => Category)}
                     renderInput={params => (
-                    <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
+                    <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleCategoryChange} />
                     )}/>
 
                     <Autocomplete

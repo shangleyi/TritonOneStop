@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 export default function ImgMediaCard(props) {
   const classes = useStyles();
   const { tile } = props;
-  console.log(tile.imgURL)
   return (
     <Card className={classes.card}>
       <CardActionArea>
