@@ -28,11 +28,11 @@
 .button-container {
     float: left;
     display: flex;
-    width: 55%
+    width: 70%
 }
 
 .NavBarMenuButtonContainer {
-    margin: 30px 15px 0 15px;
+    margin: 30px 5px 0 15px;
 }
 
 .NavBarMenuButton {
@@ -43,10 +43,12 @@
     border: none;
     text-align: center;
     align-self: center;
+    position: relative;
+    outline: none;
 }
 
 .NavBarMenuButton:hover, .NavBarMenuButton:active {
-    color: yellow;
+    color: #ffcd00;
     letter-spacing: 1px;
     transition: all 280ms ease-in-out;
 }
@@ -78,16 +80,17 @@
     width: 70%;
 }
 
-
-.logger-frame {
-    height: 100px;
-    width: 400px;
+.NavBarLogger {
+    margin-top: 5px;
+    position: absolute;
+    right: 60px;
+    display: flex;
 }
 
 .logger-container {
     display: flex;
     height: 40px;
-    width: inherit;
+    width: 300px;
     margin-top: 5px;
 }
 
@@ -101,7 +104,8 @@
     margin-top: 9px;
 }
 
-.logger-container .logger-input {
+.logger-input {
+    transition: 300ms;
     margin-left: 5px;
     margin-top: 7px;
     background: transparent;
@@ -116,17 +120,64 @@
     border-bottom-width: 1px;
     color: cornsilk;
     font-size: 15px;
+    outline: none;
+}
+
+.logger-input:focus {
+    width: 200px;
+    transition: 300ms;
+    border-bottom-color: #ffcd00;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+.logger-input:not(:placeholder-shown):not(:focus) {
+    width: 200px;
+    transition: 300ms;
+    border-bottom-color: white;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.logger-button-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
 }
 
 .logger-button {
-    margin-left: 5px;
-    width: 70px;
+    margin: 5px 0 0 5px;
+    width: 80px;
     font-family:'Work Sans', sans-serif;
     font-size: 15px;
     height: 37px;
     border-radius: 40px;
     border: none;
     background: white;
+}
+
+.logger-button:hover {
+    background: #ffcd00;
+    transition-duration: 1000ms;
+    font-size: 20px;
+    text-align: center;
+}
+
+.logger-button-2 {
+    margin: 5px 0 0 5px;
+    width: 90px;
+    font-family:'Work Sans', sans-serif;
+    font-size: 15px;
+    height: 37px;
+    border-radius: 40px;
+    border: none;
+    background: white;
+}
+
+.logger-button-2:hover {
+    background: #ffcd00;
+    transition-duration: 1000ms;
+    font-size: 17px;
+    text-align: center;
 }
 
 .logged-in-container {
@@ -148,7 +199,7 @@
 }
 
 .logged-in-container .logger-button:hover{
-    color: yellow;
+    color: #ffcd00;
 }
 
 .search-container {

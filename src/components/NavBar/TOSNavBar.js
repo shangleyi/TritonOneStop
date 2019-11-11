@@ -55,10 +55,10 @@ class TOSNavBar extends React.Component {
 
         // Actual login
         try{
-            console.log("NavBar: Log-In: TRUE");
-            this.setState({isLoggedIn: true});
             db_login.auth().signInWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleLogInError);
             localStorage.setItem("UserName", this.state.userName);
+            console.log("NavBar: Log-In: TRUE");
+            this.setState({isLoggedIn: true});
         } catch (error) {
             alert(error);
             console.log("NavBar: Log-In: FALSE");
@@ -105,6 +105,11 @@ class TOSNavBar extends React.Component {
             "\nLocalStorage: ", localStorage.getItem("UserName"));
     }
 
+    handleForget() {
+        let email = prompt("Please enter your email:", "forgot@email.com");
+        db_login.auth().sendPasswordResetEmail(email);
+    }
+
     handleUsernameChange = (event) => {
         this.setState({userName: event.target.value});
     };
@@ -136,24 +141,32 @@ class TOSNavBar extends React.Component {
                     <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} onClick={this.handleClickMain}/>
                     <div className="NavBarMenu">
                         <div className="button-container">
-                            <TOSNavBarMenuButton onPress={this.handleClickResource} buttonText="Resource" width="200px"/>
-                            <TOSNavBarMenuButton onPress={this.handleClickEvent} buttonText="Event" width="200px"/>
-                            <TOSNavBarMenuButton onPress={this.handleClickCoursePlanner} buttonText="CoursePlanner" width="200px"/>
-                        </div>
-                        <div>
-                            <div className="logger-container">
-                                <p className="loggerTxt">Email:</p>
-                                <input className="logger-input" placeholder="Name" onChange={this.handleUsernameChange}/>
-                                <button className="logger-button" onClick={this.handleLogIn}>Login</button>
+                            <div className="NavBarMenuButtonContainer">
+                                <button className="NavBarMenuButton" onClick={this.handleClickResource} style={{width: 150}}>Resource</button>
                             </div>
-                            <div className="logger-container">
-                                <p className="loggerTxt">Password:</p>
-                                <input className="logger-input" placeholder="PW" onChange={this.handlePWChange} type="password"/>
+                            <div className="NavBarMenuButtonContainer">
+                                <button className="NavBarMenuButton" onClick={this.handleClickEvent} style={{width: 90}}>Event</button>
+                            </div>
+                            <div className="NavBarMenuButtonContainer">
+                                <button className="NavBarMenuButton" onClick={this.handleClickCoursePlanner} style={{width: 240}}>CoursePlanner</button>
+                            </div>
+                        </div>
+                        <div className="NavBarLogger">
+                            <div>
+                                <div className="logger-container">
+                                    <p className="loggerTxt">Email:</p>
+                                    <input className="logger-input" placeholder="Email" onChange={this.handleUsernameChange}/>
+                                </div>
+                                <div className="logger-container">
+                                    <p className="loggerTxt">Password:</p>
+                                    <input className="logger-input" placeholder="Password" onChange={this.handlePWChange} type="password"/>
+                                </div>
+                            </div>
+                            <div className="logger-button-container">
+                                <button className="logger-button" onClick={this.handleLogIn}>Login</button>
                                 <button className="logger-button" onClick={this.handleSignUp}>SignUp</button>
                             </div>
-                        </div>
-                        <div className="search-container">
-                            <TOSNavBarSearchBar/>
+                            <button className="logger-button-2" onClick={this.handleForget}>ForgotPW</button>
                         </div>
                     </div>
                 </div>
@@ -165,18 +178,21 @@ class TOSNavBar extends React.Component {
                     <img className="NavBarLogo" alt="TOSLogo" src={TOSLogo} onClick={this.handleClickMain}/>
                     <div className="NavBarMenu">
                         <div className="button-container">
-                            <TOSNavBarMenuButton onPress={this.handleClickResource} buttonText="Resource"/>
-                            <TOSNavBarMenuButton onPress={this.handleClickEvent} buttonText="Event"/>
-                            <TOSNavBarMenuButton onPress={this.handleClickCoursePlanner} buttonText="CoursePlanner"/>
+                            <div className="NavBarMenuButtonContainer">
+                                <button className="NavBarMenuButton" onClick={this.handleClickResource} style={{width: 150}}>Resource</button>
+                            </div>
+                            <div className="NavBarMenuButtonContainer">
+                                <button className="NavBarMenuButton" onClick={this.handleClickEvent} style={{width: 90}}>Event</button>
+                            </div>
+                            <div className="NavBarMenuButtonContainer">
+                                <button className="NavBarMenuButton" onClick={this.handleClickCoursePlanner} style={{width: 240}}>CoursePlanner</button>
+                            </div>
                         </div>
                         <div>
                             <div className="logged-in-container">
                                 <p className="loggerTxt">Logged In As: {this.state.userName}</p>
                                 <button className="logger-button" onClick={this.handleLogOut}>Log Out</button>
                             </div>
-                        </div>
-                        <div className="search-container">
-                            <TOSNavBarSearchBar/>
                         </div>
                     </div>
                 </div>
