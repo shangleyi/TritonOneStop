@@ -12,13 +12,14 @@ import {flexbox} from "@material-ui/system";
 
 const useStyles = makeStyles({
   card: {
-      maxWidth: 200,
-      paddingLeft: 30,
-      paddingRight: 30,
-      marginLeft: 10,
-      marginRight: 10,
-      marginBottom: 20,
-      display: flexbox,
+    maxWidth: 180,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingTop: 20,
+    marginLeft: 30,
+    marginRight: 30,
+    marginBottom: 30,
+    display: flexbox,
   },
 });
 

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Big+Shoulders+Text&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Work+Sans&display=swap');
 
 .NavBarBody {
     //background-color: #FFFFFF;
@@ -27,11 +28,11 @@
 .button-container {
     float: left;
     display: flex;
-    width: 55%
+    width: 70%
 }
 
 .NavBarMenuButtonContainer {
-    margin: 30px 15px 0 15px;
+    margin: 30px 5px 0 15px;
 }
 
 .NavBarMenuButton {
@@ -40,32 +41,143 @@
     font-size: 40px;
     background-color: transparent;
     border: none;
+    text-align: center;
+    align-self: center;
+    position: relative;
+    outline: none;
 }
 
-.NavBarMenuButton:hover {
-    color: yellow;
+.NavBarMenuButton:hover, .NavBarMenuButton:active {
+    color: #ffcd00;
+    letter-spacing: 1px;
+    transition: all 280ms ease-in-out;
 }
 
-.logger-frame {
-    height: 100px;
-    width: 400px;
+.NavBarMenuButton:after,
+.NavBarMenuButton:before {
+    backface-visibility: hidden;
+    border: 1px solid #182b49;
+    bottom: 0;
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    transition: all 280ms ease-in-out;
+    width: 0;
+}
+
+.NavBarMenuButton:hover:after,
+.NavBarMenuButton:hover:before {
+    backface-visibility: hidden;
+    border-color: #fff;
+    transition: width 350ms ease-in-out;
+    width: 70%;
+}
+
+.NavBarMenuButton:hover:before {
+    bottom: auto;
+    top: 0;
+    width: 70%;
+}
+
+.NavBarLogger {
+    margin-top: 5px;
+    position: absolute;
+    right: 60px;
+    display: flex;
 }
 
 .logger-container {
     display: flex;
     height: 40px;
-    width: inherit;
+    width: 300px;
     margin-top: 5px;
 }
 
 .logger-container .loggerTxt {
     color: white;
-    width: 100px;
-    align-self: center;
+    font-family:'Work Sans', sans-serif;
+    font-size: 18px;
+    width: 150px;
+    height: 30px;
+    text-align: right;
+    margin-top: 9px;
+}
+
+.logger-input {
+    transition: 300ms;
+    margin-left: 5px;
+    margin-top: 7px;
+    background: transparent;
+    height: 20px;
+    width: 150px;
+    padding-left: 2px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: white;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    color: cornsilk;
+    font-size: 15px;
+    outline: none;
+}
+
+.logger-input:focus {
+    width: 200px;
+    transition: 300ms;
+    border-bottom-color: #ffcd00;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+.logger-input:not(:placeholder-shown):not(:focus) {
+    width: 200px;
+    transition: 300ms;
+    border-bottom-color: white;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.logger-button-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
 }
 
 .logger-button {
-    width: 70px;
+    margin: 5px 0 0 5px;
+    width: 80px;
+    font-family:'Work Sans', sans-serif;
+    font-size: 15px;
+    height: 37px;
+    border-radius: 40px;
+    border: none;
+    background: white;
+}
+
+.logger-button:hover {
+    background: #ffcd00;
+    transition-duration: 1000ms;
+    font-size: 20px;
+    text-align: center;
+}
+
+.logger-button-2 {
+    margin: 5px 0 0 5px;
+    width: 90px;
+    font-family:'Work Sans', sans-serif;
+    font-size: 15px;
+    height: 37px;
+    border-radius: 40px;
+    border: none;
+    background: white;
+}
+
+.logger-button-2:hover {
+    background: #ffcd00;
+    transition-duration: 1000ms;
+    font-size: 17px;
+    text-align: center;
 }
 
 .logged-in-container {
@@ -79,15 +191,15 @@
     color: white;
 }
 
-.logged-in-container .logger-button {
+.logout-button {
     background: transparent;
     border: none;
     color: white;
     text-decoration: underline;
 }
 
-.logged-in-container .logger-button:hover{
-    color: yellow;
+.logout-button:hover{
+    color: #ffcd00;
 }
 
 .search-container {
