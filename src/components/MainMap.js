@@ -7,10 +7,18 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {flexbox} from "@material-ui/system";
+
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 345,
+      maxWidth: 200,
+      paddingLeft: 30,
+      paddingRight: 30,
+      marginLeft: 10,
+      marginRight: 10,
+      marginBottom: 20,
+      display: flexbox,
   },
 });
 
@@ -21,13 +29,15 @@ export default function ImgMediaCard(props) {
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          alt={tile.title}
-          height="140"
-          image={tile.img}
-          title={tile.title}
-        />
+      <Button target="_blank" href={tile.URL}>
+            <CardMedia
+              component="img"
+              alt={tile.title}
+              height="140"
+              image={tile.img}
+              title={tile.title}
+             />
+            </Button>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {tile.title}
@@ -36,10 +46,11 @@ export default function ImgMediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+      <Button href="./resource" size="small" color="primary">
           Edit
         </Button>
-        <Button size="small" color="primary">
+        <Button target="_blank" href={tile.More} size="small" color="primary" > 
+        
           Learn More
         </Button>
       </CardActions>
