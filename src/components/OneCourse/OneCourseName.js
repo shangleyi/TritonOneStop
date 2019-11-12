@@ -2,12 +2,9 @@ import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import db from '../../base';
-
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
@@ -25,6 +22,7 @@ class OneCourseName extends Component{
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.matchCourse = this.matchCourse.bind(this);
+        this.popCourse = this.popCourse.bind(this);
     }
 
     componentDidMount() {
@@ -78,22 +76,38 @@ class OneCourseName extends Component{
         this.setState({classArray:classArray});
     }
 
+    popCourse(e){
+        let courseArray = this.state.courseArray;
+        let classGPA = 0;
+        let classGrade ="";
+        let classTime = 0;
+        courseArray.map((item) => {
+            if (item.id == e.target.value) {
+                classGPA = item.gpa_actual;
+                classGrade = item.letter_grade;
+                classTime = item.time;
+            }
+        });
+        this.props.handler(classTime,classGPA,classGrade);
+        this.props.popToPlanner(classTime,classGPA);
+    }
+
     render() {
         return (
-                <div>
+            <div>
                 <FormControl className={useStyles.formControl}>
                     <InputLabel htmlFor="grouped-native-select">Department</InputLabel>
                     <Select native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.matchCourse}>
                         <option value=""/>
                         {this.state.deptArray.map((item) => (
-                            <option value={item.id}> {item.dep} </option>
+                                <option value={item.id}> {item.dep} </option>
                             )
                         )}
                     </Select>
                 </FormControl>
                 <FormControl className={useStyles.formControl}>
                     <InputLabel htmlFor="grouped-native-select">Course</InputLabel>
-                    <Select native defaultValue="" input={<Input id="grouped-native-select"/>}>
+                    <Select native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.popCourse}>
                         <option value=""/>
                         {this.state.classArray.map((item) => (
                                 <option value={item.id}> {item.number} </option>

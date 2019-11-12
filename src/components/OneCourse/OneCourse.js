@@ -8,7 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import OneCourseName from "./OneCourseName";
 import Credits from "./Credits";
-import db from '../../base';
 
 const useStyles = makeStyles({
     root: {
@@ -24,17 +23,40 @@ function createData(name, credits, hours, grade, gpa) {
     return { name, credits, hours, grade, gpa};
 }
 
-const rows = [
-    createData(<OneCourseName/>, <Credits/>, 6.0, "A", 4.0),
-];
-
 class OneCourse extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            hours:0,
+            gpa:0,
+            grade:"",
+        };
+        this.handler=this.handler.bind(this);
+        this.popToPlanner=this.popToPlanner.bind(this);
+        this.handlerCredit=this.handlerCredit.bind(this);
+    }
+
+    handler(time,gpa_actual,letter_grade){
+        this.setState({
+            hours:time,
+            gpa:gpa_actual,
+            grade:letter_grade
+        });
+    }
+
+    popToPlanner(time,gpa_actual){
+        this.props.majorHandler(time,gpa_actual);
+    }
+
+    handlerCredit(credit){
+        this.props.majorHandlerCredit(credit);
     }
 
     render() {
+        const rows = [createData(
+            <OneCourseName handler={this.handler} popToPlanner={this.popToPlanner}/>, <Credits handlerCredit={this.handlerCredit}/>,
+            this.state.hours, this.state.grade,this.state.gpa)]
         return (
             <Paper className={useStyles.root}>
                 <Table className={useStyles.table} aria-label="simple table">
