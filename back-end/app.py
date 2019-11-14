@@ -4,7 +4,7 @@ from firebase_admin import credentials, firestore, initialize_app
 from flask_cors import CORS, cross_origin
 import os
 
-cred = credentials.Certificate("/Users/christie/Documents/GitHub/TritonOneStop_Frontend/back-end/tostest1-5e30d-firebase-adminsdk-0d1va-bf403ad302.json")
+cred = credentials.Certificate("tostest1-5e30d-firebase-adminsdk-0d1va-bf403ad302.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 resource_ref = db.collection('resources')
