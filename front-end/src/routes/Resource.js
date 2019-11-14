@@ -13,6 +13,7 @@ import ImgMediaCard from "../components/ResourceCard";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import db from "../base";
+import axios from 'axios';
 
 class Resource extends Component{
     constructor(props){
@@ -29,40 +30,41 @@ class Resource extends Component{
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
     }
 
-    componentDidMount() {
+    async getResourcesAxios(){
+        const response =
+          await axios.get("http://127.0.0.1:5000/getResources")
+        console.log(response.data)
         let tiles = [];
         let currentComponent = this;
         let searchTiles = [];
         let CategoryTiles = [];
-        db.collection("resources").get().then(function(querySnapshot){
-            querySnapshot.forEach(function(doc) {
-                tiles.push({
-                    id: doc.id,
-                    title: doc.data().title,
-                    content: doc.data().content,
-                    imgURL: doc.data().imgURL,
-                    Category: doc.data().Category
-                });
-                searchTiles.push({
-                    id: doc.id,
-                    title: doc.data().title,
-                    content: doc.data().content,
-                    imgURL: doc.data().imgURL,
-                    Category: doc.data().Category
-                });
-                CategoryTiles.push(doc.data().Category)
+        response.data.forEach(function(doc) {
+            console.log(doc)
+            tiles.push({
+                id: doc.id,
+                title: doc.title,
+                content: doc.content,
+                imgURL: doc.imgURL,
+                Category: doc.Category
             });
-            
-            CategoryTiles = Array.from(new Set(CategoryTiles));
-            console.log(CategoryTiles)
-            currentComponent.setState({tiles: tiles});
-            currentComponent.setState({searchTiles: searchTiles});
-            currentComponent.setState({CategoryTiles: CategoryTiles});
-        })
-        .catch(function(error) {
-            console.log("Error getting docs: ", error);
+            searchTiles.push({
+                id: doc.id,
+                title: doc.title,
+                content: doc.content,
+                imgURL: doc.imgURL,
+                Category: doc.Category
+            });
+            CategoryTiles.push(doc.Category)
         });
         
+        CategoryTiles = Array.from(new Set(CategoryTiles));
+        currentComponent.setState({tiles: tiles});
+        currentComponent.setState({searchTiles: searchTiles});
+        currentComponent.setState({CategoryTiles: CategoryTiles});
+    }
+
+    componentDidMount() {
+        this.getResourcesAxios()
     }
     // search() {
     //     console.log(this.state.searchStr)
