@@ -12,7 +12,6 @@ import {tileData} from '../components/OneEvent/tileData';
 import ImgMediaCard from "../components/ResourceCard";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import db from "../base";
 import axios from 'axios';
 
 class Resource extends Component{

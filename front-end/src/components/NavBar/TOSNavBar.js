@@ -3,7 +3,7 @@ import './TOSNavBar.css';
 import TOSLogo from '../../resources/NavBarLogo.png';
 //import {Route, withRouter, Redirect} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
-import db_login from "../../database/base";
+import {db, firebase} from "../../base";
 
 
 class TOSNavBar extends React.Component {
@@ -17,7 +17,7 @@ class TOSNavBar extends React.Component {
         |
         ├── localStorage:   Stores userName locally in case user refreshes the page, will only be updated when login and
         |                   logout.
-        └── db_login.auth(): Firebase authentication status, comes with a bit of delay, careful when using it
+        └── firebase.auth(): Firebase authentication status, comes with a bit of delay, careful when using it
      */
 
     constructor(props) {
@@ -31,7 +31,7 @@ class TOSNavBar extends React.Component {
         this.handleLogOut = this.handleLogOut.bind(this);
         this.handleLogInError = this.handleLogInError.bind(this);
         console.log("Current User at construct:");
-        console.log(db_login.auth().currentUser);
+        console.log(firebase.auth().currentUser);
         if(localStorage.getItem("UserName")==="null") {
             this.state={isLoggedIn: false, userName: null, userPW: null};
         }
@@ -50,12 +50,12 @@ class TOSNavBar extends React.Component {
     handleLogIn(){
         console.log("HandleLogIn: ATTEMPT");
         console.log("Handle LogIn: Before Log In:",
-            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
+            "\nUser ID: ", (firebase.auth().currentUser==null) ? "null" : firebase.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
 
         // Actual login
         try{
-            db_login.auth().signInWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleLogInError);
+            firebase.auth().signInWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleLogInError);
             localStorage.setItem("UserName", this.state.userName);
             console.log("NavBar: Log-In: TRUE");
             this.setState({isLoggedIn: true});
@@ -65,18 +65,18 @@ class TOSNavBar extends React.Component {
         }
 
         console.log("Handle LogIn: After Log In:",
-            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
+            "\nUser ID: ", (firebase.auth().currentUser==null) ? "null" : firebase.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
     }
 
     handleSignUp(){
         console.log("handleSignUp: ATTEMPT");
         console.log("Handle SignUp: Before SignUp:",
-            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
+            "\nUser ID: ", (firebase.auth().currentUser==null) ? "null" : firebase.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
 
         try{
-            db_login.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW);
+            firebase.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW);
             console.log("NavBar: SignUp");
             alert("Signed Up with email" + this.state.userName)
         } catch (error) {
@@ -85,29 +85,29 @@ class TOSNavBar extends React.Component {
         }
 
         console.log("Handle SignUp: After SignUp:",
-            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
+            "\nUser ID: ", (firebase.auth().currentUser==null) ? "null" : firebase.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
     }
 
     handleLogOut(){
         console.log("HandleLogOut: ATTEMPT");
         console.log("Handle LogOut: Before Logout:",
-            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
+            "\nUser ID: ", (firebase.auth().currentUser==null) ? "null" : firebase.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
         console.log("NavBar: Log-In: FALSE");
 
-        db_login.auth().signOut();
+        firebase.auth().signOut();
         localStorage.setItem("UserName", null);
         this.setState({isLoggedIn: false});
 
         console.log("Handle LogOut: After Logout:",
-            "\nUser ID: ", (db_login.auth().currentUser==null) ? "null" : db_login.auth().currentUser.uid,
+            "\nUser ID: ", (firebase.auth().currentUser==null) ? "null" : firebase.auth().currentUser.uid,
             "\nLocalStorage: ", localStorage.getItem("UserName"));
     }
 
     handleForget() {
         let email = prompt("Please enter your email:", "forgot@email.com");
-        db_login.auth().sendPasswordResetEmail(email);
+        firebase.auth().sendPasswordResetEmail(email);
     }
 
     handleUsernameChange = (event) => {
