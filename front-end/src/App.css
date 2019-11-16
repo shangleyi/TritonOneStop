@@ -60,3 +60,11 @@
   display: block;
   margin-top: 2%;
 }
+
+.App-mainPageLayout{
+    max-width: 1000px;
+    display: block;
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+}
