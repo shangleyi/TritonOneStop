@@ -1,53 +1,130 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import db from '../../base';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 120,
     },
 }));
 
-export default function GroupedSelect() {
-    const classes = useStyles();
+class OneCourseName extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            courseArray : [],
+            deptArray: [],
+            classArray:[]
+        };
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.matchCourse = this.matchCourse.bind(this);
+        this.popCourse = this.popCourse.bind(this);
+        this.getUnique = this.getUnique.bind(this);
+    }
 
-    return (
-        <div>
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="grouped-native-select">Grouping</InputLabel>
-                <Select native defaultValue="" input={<Input id="grouped-native-select" />}>
-                    <option value="" />
-                    <optgroup label="Category 1">
-                        <option value={1}>Option 1</option>
-                        <option value={2}>Option 2</option>
-                    </optgroup>
-                    <optgroup label="Category 2">
-                        <option value={3}>Option 3</option>
-                        <option value={4}>Option 4</option>
-                    </optgroup>
-                </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="grouped-native-select">Grouping</InputLabel>
-                <Select native defaultValue="" input={<Input id="grouped-native-select" />}>
-                    <option value="" />
-                    <optgroup label="Category 1">
-                        <option value={1}>Option 1</option>
-                        <option value={2}>Option 2</option>
-                    </optgroup>
-                    <optgroup label="Category 2">
-                        <option value={3}>Option 3</option>
-                        <option value={4}>Option 4</option>
-                    </optgroup>
-                </Select>
-            </FormControl>
-        </div>
-    );
+    async fillInCourse(){
+        const response =
+            await axios.get("http://localhost:8080/getCourse")
+        let courseArray = [];
+        let deptArray = [];
+        let currentComponent = this;
+        response.data.forEach(function(doc) {
+            courseArray.push({
+                id: doc.id,
+                course: doc.course,
+                dep: doc.dep,
+                gpa_actual: doc.gpa_actual,
+                letter_grade:doc.letter_grade,
+                number: doc.number,
+                time: doc.time
+            });
+            deptArray.push({
+                id: doc.id,
+                dep: doc.dep
+            })
+        });
+        currentComponent.setState({courseArray: courseArray});
+        currentComponent.setState({deptArray: this.getUnique(deptArray, 'dep')});
+    }
+
+    getUnique(arr, comp){
+        const unique = arr.map(e=>e[comp])
+            .map((e,i,final) => final.indexOf(e) == i && i)
+            .filter(e=>arr[e]).map(e=>arr[e]);
+        return unique.sort((a,b)=> (a.id>b.id ? 1 : -1));
+    }
+
+    componentDidMount() {
+        this.fillInCourse();
+    }
+
+    matchCourse(e){
+        let classArray = [];
+        let courseArray = this.state.courseArray;
+        let deptArray = this.state.deptArray;
+        let department = "";
+
+        deptArray.map((item) => {
+            if (item.id == e.target.value){
+                department = item.dep;
+            }
+        })
+
+        courseArray.map((item) => {
+            if (item.dep == department) {
+                classArray.push({number: item.number})
+            }
+        })
+        this.setState({classArray:classArray});
+    }
+
+    popCourse(e){
+        let courseArray = this.state.courseArray;
+        let classGPA = 0;
+        let classGrade ="";
+        let classTime = 0;
+        courseArray.map((item) => {
+            if (item.id == e.target.value) {
+                classGPA = item.gpa_actual;
+                classGrade = item.letter_grade;
+                classTime = item.time;
+            }
+        });
+        this.props.handler(classTime,classGPA,classGrade);
+        this.props.popToPlanner(classTime,classGPA);
+    }
+
+    render() {
+        return (
+            <div>
+                <FormControl className={useStyles.formControl} width={1/8}>
+                    <InputLabel htmlFor="grouped-native-select">Department</InputLabel>
+                    <Select native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.matchCourse}>
+                        <option value=""/>
+                        {this.state.deptArray.map((item) => (
+                                <option value={item.id}> {item.dep} </option>
+                            )
+                        )}
+                    </Select>
+                </FormControl>
+                <FormControl className={useStyles.formControl} width={1/8}>
+                    <InputLabel htmlFor="grouped-native-select">Course</InputLabel>
+                    <Select native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.popCourse}>
+                        <option value=""/>
+                        {this.state.classArray.map((item) => (
+                                <option value={item.id}> {item.number} </option>
+                            )
+                        )}
+                    </Select>
+                </FormControl>
+            </div>
+        );
+    }
 }
+
+export default OneCourseName;
