@@ -12,6 +12,7 @@ resource_ref = db.collection('resources')
 app = Flask(__name__)
 CORS(app)
 
+
 @app.route('/getResources', methods=['GET'])
 def read():
     """
@@ -33,10 +34,11 @@ def read():
 
 port = int(os.environ.get('PORT', 8080))
 
+
 @app.route('/')
 def hello_world():
     return 'Hello World!'
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.0', port=port)
+    app.run(host='localhost`', port=port)

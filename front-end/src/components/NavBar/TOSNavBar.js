@@ -30,6 +30,7 @@ class TOSNavBar extends React.Component {
         this.handleSignUp = this.handleSignUp.bind(this);
         this.handleLogOut = this.handleLogOut.bind(this);
         this.handleLogInError = this.handleLogInError.bind(this);
+        this.handleSignUpError = this.handleSignUpError.bind(this);
         console.log("Current User at construct:");
         console.log(firebase.auth().currentUser);
         if(localStorage.getItem("UserName")==="null") {
@@ -69,6 +70,13 @@ class TOSNavBar extends React.Component {
             "\nLocalStorage: ", localStorage.getItem("UserName"));
     }
 
+    handleSignUpError(error) {
+        alert(error);
+        this.setState({isLoggedIn: false});
+        console.log("NavBar: Signup, FALSE");
+        localStorage.setItem("UserName", null);
+    }
+
     handleSignUp(){
         console.log("handleSignUp: ATTEMPT");
         console.log("Handle SignUp: Before SignUp:",
@@ -76,9 +84,9 @@ class TOSNavBar extends React.Component {
             "\nLocalStorage: ", localStorage.getItem("UserName"));
 
         try{
-            firebase.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW);
+            firebase.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleSignUpError);
             console.log("NavBar: SignUp");
-            alert("Signed Up with email" + this.state.userName)
+            alert("Signing Up with email" + this.state.userName + ", if no error pops up, sign up is success");
         } catch (error) {
             alert(error);
             console.log("Failed to SignUp");
