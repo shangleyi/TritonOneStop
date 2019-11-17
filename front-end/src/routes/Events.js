@@ -28,6 +28,27 @@ class Events extends Component{
         this.componentDidMount = this.componentDidMount.bind(this);
     }
 
+    async
+    componentDidMount(){
+        const response =
+          await axios.get("http://localhost:8080/getEvents")
+        console.log(response.data)
+        let tiles = [];
+        let currentComponent = this;
+        response.data.forEach(function(doc) {
+            console.log(doc)
+            tiles.push({
+                id: doc.id,
+                title: doc.title,
+                content: doc.content,
+                imgURL: doc.imgURL,
+                Category: doc.Category
+            });
+        });
+        
+        currentComponent.setState({tiles: tiles});
+    }
+
     render() {
         return (
             <div className="App">
