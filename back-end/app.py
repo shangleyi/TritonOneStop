@@ -8,9 +8,11 @@ cred = credentials.Certificate("tostest1-5e30d-firebase-adminsdk-0d1va-bf403ad30
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 resource_ref = db.collection('resources')
+courses_ref = db.collection('courses')
 
 app = Flask(__name__)
 CORS(app)
+
 
 @app.route('/getResources', methods=['GET'])
 def read():
@@ -31,7 +33,16 @@ def read():
         return f"An Error Occured: {e}"
 
 
+@app.route('/getCourse', methods=['GET'])
+def readCourse():
+    try:
+        all_courses = [doc.to_dict() for doc in courses_ref.get()]
+        return jsonify(all_courses), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
 port = int(os.environ.get('PORT', 8080))
+
 
 @app.route('/')
 def hello_world():
@@ -39,4 +50,4 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.0', port=port)
+    app.run(host='localhost', port=port)

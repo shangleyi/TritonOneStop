@@ -37,7 +37,8 @@ class Resource extends Component{
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://127.0.0.1:5000/getResources")
+          await axios.get("http://localhost:8080/getResources")
+        console.log(response.data)
         let tiles = [];
         let currentComponent = this;
         let searchTiles = [];
@@ -204,6 +205,7 @@ class Resource extends Component{
         return (
             <div>
                 <NavBar/>
+                <div className="background"/>
                 <div className={classes.root}>  
                 <div style={{display: 'flex'}}>
                 <span>

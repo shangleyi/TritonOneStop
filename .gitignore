@@ -50,3 +50,6 @@ yarn-error.log*
 logs
 *.log
 
+pythonenvironment
+venv
+

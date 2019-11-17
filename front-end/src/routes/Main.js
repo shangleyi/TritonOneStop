@@ -17,6 +17,7 @@ class Main extends Component {
         return (
             <div className="App">
                 <TOSNavBar/>
+                <div className="background"/>
                 <div className="App-mainPageLayout">
                     <GridList style={{marginLeft: 100, marginRight: 'auto'}} cellHeight={180}>
                         {MainSquareMap.map(tile => (

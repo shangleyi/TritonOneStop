@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -19,37 +19,33 @@ const useStyles = makeStyles({
     },
 });
 
-function createData(hours, grade, gpa) {
-    return {hours, grade, gpa};
-}
+class QuarterSummary extends Component {
+    constructor(props){
+        super(props);
+    }
 
-const rows = [
-    createData(6.0, "A", 4.0),
-];
-
-export default function SimpleTable() {
-    const classes = useStyles();
-
-    return (
-        <Paper className={classes.root}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell align="right">Avg. Hours</TableCell>
-                        <TableCell align="right">Avg. Grade&nbsp;(g)</TableCell>
-                        <TableCell align="right">Avg. GPA&nbsp;(g)</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map(row => (
-                        <TableRow key={row.name}>
-                            <TableCell align="right">{row.hours}</TableCell>
-                            <TableCell align="right">{row.grade}</TableCell>
-                            <TableCell align="right">{row.gpa}</TableCell>
+    render() {
+        return (
+            <Paper className={useStyles.root}>
+                <Table className={useStyles.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="right">Avg. Hours</TableCell>
+                            <TableCell align="right">Avg. Grade&nbsp;(g)</TableCell>
+                            <TableCell align="right">Avg. GPA&nbsp;(g)</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </Paper>
-    );
+                    </TableHead>
+                    <TableBody>
+                            <TableRow>
+                                <TableCell align="right">{this.props.hours}</TableCell>
+                                <TableCell align="right">{this.props.grade}</TableCell>
+                                <TableCell align="right">{this.props.gpa}</TableCell>
+                            </TableRow>
+                    </TableBody>
+                </Table>
+            </Paper>
+        );
+    }
 }
+
+export default QuarterSummary;
