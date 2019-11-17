@@ -99,7 +99,7 @@ class Resource extends Component{
                     }
                 }
                 return true
-            })
+            });
             this.setState({searchTiles: dataList});
         }
     }
@@ -118,7 +118,7 @@ class Resource extends Component{
                     }
                 }
                 return true
-            })
+            });
             this.setState({searchTiles: dataList});
         }
     }
@@ -154,37 +154,39 @@ class Resource extends Component{
             <div>
                 <NavBar/>
                 <div className="background"/>
-                <div className={classes.root}>  
-                <div style={{display: 'flex'}}>
-                <span>
-                    Category:
-                </span>
-                <Autocomplete
-                    freeSolo
-                    autoHightlight
-                    options={CategoryTiles.map(Category => Category)}
-                    renderInput={params => (
-                    <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleCategoryChange} />
-                    )}/>
-                <span>
-                    Resource:
-                </span>
-                    <Autocomplete
-                    freeSolo
-                    autoHightlight
-                    options={displayTiles.map(tile => tile.title)}
-                    renderInput={params => (
-                    <TextField {...params} placeholder="search.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
-                    )}/>
-                </div>   
-                    <GridList style={{marginLeft: 50,marginRight: 'auto'}}cellHeight={180} className={classes.gridList}>
-                            <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
-                                <ListSubheader component="div">Resources</ListSubheader>
-                            </GridListTile>
-                            {displayTiles.map((tile,i) => {
-                                return <ImgMediaCard key={i} tile={tile}/>
-                            })}
-                    </GridList>
+                    <div className={classes.root}>
+                        <div className="resource_searchbar">
+                            <span className="resource_searchbar_text">
+                                Category:
+                            </span>
+                            <Autocomplete
+                                freeSolo
+                                autoHightlight
+                                options={CategoryTiles.map(Category => Category)}
+                                renderInput={params => (
+                                <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleCategoryChange} />
+                                )}/>
+                            <span className="resource_searchbar_text">
+                                Resource:
+                            </span>
+                            <Autocomplete
+                                freeSolo
+                                autoHightlight
+                                options={displayTiles.map(tile => tile.title)}
+                                renderInput={params => (
+                                <TextField {...params} placeholder="search.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
+                                )}/>
+                        </div>
+                        <div className="resource_content">
+                            <GridList style={{width:"1540px"}} cellHeight={180} className={classes.gridList}>
+                                    <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
+                                        <ListSubheader component="div">Resources</ListSubheader>
+                                    </GridListTile>
+                                    {displayTiles.map((tile,i) => {
+                                        return <ImgMediaCard key={i} tile={tile}/>
+                                    })}
+                            </GridList>
+                        </div>
                 </div>
             </div>
         )
