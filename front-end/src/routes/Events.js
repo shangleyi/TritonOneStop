@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect} from "react-router-dom";
-import TOSNavBarBar from "../components/NavBar/TOSNavBar";
+import TOSNavBar from "../components/NavBar/TOSNavBar";
 import OneEvent from "../components/OneEvent/OneEvent";
 import '../App.css';
 import WebsiteBKGND from '../resources/WebsiteBKGND.png';
@@ -12,7 +12,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import {tileData} from '../components/OneEvent/tileData';
-import ImgMediaCard from "../components/ResourceCard";
+import ImgMediaCard from "../components/EventCard";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
@@ -28,45 +28,69 @@ class Events extends Component{
         this.componentDidMount = this.componentDidMount.bind(this);
     }
 
-    async
-    componentDidMount(){
+    async getEventsAxios() {
         const response =
-          await axios.get("http://localhost:8080/getEvents")
+            await axios.get("http://localhost:8080/getEvents")
         console.log(response.data)
         let tiles = [];
         let currentComponent = this;
-        response.data.forEach(function(doc) {
+        response.data.forEach(function (doc) {
             console.log(doc)
             tiles.push({
                 id: doc.id,
-                title: doc.title,
+                title: doc.Title,
                 content: doc.content,
-                imgURL: doc.imgURL,
-                Category: doc.Category
+                imgURL: doc.ImgUrl
             });
         });
-        
-        currentComponent.setState({tiles: tiles});
+
+        currentComponent.setState({ tiles: tiles });
+    }
+    componentDidMount(){
+        this.getEventsAxios()
     }
 
     render() {
+        let displayTiles = this.state.tiles;
+        const classes = makeStyles((theme: Theme) =>
+            createStyles({
+                root: {
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-around',
+                    overflow: 'hidden',
+                    backgroundColor: theme.palette.background.paper,
+                    alignItems: 'center',
+                },
+                gridList: {
+                    width: 500,
+                    height: 450,
+                    transform: 'translateZ(0)',
+                },
+                icon: {
+                    lor: 'rgba(255, 255, 255, 0.54)',
+                },
+            }),
+        );
+
+        
+        
+        //overide
         return (
-            <div className="App">
-                <TOSNavBarBar/>
+            <div>
+                <TOSNavBar/>
                 <div className="background"/>
-                <div className="App-eventLayout">
-                    <div className="App-events">
-                        <OneEvent/>
-                        <OneEvent/>
-                        <OneEvent/>
-                        <OneEvent/>
-                    </div>
-                    <div className="App-events">
-                        <OneEvent/>
-                        <OneEvent/>
-                        <OneEvent/>
-                        <OneEvent/>
-                    </div>
+                <div className={classes.root}>  
+                <div style={{display: 'flex'}}>
+                </div>   
+                    <GridList style={{marginLeft: 50,marginRight: 'auto'}}cellHeight={180} className={classes.gridList}>
+                            <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
+                                <ListSubheader component="div">Events</ListSubheader>
+                            </GridListTile>
+                            {displayTiles.map((tile,i) => {
+                                return <ImgMediaCard key={i} tile={tile}/>
+                            })}
+                    </GridList>
                 </div>
             </div>
         )
