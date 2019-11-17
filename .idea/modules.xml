@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/triton_one_stop.iml" filepath="$PROJECT_DIR$/triton_one_stop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TritonOneStop_Frontend.iml" filepath="$PROJECT_DIR$/TritonOneStop_Frontend.iml" />
     </modules>
   </component>
 </project>

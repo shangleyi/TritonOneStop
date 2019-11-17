@@ -153,6 +153,7 @@ class Resource extends Component{
         return (
             <div>
                 <NavBar/>
+                <div className="background"/>
                 <div className={classes.root}>  
                 <div style={{display: 'flex'}}>
                 <span>
