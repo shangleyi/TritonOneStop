@@ -15,6 +15,11 @@ CORS(app)
 
 @app.route('/getResources', methods=['GET'])
 def read():
+    """
+        read() : Fetches documents from Firestore collection as JSON.
+        resource : Return document that matches query ID.
+        all_resources : Return all documents.
+    """
     try:
         resource_id = request.args.get('id')
         if resource_id:
