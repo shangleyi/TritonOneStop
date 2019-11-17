@@ -30,6 +30,24 @@ def read():
     except Exception as e:
         return f"An Error Occured: {e}"
 
+# @app.route('/getEvents', methods=['GET'])
+# def read():
+#     """
+#         read() : Fetches documents from firebase realtime db as JSON.
+#         resource : Return document that matches query ID.
+#         all_resources : Return all documents.
+#     """
+#     try:
+#         resource_id = request.args.get('id')
+#         if resource_id:
+#             resource = resource_ref.document(resource_id).get()
+#             return jsonify(resource.to_dict()), 200
+#         else:
+#             all_resources = [doc.to_dict() for doc in resource_ref.get()]
+#             return jsonify(all_resources), 200
+#     except Exception as e:
+#         return f"An Error Occured: {e}"
+
 
 port = int(os.environ.get('PORT', 8080))
 
@@ -39,4 +57,4 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.0', port=port)
+    app.run(host='localhost', port=port)
