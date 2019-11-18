@@ -206,7 +206,6 @@ class Resource extends Component{
             <div>
                 <NavBar/>
                 <div className="background"/>
-<<<<<<< HEAD
                     <div className={classes.root}>
                         <div className="resource_searchbar">
                             <span className="resource_searchbar_text">
@@ -240,51 +239,6 @@ class Resource extends Component{
                                     })}
                             </GridList>
                         </div>
-=======
-                <div className={classes.root}>  
-                <div style={{display: 'flex'}}>
-                <span>
-                    Category:
-                </span>
-                <Autocomplete
-                    freeSolo
-                    autoHightlight
-                    options={CategoryTiles.map(Category => Category)}
-                    disableClearable
-                    renderOption = {(option, {selected}) => (
-                        <React.Fragment>
-                            <ListItemText primary={option} onClick={event => this.handleCategoryClick({option})}/>
-                        </React.Fragment>
-                    )}
-                    renderInput={params => (
-                    <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleCategoryChange} />
-                    )}/>
-                <span>
-                    Resource:
-                </span>
-                    <Autocomplete
-                    freeSolo
-                    autoHightlight
-                    disableClearable
-                    options={displayTiles.map(tile => tile.title)}
-                    renderOption = {(option, {selected}) => (
-                        <React.Fragment>
-                            <ListItemText primary={option} onClick={event => this.handleTextClick({option})}/>
-                        </React.Fragment>
-                    )}
-                    renderInput={params => (
-                    <TextField {...params} placeholder="search.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
-                    )}/>
-                </div>   
-                    <GridList style={{marginLeft: 50,marginRight: 'auto'}}cellHeight={180} className={classes.gridList}>
-                            <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
-                                <ListSubheader component="div">Resources</ListSubheader>
-                            </GridListTile>
-                            {displayTiles.map((tile,i) => {
-                                return <ImgMediaCard key={i} tile={tile}/>
-                            })}
-                    </GridList>
->>>>>>> 57c7d008a7809f525c1380bc5f3df0aaf5e2ec02
                 </div>
             </div>
         )
