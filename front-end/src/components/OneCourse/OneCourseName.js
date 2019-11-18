@@ -10,7 +10,12 @@ import axios from 'axios';
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
+        width: 250,
+        display: 'flex'
     },
+    optControl: {
+        width: 120,
+    }
 }));
 
 class OneCourseName extends Component{
@@ -95,16 +100,15 @@ class OneCourseName extends Component{
                 classTime = item.time;
             }
         });
-        this.props.handler(classTime,classGPA,classGrade);
-        this.props.popToPlanner(classTime,classGPA);
+        this.props.popToCourse(classGPA,classGrade,classTime);
     }
 
     render() {
         return (
             <div>
-                <FormControl className={useStyles.formControl} width={1/8}>
+                <FormControl classes={useStyles.formControl}>
                     <InputLabel htmlFor="grouped-native-select">Department</InputLabel>
-                    <Select native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.matchCourse}>
+                    <Select autoWidth={true} classes={useStyles.optControl} native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.matchCourse}>
                         <option value=""/>
                         {this.state.deptArray.map((item) => (
                                 <option value={item.id}> {item.dep} </option>
@@ -112,9 +116,9 @@ class OneCourseName extends Component{
                         )}
                     </Select>
                 </FormControl>
-                <FormControl className={useStyles.formControl} width={1/8}>
+                <FormControl classes={useStyles.formControl}>
                     <InputLabel htmlFor="grouped-native-select">Course</InputLabel>
-                    <Select native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.popCourse}>
+                    <Select autoWidth={true} classes={useStyles.optControl} native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.popCourse}>
                         <option value=""/>
                         {this.state.classArray.map((item) => (
                                 <option value={item.id}> {item.number} </option>

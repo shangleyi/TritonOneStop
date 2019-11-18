@@ -8,7 +8,9 @@ import Select from '@material-ui/core/Select';
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 120,
+        width: 120,
+        display:'flex',
+        textAlign: 'left'
     },
 }));
 
@@ -19,15 +21,16 @@ class Credits extends Component {
     }
 
     matchCredit(e){
-        this.props.handlerCredit(e.target.value);
+        this.props.handlerCredit(Number.parseInt(e.target.value));
     }
 
     render() {
         return (
             <div>
-                <FormControl className={useStyles.formControl}>
+                <FormControl classes={useStyles.formControl}>
                     <InputLabel htmlFor="grouped-native-select">Units</InputLabel>
                     <Select native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.matchCredit}>
+                        <option value={0}></option>
                         <option value={1}>1 unit</option>
                         <option value={2}>2 units</option>
                         <option value={3}>3 units</option>
