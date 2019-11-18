@@ -77,7 +77,7 @@ class OneCourseName extends Component{
 
         courseArray.map((item) => {
             if (item.dep == department) {
-                classArray.push({number: item.number})
+                classArray.push({number: item.number, id: item.id})
             }
         })
         this.setState({classArray:classArray});
