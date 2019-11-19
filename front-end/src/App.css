@@ -64,11 +64,69 @@
 }
 
 .App-mainPageLayout{
+    text-align: center;
     max-width: 1000px;
     display: block;
     margin-top: 3%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.mainPage-background {
+  text-align: center;
+  background-image: url('./resources/WebsiteBKGND.png');
+  background-size: cover;
+  background-position: bottom;
+  min-height: 100vh;
+}
+
+.welcomeStyle{
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  /*text-shadow: 1px 1px gold;*/
+  font-size: 40px;
+  font-family: 'Arima Madurai', cursive;
+}
+
+.mainPageH2{
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  /*text-shadow: 1px 1px gold;*/
+  font-size: 80px;
+  font-family: 'Arima Madurai', cursive;
+}
+
+.mainPageH3 {
+  text-align: center;
+  color: white;
+  /*text-shadow: 1px 1px gold;*/
+  font-size: 20px;
+  font-family: 'Arima Madurai', cursive;
+  margin-bottom: 40px;
+}
+
+.mainPageH4 {
+  text-align: center;
+  color: white;
+  /*text-shadow: 1px 1px gold;*/
+  font-size: 20px;
+  font-family: 'Arima Madurai', cursive;
+  margin-bottom: 20px;
+}
+
+i {
+  border: solid white;
+  border-width: 0 8px 8px 0;
+  display: inline-block;
+  padding: 15px;
+  margin-bottom: 150px;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }
 
 .resource_searchbar {
