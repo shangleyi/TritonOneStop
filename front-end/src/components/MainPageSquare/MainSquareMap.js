@@ -61,9 +61,4 @@ export const MainSquareMap = [
         URL: "https://ucsd.joinhandshake.com/login",
         More: "https://www.joinhandshake.com/students/how-it-works/"
     },
-    {
-        img: plus,
-        title: "Edit your favor Link here",
-    },
-
 ];
