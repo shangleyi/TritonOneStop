@@ -11,50 +11,53 @@ import {flexbox} from "@material-ui/system";
 
 
 const useStyles = makeStyles({
-  card: {
-    maxWidth: 180,
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingTop: 20,
-    marginLeft: 30,
-    marginRight: 30,
-    marginBottom: 30,
-    display: flexbox,
-  },
+    card: {
+        maxWidth: 180,
+        maxHeight: 290,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 20,
+        display: flexbox,
+    },
 });
 
 export default function ImgMediaCard(props) {
-  const classes = useStyles();
-  const { tile } = props;
-  console.log(tile);
-  return (
-    <Card className={classes.card}>
-      <CardActionArea>
-      <Button target="_blank" href={tile.URL}>
-            <CardMedia
-              component="img"
-              alt={tile.title}
-              height="140"
-              image={tile.img}
-              title={tile.title}
-             />
-            </Button>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {tile.title}
-          </Typography>
-          
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-      <Button href="./resource" size="small" color="primary">
-          Edit
-        </Button>
-        <Button target="_blank" href={tile.More} size="small" color="primary" > 
-        
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
+    const classes = useStyles();
+    const { tile } = props;
+    console.log(tile);
+    return (
+        <Card className={classes.card}>
+            <CardActionArea>
+                <Button target="_blank" href={tile.URL}>
+                    <CardMedia
+                        component="img"
+                        // alt={tile.title}
+                        height="140"
+                        width="140"
+                        image={tile.img}
+                        // title={tile.title}
+                    />
+                </Button>
+                {/*<CardContent>*/}
+                {/*    <Typography gutterBottom variant="h5" component="h2">*/}
+                {/*        {tile.title}*/}
+                {/*    </Typography>*/}
+
+                {/*</CardContent>*/}
+            </CardActionArea>
+            {/*<CardActions>*/}
+            {/*    <Button href="./resource" size="small" color="primary">*/}
+            {/*        Edit*/}
+            {/*    </Button>*/}
+            {/*    <Button target="_blank" href={tile.More} size="small" color="primary" >*/}
+
+            {/*        Learn More*/}
+            {/*    </Button>*/}
+            {/*</CardActions>*/}
+        </Card>
     );
 }
