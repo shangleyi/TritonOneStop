@@ -21,9 +21,7 @@ class Events extends Component{
     constructor(props){
         super(props);
         this.state = {
-            tiles: [],
-            searchTiles: [],
-            CategoryTiles: []
+            tiles: []
         };
         this.componentDidMount = this.componentDidMount.bind(this);
     }
@@ -37,10 +35,12 @@ class Events extends Component{
         response.data.forEach(function (doc) {
             console.log(doc)
             tiles.push({
-                id: doc.id,
                 title: doc.Title,
                 content: doc.content,
-                imgURL: doc.ImgUrl
+                imgURL: doc.ImgUrl,
+                location: doc.Location,
+                date: doc.Month + " " + doc.Date,
+                time: doc.Time
             });
         });
 
@@ -78,19 +78,19 @@ class Events extends Component{
         //overide
         return (
             <div>
-                <TOSNavBar/>
-                <div className="background"/>
-                <div className={classes.root}>  
-                <div style={{display: 'flex'}}>
-                </div>   
-                    <GridList style={{marginLeft: 50,marginRight: 'auto'}}cellHeight={180} className={classes.gridList}>
+                <TOSNavBar />
+                <div className="background" />
+                <div className={classes.root}>
+                    <div className="events_content">
+                        <GridList style={{ width:"1175px" }} cellHeight={180} className={classes.gridList}>
                             <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
                                 <ListSubheader component="div">Events</ListSubheader>
                             </GridListTile>
-                            {displayTiles.map((tile,i) => {
-                                return <ImgMediaCard key={i} tile={tile}/>
+                            {displayTiles.map((tile, i) => {
+                                return <ImgMediaCard key={i} tile={tile} />
                             })}
-                    </GridList>
+                        </GridList>
+                    </div>
                 </div>
             </div>
         )

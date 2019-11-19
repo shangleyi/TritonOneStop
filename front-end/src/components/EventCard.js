@@ -13,12 +13,17 @@ import { flexbox } from '@material-ui/system';
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 345,
+    width: '29%',
     paddingLeft: 20,
     paddingRight: 20,
     display: flexbox,
   },
+  media: {
+    height: '100%',
+    width: '100%',
+  },
 });
+
 
 export default function ImgMediaCard(props) {
   const classes = useStyles();
@@ -26,26 +31,33 @@ export default function ImgMediaCard(props) {
   return (
     <Card className={classes.card}>
       <CardActionArea>
+        <CardMedia><img style={{height:186, width:'100%'}} src={`${tile.imgURL}`}/></CardMedia>
         <CardMedia
-          component="img"
+          //className={classes.media}
+          //component="img"
           alt={tile.title}
           height="140"
-          image={`${tile.imgURL}`}
+          //image={`${tile.imgURL}`}
+          //image= {`${tile.imgURL}`}
           title={tile.title}
+          style={{paddingTop: 20}}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {tile.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {tile.content}
+            {tile.location}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {tile.date}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {tile.time}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          <DeleteIcon />
-        </Button>
         <Button size="small" color="primary">
           <LinkIcon />
         </Button>
