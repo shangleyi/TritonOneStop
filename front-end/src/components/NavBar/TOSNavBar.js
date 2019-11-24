@@ -33,12 +33,16 @@ class TOSNavBar extends React.Component {
         this.handleSignUpError = this.handleSignUpError.bind(this);
         console.log("Current User at construct:");
         console.log(firebase.auth().currentUser);
+        console.log("Current User Local Storage");
         console.log(localStorage.getItem("UserName"));
-        if(localStorage.getItem("UserName")===null || localStorage.getItem("UserName")==="null") {
-            this.state={isLoggedIn: false, userName: null, userPW: null};
+        console.log("Notice");
+        console.log("");
+        console.log("Notice");
+        if(localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
+            this.state={isLoggedIn: true, userName: localStorage.getItem("UserName"), userPW: ""};
         }
         else {
-            this.state={isLoggedIn: true, userName: localStorage.getItem("UserName"), userPW: ""};
+            this.state={isLoggedIn: false, userName: null, userPW: null};
         }
     }
 
@@ -140,11 +144,11 @@ class TOSNavBar extends React.Component {
     };
 
     handleClickCoursePlanner = () => {
-        if(localStorage.getItem("UserName")===null || localStorage.getItem("UserName")==="null") {
-            alert("Please login to access course planner");
+        if(localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
+            this.props.history.push("/courseplanner");
         }
         else {
-            this.props.history.push("/courseplanner");
+            alert("Please login to access course planner");
         }
     };
 
