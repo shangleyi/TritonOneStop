@@ -31,8 +31,8 @@ class QuarterSummary extends Component {
                     <TableHead>
                         <TableRow>
                             <TableCell align="right">Avg. Hours</TableCell>
-                            <TableCell align="right">Avg. Grade&nbsp;(g)</TableCell>
-                            <TableCell align="right">Avg. GPA&nbsp;(g)</TableCell>
+                            <TableCell align="right">Avg. Grade</TableCell>
+                            <TableCell align="right">Avg. GPA</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
