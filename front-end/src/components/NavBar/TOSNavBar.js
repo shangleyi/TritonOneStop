@@ -33,7 +33,8 @@ class TOSNavBar extends React.Component {
         this.handleSignUpError = this.handleSignUpError.bind(this);
         console.log("Current User at construct:");
         console.log(firebase.auth().currentUser);
-        if(localStorage.getItem("UserName")==="null") {
+        console.log(localStorage.getItem("UserName"));
+        if(localStorage.getItem("UserName")===null || localStorage.getItem("UserName")==="null") {
             this.state={isLoggedIn: false, userName: null, userPW: null};
         }
         else {
@@ -139,7 +140,12 @@ class TOSNavBar extends React.Component {
     };
 
     handleClickCoursePlanner = () => {
-        this.props.history.push("/courseplanner");
+        if(localStorage.getItem("UserName")===null || localStorage.getItem("UserName")==="null") {
+            alert("Please login to access course planner");
+        }
+        else {
+            this.props.history.push("/courseplanner");
+        }
     };
 
     render() {
