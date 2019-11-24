@@ -201,8 +201,8 @@ class CoursePlanner extends Component{
                                 <TableCell>Course</TableCell>
                                 <TableCell align="right">No. of Credits</TableCell>
                                 <TableCell align="right">Avg. Hours</TableCell>
-                                <TableCell align="right">Avg. Grade&nbsp;(g)</TableCell>
-                                <TableCell align="right">Avg. GPA&nbsp;(g)</TableCell>
+                                <TableCell align="right">Avg. Grade</TableCell>
+                                <TableCell align="right">Avg. GPA</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
