@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import firebase_admin
 from firebase_admin import credentials, firestore, initialize_app
 from flask_cors import CORS, cross_origin
+from firebase import firebase
 import os
 
 cred = credentials.Certificate("tostest1-5e30d-firebase-adminsdk-0d1va-bf403ad302.json")
@@ -9,6 +10,8 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 resource_ref = db.collection('resources')
 courses_ref = db.collection('courses')
+
+firebase = firebase.FirebaseApplication('https://backendtest-fe485.firebaseio.com/', None)
 
 app = Flask(__name__)
 CORS(app)
@@ -29,6 +32,14 @@ def read():
         else:
             all_resources = [doc.to_dict() for doc in resource_ref.get()]
             return jsonify(all_resources), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+@app.route('/getEvents', methods=['GET'])
+def readEvents():
+    try:
+        all_events = firebase.get('/events', None)
+        return jsonify(all_events), 200
     except Exception as e:
         return f"An Error Occured: {e}"
 
