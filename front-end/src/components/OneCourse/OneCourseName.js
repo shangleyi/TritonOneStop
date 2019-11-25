@@ -10,11 +10,11 @@ import axios from 'axios';
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
-        width: 250,
-        display: 'flex'
+        display: 'flex',
+        minWidth: 150
     },
-    optControl: {
-        width: 120,
+    itemControl: {
+        minWidth: 150
     }
 }));
 
@@ -85,6 +85,10 @@ class OneCourseName extends Component{
                 classArray.push({number: item.number, id: item.id})
             }
         })
+
+        if (e.target.value == "") {
+            this.props.popToCourse(0,"",0);
+        }
         this.setState({classArray:classArray});
     }
 
@@ -100,6 +104,11 @@ class OneCourseName extends Component{
                 classTime = item.time;
             }
         });
+        if (e.target.value == "") {
+            classGPA = 0;
+            classGrade = "";
+            classTime = 0;
+        }
         this.props.popToCourse(classGPA,classGrade,classTime);
     }
 
@@ -108,7 +117,7 @@ class OneCourseName extends Component{
             <div>
                 <FormControl classes={useStyles.formControl}>
                     <InputLabel htmlFor="grouped-native-select">Department</InputLabel>
-                    <Select autoWidth={true} classes={useStyles.optControl} native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.matchCourse}>
+                    <Select className={useStyles.itemControl} native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.matchCourse}>
                         <option value=""/>
                         {this.state.deptArray.map((item) => (
                                 <option value={item.id}> {item.dep} </option>
@@ -118,7 +127,7 @@ class OneCourseName extends Component{
                 </FormControl>
                 <FormControl classes={useStyles.formControl}>
                     <InputLabel htmlFor="grouped-native-select">Course</InputLabel>
-                    <Select autoWidth={true} classes={useStyles.optControl} native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.popCourse}>
+                    <Select className={useStyles.itemControl} width={100} native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.popCourse}>
                         <option value=""/>
                         {this.state.classArray.map((item) => (
                                 <option value={item.id}> {item.number} </option>
