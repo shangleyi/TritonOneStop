@@ -21,37 +21,46 @@ class Main extends Component {
                 this.setState({userName:user.email.substring(0, user.email.indexOf('@'))});
             } else {
                 // User not logged in or has just logged out.
-                this.state.userName = "Please Log in to display user name";
+                this.setState({userName: "Please Log in to display user name"});
             }});
     }
 
     render() {
+        function scrollWin() {
+                window.scrollTo(0,document.body.scrollHeight);
+        }
+
         return (
             <div className="mainPage-background">
                 <TOSNavBar/>
-                <h1 className="welcomeStyle">
-                    Welcome to
-                </h1>
-                <h2 className="mainPageH2">
-                    Triton OneStop
-                </h2>
-                <h3 className="mainPageH3">
-                    {this.state.userName}
-                </h3>
-                <h4 className="mainPageH4">
-                    This is your OneStop Guide to Know about UC San Diego
-                </h4>
-                <p>
-                    <i className="arrow down"></i>
-                </p>
-                <div className="App-mainPageLayout">
-                    <GridList style={{marginLeft: 60, marginRight: 'auto'}} cellHeight={180}>
-                    {/*<GridList style={{alignContent: "center"}} cellHeight={180}>*/}
-                        {MainSquareMap.map(tile => (
-                            <MainMap key={tile} tile={tile}/>
-                        ))}
-                    </GridList>
-                </div>
+                <section id="section06" class="demo">
+                    <h1 className="welcomeStyle">
+                        Welcome to
+                    </h1>
+                    <h2 className="mainPageH2">
+                        Triton OneStop
+                    </h2>
+                    <h3 className="mainPageH3">
+                        {this.state.userName}
+                    </h3>
+                    <h4 className="mainPageH4">
+                        This is your OneStop Guide to University of California of San Diego
+                    </h4>
+
+                    <a href="#section02"> <span>
+                    </span>Scroll</a>
+                </section>
+
+                <section id="section02">
+                    <div className="App-mainPageLayout">
+                        <GridList style={{marginLeft: 60, marginRight: 'auto'}} cellHeight={180}>
+                        {/*<GridList style={{alignContent: "center"}} cellHeight={180}>*/}
+                            {MainSquareMap.map(tile => (
+                                <MainMap key={tile} tile={tile}/>
+                            ))}
+                        </GridList>
+                    </div>
+                </section>
             </div>
         )
     }
