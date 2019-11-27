@@ -28,7 +28,7 @@ class Events extends Component{
 
     async getEventsAxios() {
         const response =
-            await axios.get("http://localhost:8080/getEvents")
+            await axios.get("https://test2-plopyzswiq-uc.a.run.app/getEvents")
         console.log(response.data)
         let tiles = [];
         let currentComponent = this;

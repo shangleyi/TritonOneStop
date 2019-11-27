@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6421f78b.chunk.css",
+    "main.js": "/static/js/main.4ed52dd5.chunk.js",
+    "main.js.map": "/static/js/main.4ed52dd5.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.83e33a03.js",
+    "runtime-main.js.map": "/static/js/runtime-main.83e33a03.js.map",
+    "static/js/2.fd1e831d.chunk.js": "/static/js/2.fd1e831d.chunk.js",
+    "static/js/2.fd1e831d.chunk.js.map": "/static/js/2.fd1e831d.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.c908a5c2931059cf7c8d92b9e6b63372.js": "/precache-manifest.c908a5c2931059cf7c8d92b9e6b63372.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.6421f78b.chunk.css.map": "/static/css/main.6421f78b.chunk.css.map",
+    "static/media/5230508_orig.jpg": "/static/media/5230508_orig.ac0ddd0a.jpg",
+    "static/media/NavBarLogo.png": "/static/media/NavBarLogo.19ff385e.png",
+    "static/media/Piazza-Icon.png": "/static/media/Piazza-Icon.902d1fa2.png",
+    "static/media/TOSLogo.png": "/static/media/TOSLogo.9b349a12.png",
+    "static/media/WebsiteBKGND.png": "/static/media/WebsiteBKGND.b9067da4.png",
+    "static/media/calfresh-short.jpg": "/static/media/calfresh-short.e72628a1.jpg",
+    "static/media/canvas.png": "/static/media/canvas.2c95d1e5.png",
+    "static/media/career-center.jpg": "/static/media/career-center.7947acff.jpg",
+    "static/media/gradescope-icon.jpg": "/static/media/gradescope-icon.8ccae605.jpg",
+    "static/media/iclicker.jpg": "/static/media/iclicker.835c5e18.jpg",
+    "static/media/logo.svg": "/static/media/logo.25bf045c.svg",
+    "static/media/App.css": "/static/media/look-deeper-ograph.91d43009.jpg",
+    "static/media/parking.jpg": "/static/media/parking.7ae2b21a.jpg",
+    "static/media/rimac.jpg": "/static/media/rimac.4ee21083.jpg",
+    "static/media/shs-logo-text.jpg": "/static/media/shs-logo-text.113a9cf9.jpg",
+    "static/media/shuttles-header.jpg": "/static/media/shuttles-header.3100f5e9.jpg",
+    "static/media/student-organization-fair.jpg": "/static/media/student-organization-fair.16016606.jpg",
+    "static/media/study-abroad.png": "/static/media/study-abroad.ec32ace0.png",
+    "static/media/triton-food-pantry.jpg": "/static/media/triton-food-pantry.a11b7e53.jpg",
+    "static/media/ucsd-dining.jpg": "/static/media/ucsd-dining.91653193.jpg",
+    "static/media/ucsd-podcast.jpg": "/static/media/ucsd-podcast.429c6ba8.jpg",
+    "static/media/ucsd-research.jpg": "/static/media/ucsd-research.465b1b8f.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.83e33a03.js",
+    "static/js/2.fd1e831d.chunk.js",
+    "static/css/main.6421f78b.chunk.css",
+    "static/js/main.4ed52dd5.chunk.js"
+  ]
+}
