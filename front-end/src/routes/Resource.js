@@ -49,14 +49,16 @@ class Resource extends Component{
                 title: doc.title,
                 content: doc.content,
                 imgURL: doc.imgURL,
-                Category: doc.Category
+                Category: doc.Category,
+                URL: doc.URL
             });
             searchTiles.push({
                 id: doc.id,
                 title: doc.title,
                 content: doc.content,
                 imgURL: doc.imgURL,
-                Category: doc.Category
+                Category: doc.Category,
+                URL: doc.URL
             });
             CategoryTiles.push(doc.Category)
         });
