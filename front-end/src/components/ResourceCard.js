@@ -25,23 +25,31 @@ export default function ImgMediaCard(props) {
   const { tile } = props;
   return (
     <Card className={classes.card}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt={tile.title}
-          height="140"
-          image={`${tile.imgURL}`}
-          title={tile.title}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {tile.title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {tile.content}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <Button target="_blank" href={`${tile.URL}`}>
+        <CardActionArea>
+
+          <CardMedia 
+            component="img"
+            alt={tile.title}
+            height="140"
+            image={`${tile.imgURL}`}
+            title={tile.title}
+          />
+
+          <CardContent >
+          
+            <Typography gutterBottom variant="h5" component="h2">
+              {tile.title}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {tile.content}
+            </Typography>
+          </CardContent>
+
+        </CardActionArea>
+      </Button>
+
+      
       <CardActions>
         <Button size="small" color="primary">
           <DeleteIcon />
