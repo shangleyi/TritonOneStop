@@ -32,17 +32,7 @@ export default function ImgMediaCard(props) {
     <Card className={classes.card}>
       <Button target="_blank" href={'https://studentevents.ucsd.edu/all/'+`${tile.linkurl}`}>
       <CardActionArea>
-        <CardMedia><img style={{height:186, width:'100%'}} src={`${tile.imgURL}`}/></CardMedia>
-        <CardMedia
-          //className={classes.media}
-          //component="img"
-          alt={tile.title}
-          height="140"
-          //image={`${tile.imgURL}`}
-          //image= {`${tile.imgURL}`}
-          title={tile.title}
-          style={{paddingTop: 20}}
-        />
+        <CardMedia><img style={{height:186, width:330}} src={`${tile.imgURL}`}/></CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {tile.title}
