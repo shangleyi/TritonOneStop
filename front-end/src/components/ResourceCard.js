@@ -28,7 +28,7 @@ export default function ImgMediaCard(props) {
       <Button target="_blank" href={`${tile.URL}`}>
         <CardActionArea>
 
-          <CardMedia 
+          <CardMedia
             component="img"
             alt={tile.title}
             height="140"
@@ -37,7 +37,7 @@ export default function ImgMediaCard(props) {
           />
 
           <CardContent >
-          
+
             <Typography gutterBottom variant="h5" component="h2">
               {tile.title}
             </Typography>
@@ -49,7 +49,7 @@ export default function ImgMediaCard(props) {
         </CardActionArea>
       </Button>
 
-      
+
       <CardActions>
         <Button size="small" color="primary">
           <DeleteIcon />
