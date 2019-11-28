@@ -14,6 +14,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import ListItemText from '@material-ui/core/ListItemText';
+import {db, auth, firebase} from "../base";
 
 class Resource extends Component{
     constructor(props){
@@ -23,7 +24,8 @@ class Resource extends Component{
             searchTiles: [],
             CategoryTiles: [],
             searchCategoryStr: "",
-            searchTextStr: ""
+            searchTextStr: "",
+            user: null
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         // this.search = this.search.bind(this);
@@ -38,7 +40,6 @@ class Resource extends Component{
     async getResourcesAxios(){
         const response =
           await axios.get("http://localhost:8080/getResources")
-        console.log(response.data)
         let tiles = [];
         let currentComponent = this;
         let searchTiles = [];
@@ -71,6 +72,7 @@ class Resource extends Component{
 
     componentDidMount() {
         this.getResourcesAxios()
+        
     }
     // search() {
     //     console.log(this.state.searchStr)
@@ -110,27 +112,27 @@ class Resource extends Component{
             this.setState({searchTextStr: e.option})
         }
     }
-    handleTextFieldChange (e) {
-        let tiles = this.state.tiles;
-        if(e.target.value === '') {
-            this.setState({searchTiles: tiles});
-        }
-        else {
-            let dataList = this.state.tiles.filter(item => {
-                if (e.target.value.trim() !== "") { 
-                    if (!item['title'] || item['title'].toUpperCase().indexOf(e.target.value.toUpperCase()) === -1) {
-                        return false
-                    }
-                }
-                return true
-            });
-            this.setState({searchTiles: dataList});
-            this.setState({searchTextStr: e.target.value})
-        }
-    }
+    
+    // handleTextFieldChange (e) {
+    //     let tiles = this.state.tiles;
+    //     if(e.target.value === '') {
+    //         this.setState({searchTiles: tiles});
+    //     }
+    //     else {
+    //         let dataList = this.state.tiles.filter(item => {
+    //             if (e.target.value.trim() !== "") { 
+    //                 if (!item['title'] || item['title'].toUpperCase().indexOf(e.target.value.toUpperCase()) === -1) {
+    //                     return false
+    //                 }
+    //             }
+    //             return true
+    //         });
+    //         this.setState({searchTiles: dataList});
+    //         this.setState({searchTextStr: e.target.value})
+    //     }
+    // }
 
     handleCategoryClick= (e) => {
-        console.log(e)
         let tiles = this.state.tiles;
         
         if(e.option === '') {
@@ -150,34 +152,33 @@ class Resource extends Component{
         }
     }
 
-    handleCategoryChange = (e) => {
-        let tiles = this.state.tiles;
+    // handleCategoryChange = (e) => {
+    //     let tiles = this.state.tiles;
         
-        if(e.target.value === '') {
-            this.setState({searchTiles: tiles});
-        }
-        else {
-            let dataList = this.state.tiles.filter(item => {
-                if (e.target.value.trim() !== "") { 
-                    if (!item['Category'] || item['Category'].toUpperCase().indexOf(e.target.value.toUpperCase()) === -1) {
-                        return false
-                    }
-                }
-                return true
-            });
-            this.setState({searchTiles: dataList});
-            this.setState({searchCategoryStr: e.target.value})
-        }
-    }
+    //     if(e.target.value === '') {
+    //         this.setState({searchTiles: tiles});
+    //     }
+    //     else {
+    //         let dataList = this.state.tiles.filter(item => {
+    //             if (e.target.value.trim() !== "") { 
+    //                 if (!item['Category'] || item['Category'].toUpperCase().indexOf(e.target.value.toUpperCase()) === -1) {
+    //                     return false
+    //                 }
+    //             }
+    //             return true
+    //         });
+    //         this.setState({searchTiles: dataList});
+    //         this.setState({searchCategoryStr: e.target.value})
+    //     }
+    // }
 
-    clear() {
-        let searchStr = this.state.searchCategoryStr;
-        console.log('clear')
-        if(this.state.searchTextStr === '' && this.state.searchCategoryStr === '') {
-            let tiles = this.state.tiles;
-            this.setState({searchTiles: tiles});
-        }
-    }
+    // clear() {
+    //     let searchStr = this.state.searchCategoryStr;
+    //     if(this.state.searchTextStr === '' && this.state.searchCategoryStr === '') {
+    //         let tiles = this.state.tiles;
+    //         this.setState({searchTiles: tiles});
+    //     }
+    // }
 
     render() {
         let displayTiles = this.state.searchTiles;
@@ -217,6 +218,12 @@ class Resource extends Component{
                                 freeSolo
                                 autoHightlight
                                 options={CategoryTiles.map(Category => Category)}
+                                disableClearable
+                                renderOption = {(option, {selected}) => (
+                                    <React.Fragment>
+                                        <ListItemText primary={option} onClick={event => this.handleCategoryClick({option})}/>
+                                    </React.Fragment>
+                                )}
                                 renderInput={params => (
                                 <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleCategoryChange} />
                                 )}/>
@@ -226,7 +233,13 @@ class Resource extends Component{
                             <Autocomplete
                                 freeSolo
                                 autoHightlight
+                                disableClearable
                                 options={displayTiles.map(tile => tile.title)}
+                                renderOption = {(option, {selected}) => (
+                                    <React.Fragment>
+                                        <ListItemText primary={option} onClick={event => this.handleTextClick({option})}/>
+                                    </React.Fragment>
+                                )}
                                 renderInput={params => (
                                 <TextField {...params} placeholder="search.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
                                 )}/>
