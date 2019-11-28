@@ -40,7 +40,8 @@ class Events extends Component{
                 imgURL: doc.ImgUrl,
                 location: doc.Location,
                 date: doc.Month + " " + doc.Date,
-                time: doc.Time
+                time: doc.Time,
+                linkurl: doc.LinkUrl
             });
         });
 
