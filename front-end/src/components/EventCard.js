@@ -30,11 +30,7 @@ export default function ImgMediaCard(props) {
   const { tile } = props;
   return (
     <Card className={classes.card}>
-<<<<<<< HEAD
-      <Button target="_blank"  href={'https://studentevents.ucsd.edu/all/'+`${tile.linkurl}`}>
-=======
-      <Button target="_blank" href={'https://studentevents.ucsd.edu/all/'+`${tile.URL}`}>
->>>>>>> master
+      <Button target="_blank" href={'https://studentevents.ucsd.edu/all/'+`${tile.linkurl}`}>
       <CardActionArea>
         <CardMedia><img style={{height:186, width:'100%'}} src={`${tile.imgURL}`}/></CardMedia>
         <CardMedia
