@@ -6,9 +6,6 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import {tileData} from '../components/OneEvent/tileData';
 import ImgMediaCard from "../components/ResourceCard";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -72,6 +69,7 @@ class Resource extends Component{
     componentDidMount() {
         this.getResourcesAxios();
     }
+    
     // search() {
     //     console.log(this.state.searchStr)
     //     let dataList = this.state.tiles.filter(item => {
