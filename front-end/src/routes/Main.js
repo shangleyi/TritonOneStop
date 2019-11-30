@@ -20,6 +20,10 @@ class Main extends Component {
             tiles: [],
         };
 
+        
+    }
+
+    componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 // User logged in already or has just logged in.
@@ -31,16 +35,15 @@ class Main extends Component {
                 this.setState({userName: "Please Log in to display user name"});
                 this.setState({userId: null});
                 this.setState({userEmail: null});
-            }});
-    }
-
-    componentDidMount() {
-        if(this.state.userId == null) {
-            this.getResourcesAxios();
-        }
-        else {
-            this.getResourcesByUidAxios(this.state.userId);
-        }
+            }
+            if(this.state.userId == null) {
+                this.getResourcesAxios();
+            }
+            else {
+                this.getResourcesByUidAxios(this.state.userId);
+            }
+        });
+        
     }
 
     async getResourcesAxios(){
@@ -66,21 +69,24 @@ class Main extends Component {
     async getResourcesByUidAxios(userId){
         // let currentComponent = this;
         const response =
-          await axios.get("http://localhost:5000/getResourcesByUid/${userId}")
-        let tiles = [];
-        let currentComponent = this;
-        response.data.forEach(function(doc) {
-            tiles.push({
-                id: doc.id,
-                title: doc.title,
-                content: doc.content,
-                imgURL: doc.imgURL,
-                Category: doc.Category,
-                URL: doc.URL,
-                userId: currentComponent.state.userId
-            });
-        });    
-        currentComponent.setState({tiles: tiles});
+          await axios.get(`http://localhost:5000/getResourcesByUid/${userId}`).then(res => {
+              console.log(res)
+            let tiles = [];
+            let currentComponent = this;
+            res.data.forEach(function(doc) {
+                tiles.push({
+                    id: doc.id,
+                    title: doc.title,
+                    content: doc.content,
+                    imgURL: doc.imgURL,
+                    Category: doc.Category,
+                    URL: doc.URL,
+                    userId: currentComponent.state.userId
+                });
+            });    
+            currentComponent.setState({tiles: tiles});
+          })
+       
 
         // response.data.forEach(function(doc) {
         //     mainTilesId.push({

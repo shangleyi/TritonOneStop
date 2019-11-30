@@ -16,6 +16,7 @@ firebase = firebase.FirebaseApplication('https://backendtest-fe485.firebaseio.co
 
 app = Flask(__name__)
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route('/getResources', methods=['GET'])
@@ -54,14 +55,20 @@ def readCourse():
         return f"An Error Occured: {e}"
 
 @app.route('/setUser', methods=['POST', 'PUT'])
+@cross_origin()
 def setUser():
     try:
         uid = request.json['uid']
-        # name = request.json['name']
-        # id = request.json['id']
-        # email = request.json['email']
-        # resourceId = request.json['resourceId']
-        user_ref.document(uid).set(request.json)
+        name = request.json['name']
+        email = request.json['email']
+        resourceId = request.json['resourceId']
+        data = {
+            u'uid': uid,
+            u'name': name,
+            u'email': email,
+            u'resourceId': resourceId
+        }
+        user_ref.document(uid).set(data)
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured in post request for user: {e}"
