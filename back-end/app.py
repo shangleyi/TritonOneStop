@@ -79,6 +79,17 @@ def getResourcesByUid(uid):
     except Exception as e:
         return f"An Error Occured in get request for resource: {e}"
 
+@app.route('/getResourceIdsByUid/<uid>/', methods=['GET'])
+def getResourceIdsByUid(uid):
+    try:
+        if(uid):
+            resourceId = [doc.to_dict()['resourceId'] for doc in user_ref.where(u'uid', u'==', uid).get()]
+            return jsonify(resourceId), 200
+        else:
+            raise Exception('uid none error')
+    except Exception as e:
+        return f"An Error Occured in get request for resource: {e}"
+
 port = int(os.environ.get('PORT', 8080))
 
 

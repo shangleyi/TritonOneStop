@@ -25,10 +25,10 @@ export default function ImgMediaCard(props) {
   const { tile } = props;
 
   //pass back onClick information to Resource.js
-  function getComponent(tile){
-    props.onClick(tile);
+  function getComponent(){
+    let passResource = [props.tile.id, props.tile.title]
+    props.onClick(passResource);
   }
-  console.log(tile);
 
   return (
     <Card className={classes.card}>

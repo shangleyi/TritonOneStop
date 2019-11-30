@@ -25,6 +25,7 @@ class Resource extends Component{
             userId: null,
             userName: "Please Log in to display user name",
             userEmail: null,
+            resourceIds: []
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         // this.search = this.search.bind(this);
@@ -43,7 +44,7 @@ class Resource extends Component{
                 this.setState({userEmail: user.email});
             } else {
                 // User not logged in or has just logged out.
-                this.setState({userId:null});
+                this.setState({userId: null});
                 this.setState({userName: "Please Log in to display user name"});
                 this.setState({userEmail: null});
         }});
@@ -51,7 +52,7 @@ class Resource extends Component{
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://localhost:8080/getResources")
+          await axios.get("http://localhost:5000/getResources")
         let tiles = [];
         let currentComponent = this;
         let searchTiles = [];
@@ -84,8 +85,18 @@ class Resource extends Component{
         currentComponent.setState({CategoryTiles: CategoryTiles});
     }
 
+    async getResourceIdsAxios() {
+        const response =
+          await axios.get("http://localhost:5000/getResourceIdsByUid/${this.state.userId}")
+        this.state.resourceIds = response.data;
+    }
+
     componentDidMount() {
         this.getResourcesAxios();
+        console.log(this.state.userId)
+        if(this.state.userId !== null){
+            this.getResourceIdsAxios();
+        }
     }
     
     // search() {
@@ -241,12 +252,19 @@ class Resource extends Component{
     //         this.setState({searchTiles: tiles});
     //     }
     // }
-    async onClick(tile)
+    async onClick(props)
     {
-        alert("add current resource to main"+{tile});
-        console.log({tile})
-        //const response =
-        //  await axios.post("http://localhost:8080/setUser",);
+        alert("add current resource to main "+props[1]); //TODO pass tile title from child
+        let resourceIds = this.state.resourceIds
+        console.log(resourceIds)
+        // resourceIds = Array.from(new Set(resourceIds.push(props[0])))
+        const userInfo = {
+            email: this.state.userEmail,
+            name: this.state.userName,
+            resourceId: resourceIds,
+            uid: this.state.userId
+        };
+        axios.post("localhost:5000/setUser")
     }
 
     render() {

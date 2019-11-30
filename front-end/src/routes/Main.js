@@ -45,7 +45,7 @@ class Main extends Component {
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://localhost:8080/getResources")
+          await axios.get("http://localhost:5000/getResources")
         let tiles = [];
         let currentComponent = this;
         response.data.forEach(function(doc) {
@@ -56,7 +56,7 @@ class Main extends Component {
                 imgURL: doc.imgURL,
                 Category: doc.Category,
                 URL: doc.URL,
-                userId: currentComponent.userId
+                userId: currentComponent.state.userId
             });
         });    
         tiles = tiles.slice(12)
@@ -66,7 +66,7 @@ class Main extends Component {
     async getResourcesByUidAxios(userId){
         // let currentComponent = this;
         const response =
-          await axios.get("http://localhost:8080/getResourcesByUid/${userId}")
+          await axios.get("http://localhost:5000/getResourcesByUid/${userId}")
         let tiles = [];
         let currentComponent = this;
         response.data.forEach(function(doc) {
@@ -77,7 +77,7 @@ class Main extends Component {
                 imgURL: doc.imgURL,
                 Category: doc.Category,
                 URL: doc.URL,
-                userId: currentComponent.userId
+                userId: currentComponent.state.userId
             });
         });    
         currentComponent.setState({tiles: tiles});
@@ -96,7 +96,6 @@ class Main extends Component {
         }
 
         let tiles = this.state.tiles;
-        console.log(tiles)
 
         return (
             
