@@ -12,8 +12,8 @@ import {tileData} from '../components/OneEvent/tileData';
 import ImgMediaCard from "../components/ResourceCard";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import db from "../base";
 import axios from 'axios';
+import ListItemText from '@material-ui/core/ListItemText';
 
 class Resource extends Component{
     constructor(props){
@@ -21,25 +21,29 @@ class Resource extends Component{
         this.state = {
             tiles: [],
             searchTiles: [],
-            CategoryTiles: []
+            CategoryTiles: [],
+            searchCategoryStr: "",
+            searchTextStr: ""
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         // this.search = this.search.bind(this);
         // this.clearSearch = this.clearSearch.bind(this);
         this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.handleCategoryClick = this.handleCategoryClick.bind(this);
+        this.handleTextClick = this.handleTextClick.bind(this);
+        this.clear = this.clear.bind(this)
     }
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://127.0.0.1:5000/getResources")
+          await axios.get("http://localhost:8080/getResources")
         console.log(response.data)
         let tiles = [];
         let currentComponent = this;
         let searchTiles = [];
         let CategoryTiles = [];
         response.data.forEach(function(doc) {
-            console.log(doc)
             tiles.push({
                 id: doc.id,
                 title: doc.title,
@@ -86,8 +90,25 @@ class Resource extends Component{
     //     this.search();
     // }
 
+    handleTextClick (e) {
+        let tiles = this.state.tiles;
+        if(e.option === '') {
+            this.setState({searchTiles: tiles});
+        }
+        else {
+            let dataList = this.state.tiles.filter(item => {
+                if (e.option.trim() !== "") { 
+                    if (!item['title'] || item['title'].toUpperCase().indexOf(e.option.toUpperCase()) === -1) {
+                        return false
+                    }
+                }
+                return true
+            })
+            this.setState({searchTiles: dataList});
+            this.setState({searchTextStr: e.option})
+        }
+    }
     handleTextFieldChange (e) {
-        console.log(this.state.tiles);
         let tiles = this.state.tiles;
         if(e.target.value === '') {
             this.setState({searchTiles: tiles});
@@ -100,12 +121,34 @@ class Resource extends Component{
                     }
                 }
                 return true
-            })
+            });
             this.setState({searchTiles: dataList});
+            this.setState({searchTextStr: e.target.value})
         }
     }
 
-    handleCategoryChange(e) {
+    handleCategoryClick= (e) => {
+        console.log(e)
+        let tiles = this.state.tiles;
+        
+        if(e.option === '') {
+            this.setState({searchTiles: tiles});
+        }
+        else {
+            let dataList = this.state.tiles.filter(item => {
+                if (e.option.trim() !== "") { 
+                    if (!item['Category'] || item['Category'].toUpperCase().indexOf(e.option.toUpperCase()) === -1) {
+                        return false
+                    }
+                }
+                return true
+            })
+            this.setState({searchTiles: dataList});
+            this.setState({searchCategoryStr: e.option})
+        }
+    }
+
+    handleCategoryChange = (e) => {
         let tiles = this.state.tiles;
         
         if(e.target.value === '') {
@@ -119,8 +162,18 @@ class Resource extends Component{
                     }
                 }
                 return true
-            })
+            });
             this.setState({searchTiles: dataList});
+            this.setState({searchCategoryStr: e.target.value})
+        }
+    }
+
+    clear() {
+        let searchStr = this.state.searchCategoryStr;
+        console.log('clear')
+        if(this.state.searchTextStr === '' && this.state.searchCategoryStr === '') {
+            let tiles = this.state.tiles;
+            this.setState({searchTiles: tiles});
         }
     }
 
@@ -147,44 +200,45 @@ class Resource extends Component{
                 },
             }),
         );
-
-        
         
         //overide
         return (
             <div>
                 <NavBar/>
-                <div className={classes.root}>  
-                <div style={{display: 'flex'}}>
-                <span>
-                    Category:
-                </span>
-                <Autocomplete
-                    freeSolo
-                    autoHightlight
-                    options={CategoryTiles.map(Category => Category)}
-                    renderInput={params => (
-                    <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleCategoryChange} />
-                    )}/>
-                <span>
-                    Resource:
-                </span>
-                    <Autocomplete
-                    freeSolo
-                    autoHightlight
-                    options={displayTiles.map(tile => tile.title)}
-                    renderInput={params => (
-                    <TextField {...params} placeholder="search.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
-                    )}/>
-                </div>   
-                    <GridList style={{marginLeft: 50,marginRight: 'auto'}}cellHeight={180} className={classes.gridList}>
-                            <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
-                                <ListSubheader component="div">Resources</ListSubheader>
-                            </GridListTile>
-                            {displayTiles.map((tile,i) => {
-                                return <ImgMediaCard key={i} tile={tile}/>
-                            })}
-                    </GridList>
+                <div className="background"/>
+                    <div className={classes.root}>
+                        <div className="resource_searchbar">
+                            <span className="resource_searchbar_text">
+                                Category:
+                            </span>
+                            <Autocomplete
+                                freeSolo
+                                autoHightlight
+                                options={CategoryTiles.map(Category => Category)}
+                                renderInput={params => (
+                                <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleCategoryChange} />
+                                )}/>
+                            <span className="resource_searchbar_text">
+                                Resource:
+                            </span>
+                            <Autocomplete
+                                freeSolo
+                                autoHightlight
+                                options={displayTiles.map(tile => tile.title)}
+                                renderInput={params => (
+                                <TextField {...params} placeholder="search.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
+                                )}/>
+                        </div>
+                        <div className="resource_content">
+                            <GridList style={{width:"1540px"}} cellHeight={180} className={classes.gridList}>
+                                    <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
+                                        <ListSubheader component="div">Resources</ListSubheader>
+                                    </GridListTile>
+                                    {displayTiles.map((tile,i) => {
+                                        return <ImgMediaCard key={i} tile={tile}/>
+                                    })}
+                            </GridList>
+                        </div>
                 </div>
             </div>
         )
