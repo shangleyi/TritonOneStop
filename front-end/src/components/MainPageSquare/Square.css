@@ -1,0 +1,11 @@
+.SquareImg {
+    max-width: 30%;
+    max-height: 50%;
+}
+
+.SquareBody{
+    background-color: antiquewhite;
+    color:black;
+    width:25%;
+    margin: 15px;
+}
