@@ -5,32 +5,101 @@ import '../App.css';
 import {MainSquareMap} from "../components/MainPageSquare/MainSquareMap";
 import GridList from "@material-ui/core/GridList";
 import MainMap from "../components/MainMap.js";
-import {db, firebase} from '../base'
+import {firebase} from '../base';
+import ImgMediaCard from "../components/ResourceCard";
+import axios from 'axios';
 
 class Main extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            userName: "Please Log In to display User Name"
+            userName: "Please Log In to display User Name",
+            userId: null,
+            userEmail: null,
+            tiles: [],
         };
 
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 // User logged in already or has just logged in.
                 this.setState({userName:user.email.substring(0, user.email.indexOf('@'))});
+                this.setState({userId: user.uid});
+                this.setState({userEmail: user.email});
             } else {
                 // User not logged in or has just logged out.
                 this.setState({userName: "Please Log in to display user name"});
+                this.setState({userId: null});
+                this.setState({userEmail: null});
             }});
     }
 
+    componentDidMount() {
+        if(this.state.userId == null) {
+            this.getResourcesAxios();
+        }
+        else {
+            this.getResourcesByUidAxios(this.state.userId);
+        }
+    }
+
+    async getResourcesAxios(){
+        const response =
+          await axios.get("http://localhost:8080/getResources")
+        let tiles = [];
+        let currentComponent = this;
+        response.data.forEach(function(doc) {
+            tiles.push({
+                id: doc.id,
+                title: doc.title,
+                content: doc.content,
+                imgURL: doc.imgURL,
+                Category: doc.Category,
+                URL: doc.URL,
+                userId: currentComponent.userId
+            });
+        });    
+        tiles = tiles.slice(12)
+        currentComponent.setState({tiles: tiles});
+    }
+
+    async getResourcesByUidAxios(userId){
+        // let currentComponent = this;
+        const response =
+          await axios.get("http://localhost:8080/getResourcesByUid/${userId}")
+        let tiles = [];
+        let currentComponent = this;
+        response.data.forEach(function(doc) {
+            tiles.push({
+                id: doc.id,
+                title: doc.title,
+                content: doc.content,
+                imgURL: doc.imgURL,
+                Category: doc.Category,
+                URL: doc.URL,
+                userId: currentComponent.userId
+            });
+        });    
+        currentComponent.setState({tiles: tiles});
+
+        // response.data.forEach(function(doc) {
+        //     mainTilesId.push({
+        //        mainTilesId: doc.resourceId,
+        //     });
+        // });   
+    }
+
+
     render() {
         function scrollWin() {
-                window.scrollTo(0,document.body.scrollHeight);
+            window.scrollTo(0,document.body.scrollHeight);
         }
 
+        let tiles = this.state.tiles;
+        console.log(tiles)
+
         return (
+            
             <div className="mainPage-background">
                 <TOSNavBar/>
                 <section id="section06" class="demo">
@@ -55,9 +124,12 @@ class Main extends Component {
                     <div className="App-mainPageLayout">
                         <GridList style={{marginLeft: 60, marginRight: 'auto'}} cellHeight={180}>
                         {/*<GridList style={{alignContent: "center"}} cellHeight={180}>*/}
-                            {MainSquareMap.map(tile => (
+                            {/* {MainSquareMap.map(tile => (
                                 <MainMap key={tile} tile={tile}/>
-                            ))}
+                            ))} */}
+                            {tiles.map((tile,i) => {
+                                        return <ImgMediaCard key={i} tile={tile}/>
+                            })}
                         </GridList>
                     </div>
                 </section>

@@ -10,6 +10,7 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 resource_ref = db.collection('resources')
 courses_ref = db.collection('courses')
+user_ref = db.collection('users')
 
 firebase = firebase.FirebaseApplication('https://backendtest-fe485.firebaseio.com/', None)
 
@@ -51,6 +52,32 @@ def readCourse():
         return jsonify(all_courses), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+
+@app.route('/setUser', methods=['POST', 'PUT'])
+def setUser():
+    try:
+        uid = request.json['uid']
+        # name = request.json['name']
+        # id = request.json['id']
+        # email = request.json['email']
+        # resourceId = request.json['resourceId']
+        user_ref.document(uid).set(request.json)
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        return f"An Error Occured in post request for user: {e}"
+
+@app.route('/getResourcesByUid/<uid>/', methods=['GET'])
+def getResourcesByUid(uid):
+    try:
+        if(uid):
+            resourceId = [doc.to_dict()['resourceId'] for doc in user_ref.where(u'uid', u'==', uid).get()]
+            resources = [doc.to_dict() for doc in resource_ref.get()]
+            selectedResources = [d for d in resources if d['id'] in resourceId[0]]
+            return jsonify(selectedResources), 200
+        else:
+            raise Exception('uid none error')
+    except Exception as e:
+        return f"An Error Occured in get request for resource: {e}"
 
 port = int(os.environ.get('PORT', 8080))
 
