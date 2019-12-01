@@ -6,9 +6,6 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import {tileData} from '../components/OneEvent/tileData';
 import ImgMediaCard from "../components/ResourceCard";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -23,7 +20,8 @@ class Resource extends Component{
             searchTiles: [],
             CategoryTiles: [],
             searchCategoryStr: "",
-            searchTextStr: ""
+            searchTextStr: "",
+            user: null
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         // this.search = this.search.bind(this);
@@ -32,13 +30,12 @@ class Resource extends Component{
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleCategoryClick = this.handleCategoryClick.bind(this);
         this.handleTextClick = this.handleTextClick.bind(this);
-        this.clear = this.clear.bind(this)
+        // this.clear = this.clear.bind(this)
     }
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://localhost:8080/getResources")
-        console.log(response.data)
+          await axios.get("http://localhost:5000/getResources")
         let tiles = [];
         let currentComponent = this;
         let searchTiles = [];
@@ -70,8 +67,9 @@ class Resource extends Component{
     }
 
     componentDidMount() {
-        this.getResourcesAxios()
+        this.getResourcesAxios();
     }
+    
     // search() {
     //     console.log(this.state.searchStr)
     //     let dataList = this.state.tiles.filter(item => {
@@ -94,13 +92,25 @@ class Resource extends Component{
 
     handleTextClick (e) {
         let tiles = this.state.tiles;
+        let category = this.state.searchCategoryStr;
         if(e.option === '') {
-            this.setState({searchTiles: tiles});
+            this.setState({searchTextStr: ''});
+            if (category !== "") {
+                return
+            }
+            else {
+                this.setState({searchTiles: tiles});
+            }
         }
         else {
             let dataList = this.state.tiles.filter(item => {
                 if (e.option.trim() !== "") { 
                     if (!item['title'] || item['title'].toUpperCase().indexOf(e.option.toUpperCase()) === -1) {
+                        return false
+                    }
+                }
+                if (category !== "") {
+                    if (!item['Category'] || item['Category'].toUpperCase().indexOf(category.toUpperCase()) === -1) {
                         return false
                     }
                 }
@@ -110,15 +120,28 @@ class Resource extends Component{
             this.setState({searchTextStr: e.option})
         }
     }
+
     handleTextFieldChange (e) {
         let tiles = this.state.tiles;
+        let category = this.state.searchCategoryStr;
         if(e.target.value === '') {
-            this.setState({searchTiles: tiles});
+            this.setState({searchTextStr: ''});
+            if (category !== "") {
+                return
+            }
+            else {
+                this.setState({searchTiles: tiles});
+            }
         }
         else {
             let dataList = this.state.tiles.filter(item => {
                 if (e.target.value.trim() !== "") { 
                     if (!item['title'] || item['title'].toUpperCase().indexOf(e.target.value.toUpperCase()) === -1) {
+                        return false
+                    }
+                }
+                if (category !== "") {
+                    if (!item['Category'] || item['Category'].toUpperCase().indexOf(category.toUpperCase()) === -1) {
                         return false
                     }
                 }
@@ -130,16 +153,26 @@ class Resource extends Component{
     }
 
     handleCategoryClick= (e) => {
-        console.log(e)
         let tiles = this.state.tiles;
-        
+        let text = this.state.searchTextStr;
         if(e.option === '') {
-            this.setState({searchTiles: tiles});
+            this.setState({searchCategoryStr: ''})
+            if (text !== "") {
+                return
+            }
+            else {
+                this.setState({searchTiles: tiles});
+            }
         }
         else {
             let dataList = this.state.tiles.filter(item => {
                 if (e.option.trim() !== "") { 
                     if (!item['Category'] || item['Category'].toUpperCase().indexOf(e.option.toUpperCase()) === -1) {
+                        return false
+                    }
+                }
+                if (text !== "") {
+                    if (!item['title'] || item['title'].toUpperCase().indexOf(text.toUpperCase()) === -1) {
                         return false
                     }
                 }
@@ -152,14 +185,26 @@ class Resource extends Component{
 
     handleCategoryChange = (e) => {
         let tiles = this.state.tiles;
+        let text = this.state.searchTextStr;
         
         if(e.target.value === '') {
-            this.setState({searchTiles: tiles});
+            this.setState({searchCategoryStr: ''})
+            if (text !== "") {
+                return
+            }
+            else {
+                this.setState({searchTiles: tiles});
+            }
         }
         else {
             let dataList = this.state.tiles.filter(item => {
                 if (e.target.value.trim() !== "") { 
                     if (!item['Category'] || item['Category'].toUpperCase().indexOf(e.target.value.toUpperCase()) === -1) {
+                        return false
+                    }
+                }
+                if (text !== "") {
+                    if (!item['title'] || item['title'].toUpperCase().indexOf(text.toUpperCase()) === -1) {
                         return false
                     }
                 }
@@ -170,14 +215,14 @@ class Resource extends Component{
         }
     }
 
-    clear() {
-        let searchStr = this.state.searchCategoryStr;
-        console.log('clear')
-        if(this.state.searchTextStr === '' && this.state.searchCategoryStr === '') {
-            let tiles = this.state.tiles;
-            this.setState({searchTiles: tiles});
-        }
-    }
+    // clear() {
+    //     let searchStr = this.state.searchCategoryStr;
+    //     console.log('clear')
+    //     if(this.state.searchTextStr === '' && this.state.searchCategoryStr === '') {
+    //         let tiles = this.state.tiles;
+    //         this.setState({searchTiles: tiles});
+    //     }
+    // }
 
     render() {
         let displayTiles = this.state.searchTiles;
@@ -217,6 +262,12 @@ class Resource extends Component{
                                 freeSolo
                                 autoHightlight
                                 options={CategoryTiles.map(Category => Category)}
+                                disableClearable
+                                renderOption = {(option, {selected}) => (
+                                    <React.Fragment>
+                                        <ListItemText primary={option} onClick={event => this.handleCategoryClick({option})}/>
+                                    </React.Fragment>
+                                )}
                                 renderInput={params => (
                                 <TextField {...params} placeholder="search by category.." margin="normal" variant="outlined" fullWidth onChange={this.handleCategoryChange} />
                                 )}/>
@@ -226,16 +277,22 @@ class Resource extends Component{
                             <Autocomplete
                                 freeSolo
                                 autoHightlight
+                                disableClearable
                                 options={displayTiles.map(tile => tile.title)}
+                                renderOption = {(option, {selected}) => (
+                                    <React.Fragment>
+                                        <ListItemText primary={option} onClick={event => this.handleTextClick({option})}/>
+                                    </React.Fragment>
+                                )}
                                 renderInput={params => (
-                                <TextField {...params} placeholder="search.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
+                                <TextField {...params} placeholder="search by resource.." margin="normal" variant="outlined" fullWidth onChange={this.handleTextFieldChange} />
                                 )}/>
                         </div>
                         <div className="resource_content">
                             <GridList style={{width:"1540px"}} cellHeight={180} className={classes.gridList}>
-                                    <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
+                                    {/* <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
                                         <ListSubheader component="div">Resources</ListSubheader>
-                                    </GridListTile>
+                                    </GridListTile> */}
                                     {displayTiles.map((tile,i) => {
                                         return <ImgMediaCard key={i} tile={tile}/>
                                     })}
