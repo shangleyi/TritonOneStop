@@ -247,7 +247,10 @@ class Resource extends Component{
             console.log(res.data)
             let resourceIds = res.data;  
             resourceIds = resourceIds[0] 
-            resourceIds.push(props[0])
+            {resourceIds.length <= 5?
+                resourceIds.push(props[0]):
+                alert("Main page is full!")
+            }
             //alert("add current resource to main "+ props[1]); //TODO pass tile title from child
             resourceIds = Array.from(new Set(resourceIds))
             axios.post("http://localhost:8080/setUser", {
