@@ -18,70 +18,57 @@
 
 .background{
     position: absolute;
+    text-align: center;
     overflow: visible;
-    top: -350px;
+    top: -690px;
     bottom: -800px;
-    z-index: -1;
+    /*z-index: -1;*/
 }
-
-/*#homepage-hero h1 {*/
-/*    color: #fff;*/
-/*    position: absolute;*/
-/*    top: 180px;*/
-/*    right: 50px;*/
-/*    width: 35%;*/
-/*    text-transform: uppercase;*/
-/*    font-size: 40px;*/
-/*    line-height: 47px;*/
-/*    font-weight: 100;*/
-/*    min-width: 411px; }*/
-
-/*#homepage-hero h1 span {*/
-/*    font-family: 'BrixSansBold';*/
-/*    font-size: 27px;*/
-/*    margin-bottom: 20px; }*/
-
 
 .welcomeStyle{
     position: relative;
     text-align: center;
-    margin: 90px 800px auto auto;
+    margin: 70px 1200px auto auto;
     text-transform: uppercase;
     color: white;
     /*text-shadow: 1px 1px gold;*/
-    font-size: 47px;
+    font-size: 50px;
     font-family: 'Alatsi';
 }
 
 .mainPageH2{
     text-align: center;
-    margin: 0px auto auto 900px;
+    margin: 0px auto auto 1250px;
     text-transform: uppercase;
     color: white;
     /*text-shadow: 1px 1px gold;*/
-    font-size: 47px;
+    font-size: 50px;
     font-family: 'Alatsi';
 }
 
 .mainPageH3 {
     text-align: center;
-    margin: 160px auto auto auto;
-    color: #12284c;
+    margin: 535px auto auto auto;
+    color: gold;
+    /*color: white;*/
     text-transform: uppercase;
-    text-shadow: 1px 1px gold;
+    /*text-shadow: 1px 1px white;*/
     font-size: 25px;
     font-weight: bold;
+    background-color: #00609c;
+    display: table;
     /*font-family: 'Alatsi';*/
 }
 
 .mainPageH4 {
     text-align: center;
-    color: gold;
+    /*color: #f3e500;*/
+    color: white;
     /*text-shadow: 1px 1px white;*/
     font-weight: bold;
     font-size: 20px;
     font-family: 'Alatsi';
-    background-color: #4785b8;
+    background-color: #00609c;
     display: table;
     margin:auto auto 40px auto;
 }
@@ -126,7 +113,7 @@
 }
 
 #section01{
-    margin-bottom: 100px;
+    margin-bottom: 120px;
 }
 
 #section06 a {

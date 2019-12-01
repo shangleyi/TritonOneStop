@@ -14,7 +14,7 @@ class Main extends Component {
         super(props);
 
         this.state = {
-            userName: "Please Log In to display User Name"
+            userName: "Log In to Display User Name"
         };
 
         firebase.auth().onAuthStateChanged((user) => {
@@ -23,7 +23,7 @@ class Main extends Component {
                 this.setState({userName:user.email.substring(0, user.email.indexOf('@'))});
             } else {
                 // User not logged in or has just logged out.
-                this.setState({userName: "Please Log in to display user name"});
+                this.setState({userName: "Log In to Display User Name"});
             }});
     }
 
@@ -49,9 +49,9 @@ class Main extends Component {
                         </g>
 
                         <g id="Clouds">
-                            <path className="hero-banner-3"
-                                          d="M138.42,262.06H276.21s-10.46-6.11-15.69-10.9-5.24-17-15.7-19.19-14,9.59-24.86,3.49-16.57-14.39-29.22-7-13.51,16.57-21.8,19.19-11.34-3.93-16.57.87S141,259.44,138.42,262.06Z"
-                                          transform="translate(3.28 3.24)"></path>
+                            {/*<path className="hero-banner-3"*/}
+                            {/*              d="M138.42,262.06H276.21s-10.46-6.11-15.69-10.9-5.24-17-15.7-19.19-14,9.59-24.86,3.49-16.57-14.39-29.22-7-13.51,16.57-21.8,19.19-11.34-3.93-16.57.87S141,259.44,138.42,262.06Z"*/}
+                            {/*              transform="translate(3.28 3.24)"></path>*/}
                                     <path className="hero-banner-3"
                                           d="M398.75,286H511.69s-12.65-3.92-15.26-6.54-2.62-14.39-11.78-16.57-8.72,9.59-17.87,5.23-9.16-15.26-20.5-11.33-6.54,17.44-14.83,18.31-9.59-4.8-15.69,0S404,285.61,398.75,286Z"
                                           transform="translate(3.28 3.24)"></path>
@@ -3674,7 +3674,7 @@ class Main extends Component {
                                 {this.state.userName}
                             </h3>
                             <h4 className="mainPageH4">
-                                This is your OneStop Guide to University of California of San Diego
+                                Your OneStop Guide to UCSD
                             </h4>
 
                             <a href="#section01">
