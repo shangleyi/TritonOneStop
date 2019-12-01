@@ -173,7 +173,7 @@ class Main extends Component {
                 </section>
 
                 <section id="section02">
-                    <div className="App-mainPageLayout">
+                    
                         <div className={classes.root}>
                             <div className="main_content">
                             <GridList style={{ width:"1175px" }} cellHeight={180} className={classes.gridList}>
@@ -186,7 +186,7 @@ class Main extends Component {
                             </GridList>
                             </div>
                         </div>
-                    </div>
+                
                 </section>
             </div>
         )
