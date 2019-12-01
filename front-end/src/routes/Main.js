@@ -6,7 +6,10 @@ import {MainSquareMap} from "../components/MainPageSquare/MainSquareMap";
 import GridList from "@material-ui/core/GridList";
 import MainMap from "../components/MainMap.js";
 import {firebase} from '../base';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import ImgMediaCard from "../components/MainCard";
+import ListSubheader from '@material-ui/core/ListSubheader';
+import GridListTile from '@material-ui/core/GridListTile';
 import axios from 'axios';
 
 class Main extends Component {
@@ -102,6 +105,7 @@ class Main extends Component {
             alert("delete current resource from main: "+ props[1]); //TODO pass tile title from child
             //resourceIds = Array.from(new Set(resourceIds))
             console.log("from main page onClick!!!");
+            this.setState({tiles:tiles});
             let resourceIds = [];
             tiles.map((tile)=>{
                 resourceIds.push(tile.id)
@@ -125,6 +129,26 @@ class Main extends Component {
         }
 
         let tiles = this.state.tiles;
+        const classes = makeStyles((theme: Theme) =>
+            createStyles({
+                root: {
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-around',
+                    overflow: 'hidden',
+                    backgroundColor: theme.palette.background.paper,
+                    alignItems: 'center',
+                },
+                gridList: {
+                    width: 500,
+                    height: 450,
+                    transform: 'translateZ(0)',
+                },
+                icon: {
+                    lor: 'rgba(255, 255, 255, 0.54)',
+                },
+            }),
+        );
 
         return (
             
@@ -150,15 +174,18 @@ class Main extends Component {
 
                 <section id="section02">
                     <div className="App-mainPageLayout">
-                        <GridList style={{marginLeft: 60, marginRight: 'auto'}} cellHeight={180}>
-                        {/*<GridList style={{alignContent: "center"}} cellHeight={180}>*/}
-                            {/* {MainSquareMap.map(tile => (
-                                <MainMap key={tile} tile={tile}/>
-                            ))} */}
-                            {tiles.map((tile,i) => {
+                        <div className={classes.root}>
+                            <div className="main_content">
+                            <GridList style={{ width:"1175px" }} cellHeight={180} className={classes.gridList}>
+                                <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
+                                    <ListSubheader component="div">Events</ListSubheader>
+                                </GridListTile>
+                                {tiles.map((tile,i) => {
                                         return <ImgMediaCard key={i} tile={tile} onClick={this.onClick.bind(this)}/>
-                            })}
-                        </GridList>
+                                })}
+                            </GridList>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>

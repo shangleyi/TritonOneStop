@@ -243,14 +243,14 @@ class Resource extends Component{
     // }
     onClick(props)
     {
-        axios.get(`http://localhost:5000/getResourceIdsByUid/${this.state.userId}`).then((res) => {
+        axios.get(`http://localhost:8080/getResourceIdsByUid/${this.state.userId}`).then((res) => {
             console.log(res.data)
             let resourceIds = res.data;  
             resourceIds = resourceIds[0] 
             resourceIds.push(props[0])
             //alert("add current resource to main "+ props[1]); //TODO pass tile title from child
             resourceIds = Array.from(new Set(resourceIds))
-            axios.post("http://localhost:5000/setUser", {
+            axios.post("http://localhost:8080/setUser", {
                 email: this.state.userEmail,
                 name: this.state.userName,
                 resourceId: resourceIds,
@@ -326,10 +326,10 @@ class Resource extends Component{
                                 )}/>
                         </div>
                         <div className="resource_content">
-                            <GridList style={{width:"1540px"}} cellHeight={180} className={classes.gridList}>
-                                    {/* <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
+                            <GridList style={{width:"1175px"}} cellHeight={180} className={classes.gridList}>
+                                    <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
                                         <ListSubheader component="div">Resources</ListSubheader>
-                                    </GridListTile> */}
+                                    </GridListTile>
                                     {displayTiles.map((tile,i) => {
                                         return <ImgMediaCard key={i} tile={tile} onClick={this.onClick.bind(this)}/>
                                     })}
