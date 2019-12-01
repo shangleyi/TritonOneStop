@@ -51,7 +51,7 @@ class Resource extends Component{
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://localhost:5000/getResources")
+          await axios.get("http://localhost:8080/getResources")
         let tiles = [];
         let currentComponent = this;
         let searchTiles = [];

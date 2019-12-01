@@ -6,7 +6,7 @@ import {MainSquareMap} from "../components/MainPageSquare/MainSquareMap";
 import GridList from "@material-ui/core/GridList";
 import MainMap from "../components/MainMap.js";
 import {firebase} from '../base';
-import ImgMediaCard from "../components/ResourceCard";
+import ImgMediaCard from "../components/MainCard";
 import axios from 'axios';
 
 class Main extends Component {
@@ -48,7 +48,7 @@ class Main extends Component {
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://localhost:5000/getResources")
+          await axios.get("http://localhost:8080/getResources")
         let tiles = [];
         let currentComponent = this;
         response.data.forEach(function(doc) {
@@ -69,7 +69,8 @@ class Main extends Component {
     async getResourcesByUidAxios(userId){
         // let currentComponent = this;
         const response =
-          await axios.get(`http://localhost:5000/getResourcesByUid/${userId}`).then(res => {
+        //(force test) await axios.get(`http://localhost:8080/getResourcesByUid/CwDv5zmB2CZlM3mZrk3EXlWq5eR2`).then(res => {
+          await axios.get(`http://localhost:8080/getResourcesByUid/${userId}`).then(res => {
               console.log(res)
             let tiles = [];
             let currentComponent = this;
@@ -85,15 +86,37 @@ class Main extends Component {
                 });
             });    
             currentComponent.setState({tiles: tiles});
-          })
-       
-
-        // response.data.forEach(function(doc) {
-        //     mainTilesId.push({
-        //        mainTilesId: doc.resourceId,
-        //     });
-        // });   
+          })  
     }
+
+
+    //TODO: modify it to delete
+    onClick(props)
+    {
+        // axios.get(`http://localhost:5000/getResourceIdsByUid/${this.state.userId}`).then((res) => {
+        //     console.log(res.data)
+        //     let resourceIds = res.data;  
+        //     resourceIds = resourceIds[0] 
+        //     resourceIds.push(props[0])
+            const tiles = this.state.tiles.filter(tile => tile.id !== props[0]);
+            alert("delete current resource from main: "+ props[1]); //TODO pass tile title from child
+            //resourceIds = Array.from(new Set(resourceIds))
+            console.log("from main page onClick!!!");
+            let resourceIds = [];
+            tiles.map((tile)=>{
+                resourceIds.push(tile.id)
+            })
+            console.log(resourceIds);
+            axios.post("http://localhost:8080/setUser", {
+                  email: this.state.userEmail,
+                  name: this.state.userName,
+                  resourceId: resourceIds,
+                  uid: this.state.userId}).then(res => {
+                      console.log(res)
+                  })
+        //});
+    }
+
 
 
     render() {
@@ -133,7 +156,7 @@ class Main extends Component {
                                 <MainMap key={tile} tile={tile}/>
                             ))} */}
                             {tiles.map((tile,i) => {
-                                        return <ImgMediaCard key={i} tile={tile}/>
+                                        return <ImgMediaCard key={i} tile={tile} onClick={this.onClick.bind(this)}/>
                             })}
                         </GridList>
                     </div>
