@@ -4,7 +4,7 @@ import TOSLogo from '../../resources/NavBarLogo.png';
 //import {Route, withRouter, Redirect} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import {db, firebase} from "../../base";
-
+import axios from 'axios';
 
 class TOSNavBar extends React.Component {
     /*
@@ -89,7 +89,14 @@ class TOSNavBar extends React.Component {
             "\nLocalStorage: ", localStorage.getItem("UserName"));
 
         try{
-            firebase.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleSignUpError);
+            firebase.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleSignUpError).then(res => {
+                axios.post("http://localhost:5000/setUser", {
+                    email: res.user.email,
+                    name: res.user.email.substring(0, res.user.email.indexOf('@')),
+                    resourceId: [18, 11, 10, 8, 17, 15],
+                    uid: res.user.uid,
+                });
+            });
             console.log("NavBar: SignUp");
             alert("Signing Up with email" + this.state.userName + ", if no error pops up, sign up is success");
         } catch (error) {

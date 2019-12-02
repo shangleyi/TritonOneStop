@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 export default function ImgMediaCard(props) {
   const classes = useStyles();
   const { tile } = props;
-
   //pass back onClick information to Resource.js
   function getComponent(){
     let passResource = [props.tile.id, props.tile.title]
@@ -60,7 +59,7 @@ export default function ImgMediaCard(props) {
           <AddIcon />
         </Button> : null
         } */}
-        <Button size="small" color="primary" onClick={getComponent} disabled={tile.user === null}> 
+        <Button size="small" color="primary" onClick={getComponent} disabled={tile.userId === null}> 
           <DeleteIcon />
         </Button> 
         <Button size="small" color="primary" href={`${tile.URL}`}>
