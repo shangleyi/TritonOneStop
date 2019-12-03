@@ -10,13 +10,21 @@ import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
 import { flexbox } from '@material-ui/system';
+import transitions from "@material-ui/core/styles/transitions";
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 345,
-    paddingLeft: 20,
-    paddingRight: 20,
+    width: 345,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 20,
+    borderRadius: 25,
     display: flexbox,
+    backgroundColor: transitions,
   },
 });
 
