@@ -62,6 +62,14 @@ class TOSNavBar extends React.Component {
         // Actual login
         try{
             firebase.auth().signInWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleLogInError);
+            // firebase.auth().signInWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleLogInError).then(res => {
+            //     axios.post("http://localhost:8080/setUser", {
+            //         email: res.user.email,
+            //         name: res.user.email.substring(0, res.user.email.indexOf('@')),
+            //         resourceId: [18, 11, 10, 8, 17, 15],
+            //         uid: res.user.uid,
+            //     });
+            // });
             localStorage.setItem("UserName", this.state.userName);
             console.log("NavBar: Log-In: TRUE");
             this.setState({isLoggedIn: true});
@@ -89,13 +97,20 @@ class TOSNavBar extends React.Component {
             "\nLocalStorage: ", localStorage.getItem("UserName"));
 
         try{
+            //firebase.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleSignUpError);
             firebase.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleSignUpError).then(res => {
-                axios.post("http://localhost:5000/setUser", {
-                    email: res.user.email,
-                    name: res.user.email.substring(0, res.user.email.indexOf('@')),
-                    resourceId: [18, 11, 10, 8, 17, 15],
-                    uid: res.user.uid,
-                });
+
+                    //console.log("user email:   ");
+                    //console.log(firebase.auth().currentUser.email);
+                    //console.log("user id:     ");
+                    //console.log(firebase.auth().currentUser.uid);
+
+                    axios.post("http://localhost:8080/setUser", {
+                        email: firebase.auth().currentUser.email,
+                        name: firebase.auth().currentUser.email.substring(0, firebase.auth().currentUser.email.indexOf('@')),
+                        resourceId: [18, 11, 10, 8, 17, 15],
+                        uid: firebase.auth().currentUser.uid,
+                    });
             });
             console.log("NavBar: SignUp");
             alert("Signing Up with email" + this.state.userName + ", if no error pops up, sign up is success");

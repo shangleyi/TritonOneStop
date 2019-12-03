@@ -39,8 +39,9 @@ class Main extends Component {
 
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
-            console.log(user)
-            if (user) {
+            //console.log("show user uid:    ");
+            //console.log(user.uid);
+            if (user&&localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
                 // User logged in already or has just logged in.
                 this.setState({userName: user.email.substring(0, user.email.indexOf('@'))});
                 this.setState({userId: user.uid});
@@ -64,7 +65,7 @@ class Main extends Component {
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://localhost:5000/getResources")
+          await axios.get("http://localhost:8080/getResources")
         let tiles = [];
         let currentComponent = this;
         response.data.forEach(function(doc) {
@@ -83,13 +84,13 @@ class Main extends Component {
     }
 
     async getResourcesByUidAxios(userId){
-        // let currentComponent = this;
+        let currentComponent = this;
         const response =
             //(force test) await axios.get(`http://localhost:8080/getResourcesByUid/CwDv5zmB2CZlM3mZrk3EXlWq5eR2`).then(res => {
-            await axios.get(`http://localhost:5000/getResourcesByUid/${userId}`).then(res => {
+            await axios.get(`http://localhost:8080/getResourcesByUid/${userId}`).then(res => {
                 console.log(res)
                 let tiles = [];
-                let currentComponent = this;
+                
                 res.data.forEach(function(doc) {
                     tiles.push({
                         id: doc.id,
@@ -100,7 +101,7 @@ class Main extends Component {
                         URL: doc.URL,
                         userId: currentComponent.state.userId
                     });
-                });
+               });
                 currentComponent.setState({tiles: tiles});
             })
     }
@@ -123,7 +124,7 @@ class Main extends Component {
                 resourceIds.push(tile.id)
             })
             console.log(resourceIds);
-            axios.post("http://localhost:5000/setUser", {
+            axios.post("http://localhost:8080/setUser", {
                   email: this.state.userEmail,
                   name: this.state.userName,
                   resourceId: resourceIds,
