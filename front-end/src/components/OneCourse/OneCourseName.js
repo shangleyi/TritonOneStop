@@ -4,17 +4,14 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import db from '../../base';
 import axios from 'axios';
+
 
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
         display: 'flex',
-        minWidth: 150
-    },
-    itemControl: {
-        minWidth: 150
+        minWidth: 200
     }
 }));
 
@@ -117,8 +114,8 @@ class OneCourseName extends Component{
             <div>
                 <FormControl classes={useStyles.formControl}>
                     <InputLabel htmlFor="grouped-native-select">Department</InputLabel>
-                    <Select className={useStyles.itemControl} native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.matchCourse}>
-                        <option value=""/>
+                    <Select native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.matchCourse}>
+                        <option value="    "/>
                         {this.state.deptArray.map((item) => (
                                 <option value={item.id}> {item.dep} </option>
                             )
@@ -127,8 +124,8 @@ class OneCourseName extends Component{
                 </FormControl>
                 <FormControl classes={useStyles.formControl}>
                     <InputLabel htmlFor="grouped-native-select">Course</InputLabel>
-                    <Select className={useStyles.itemControl} width={100} native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.popCourse}>
-                        <option value=""/>
+                    <Select native defaultValue="" input={<Input id="grouped-native-select"/>} onChange={this.popCourse}>
+                        <option value="    "/>
                         {this.state.classArray.map((item) => (
                                 <option value={item.id}> {item.number} </option>
                             )

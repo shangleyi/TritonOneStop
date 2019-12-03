@@ -2,20 +2,30 @@ import React, {Component} from 'react';
 import {Redirect} from "react-router-dom";
 import TOSNavBar from "../components/NavBar/TOSNavBar";
 import '../mainpage.css';
+import '../App.css';
 import {MainSquareMap} from "../components/MainPageSquare/MainSquareMap";
 import GridList from "@material-ui/core/GridList";
 import MainMap from "../components/MainMap.js";
-import {db, firebase} from '../base'
+import {firebase} from '../base'
 import ScriptTag from 'react-script-tag';
-
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import ImgMediaCard from "../components/MainCard";
+import ListSubheader from '@material-ui/core/ListSubheader';
+import GridListTile from '@material-ui/core/GridListTile';
+import axios from 'axios';
 
 class Main extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            userName: "Log In to Display User Name"
+            userName: "Log In to Display User Name",
+            userId: null,
+            userEmail: null,
+            tiles: [],
         };
+
+
 
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -27,7 +37,126 @@ class Main extends Component {
             }});
     }
 
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged((user) => {
+            //console.log("show user uid:    ");
+            //console.log(user.uid);
+            if (user&&localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
+                // User logged in already or has just logged in.
+                this.setState({userName: user.email.substring(0, user.email.indexOf('@'))});
+                this.setState({userId: user.uid});
+                this.setState({userEmail: user.email});
+                this.getResourcesByUidAxios(this.state.userId);
+            } else {
+                // User not logged in or has just logged out.
+                this.setState({userName: "Please Log in to display user name"});
+                this.setState({userId: null});
+                this.setState({userEmail: null});
+                this.getResourcesAxios();
+            }
+            // if(this.state.userId == null) {
+            //     this.getResourcesAxios();
+            // }
+            // else {
+            //     this.getResourcesByUidAxios(this.state.userId);
+            // }
+        });
+    }
+
+    async getResourcesAxios(){
+        const response =
+          await axios.get("http://localhost:8080/getResources")
+        let tiles = [];
+        let currentComponent = this;
+        response.data.forEach(function(doc) {
+            tiles.push({
+                id: doc.id,
+                title: doc.title,
+                content: doc.content,
+                imgURL: doc.imgURL,
+                Category: doc.Category,
+                URL: doc.URL,
+                userId: currentComponent.state.userId
+            });
+        });
+        tiles = tiles.slice(12)
+        currentComponent.setState({tiles: tiles});
+    }
+
+    async getResourcesByUidAxios(userId){
+        let currentComponent = this;
+        const response =
+            //(force test) await axios.get(`http://localhost:8080/getResourcesByUid/CwDv5zmB2CZlM3mZrk3EXlWq5eR2`).then(res => {
+            await axios.get(`http://localhost:8080/getResourcesByUid/${userId}`).then(res => {
+                console.log(res)
+                let tiles = [];
+                
+                res.data.forEach(function(doc) {
+                    tiles.push({
+                        id: doc.id,
+                        title: doc.title,
+                        content: doc.content,
+                        imgURL: doc.imgURL,
+                        Category: doc.Category,
+                        URL: doc.URL,
+                        userId: currentComponent.state.userId
+                    });
+               });
+                currentComponent.setState({tiles: tiles});
+            })
+    }
+
+    //TODO: modify it to delete
+    onClick(props)
+    {
+        // axios.get(`http://localhost:5000/getResourceIdsByUid/${this.state.userId}`).then((res) => {
+        //     console.log(res.data)
+        //     let resourceIds = res.data;
+        //     resourceIds = resourceIds[0]
+        //     resourceIds.push(props[0])
+            const tiles = this.state.tiles.filter(tile => tile.id !== props[0]);
+            alert("delete current resource from main: "+ props[1]); //TODO pass tile title from child
+            //resourceIds = Array.from(new Set(resourceIds))
+            console.log("from main page onClick!!!");
+            this.setState({tiles:tiles});
+            let resourceIds = [];
+            tiles.map((tile)=>{
+                resourceIds.push(tile.id)
+            })
+            console.log(resourceIds);
+            axios.post("http://localhost:8080/setUser", {
+                  email: this.state.userEmail,
+                  name: this.state.userName,
+                  resourceId: resourceIds,
+                  uid: this.state.userId}).then(res => {
+                      console.log(res)
+                  })
+        //});
+    }
+
     render() {
+        let tiles = this.state.tiles;
+        const classes = makeStyles((theme: Theme) =>
+            createStyles({
+                root: {
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-around',
+                    overflow: 'hidden',
+                    backgroundColor: theme.palette.background.paper,
+                    alignItems: 'center',
+                },
+                gridList: {
+                    width: 500,
+                    height: 450,
+                    transform: 'translateZ(0)',
+                },
+                icon: {
+                    lor: 'rgba(255, 255, 255, 0.54)',
+                },
+            }),
+        );
+
         return (
             <div class="homepage">
                 <div className="background">
@@ -3685,16 +3814,31 @@ class Main extends Component {
                         <section id="section01">
                         </section>
 
-                        <section id="section02">
-                            <div className="App-mainPageLayout">
-                                <GridList style={{marginLeft: 60, marginRight: 'auto'}} cellHeight={180}>
-                                    {/*<GridList style={{alignContent: "center"}} cellHeight={180}>*/}
-                                    {MainSquareMap.map(tile => (
-                                        <MainMap key={tile} tile={tile}/>
-                                    ))}
-                                </GridList>
-                            </div>
-                        </section>
+                        {/*<section id="section02">*/}
+                        {/*    <div className="App-mainPageLayout">*/}
+                        {/*        <GridList style={{marginLeft: 60, marginRight: 'auto'}} cellHeight={180}>*/}
+                        {/*            /!*<GridList style={{alignContent: "center"}} cellHeight={180}>*!/*/}
+                        {/*            {MainSquareMap.map(tile => (*/}
+                        {/*                <MainMap key={tile} tile={tile}/>*/}
+                        {/*            ))}*/}
+                        {/*        </GridList>*/}
+                        {/*    </div>*/}
+                        {/*</section>*/}
+
+                <section id="section02">
+                    <div className={classes.root}>
+                        <div className="main_content">
+                            <GridList style={{ width:"1175px" }} cellHeight={180} className={classes.gridList}>
+                                <GridListTile key="Subheader" cols={3} style={{ height: 'auto', }}>
+                                    <ListSubheader component="div">Events</ListSubheader>
+                                </GridListTile>
+                                {tiles.map((tile,i) => {
+                                    return <ImgMediaCard key={i} tile={tile} onClick={this.onClick.bind(this)}/>
+                                })}
+                            </GridList>
+                        </div>
+                    </div>
+                </section>
 
                         <section id="section03">
                             <p className="copyright1">
