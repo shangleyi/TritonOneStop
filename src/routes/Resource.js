@@ -12,6 +12,7 @@ import {tileData} from '../components/OneEvent/tileData';
 import ResourceCard from "../components/ResourceCard";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import {db, auth, firebase} from "../../base";
 
 
 class Resource extends Component{
