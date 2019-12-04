@@ -28,21 +28,49 @@ class Main extends Component {
 
 
         firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // User logged in already or has just logged in.
-                this.setState({userName:user.email.substring(0, user.email.indexOf('@'))});
-            } else {
-                // User not logged in or has just logged out.
-                this.setState({userName: "Log In to Display User Name"});
-            }});
+            // if (user) {
+            //     // User logged in already or has just logged in.
+            //     this.setState({userName:user.email.substring(0, user.email.indexOf('@'))});
+            // } else {
+            //     // User not logged in or has just logged out.
+            //     this.setState({userName: "Log In to Display User Name"});
+            // }});
+            console.log(user)
+            if (user && localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
+                  // User logged in already or has just logged in.
+                  console.log("get resource after login")
+                  this.setState({userName: user.email.substring(0, user.email.indexOf('@'))});
+                  this.setState({userId: user.uid});
+                  this.setState({userEmail: user.email});
+                  this.getResourcesByUidAxios(this.state.userId);
+              } else {
+                  // User not logged in or has just logged out.
+                  this.setState({userName: "Please Log in to display user name"});
+                  this.setState({userId: null});
+                  this.setState({userEmail: null});
+                  this.getResourcesAxios();
+              }
+        });
+        browser.storage.onChanged.addListener(this.componentDidMount);
+        window.addEventListener('storage', function(){
+              console.log(localStorage)
+            if (localStorage.getItem("isLogIn") == true) {
+                  this.getResourcesByUidAxios(this.state.userId);
+            }
+      });
     }
 
     componentDidMount() {
+          
         firebase.auth().onAuthStateChanged((user) => {
             //console.log("show user uid:    ");
             //console.log(user.uid);
-            if (user&&localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
+            //console.log(this.state.userName);
+            console.log("localStorage result: ");
+            console.log(user && localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null");
+             if (user && localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
                 // User logged in already or has just logged in.
+                console.log("Hi, i am here. ");
                 this.setState({userName: user.email.substring(0, user.email.indexOf('@'))});
                 this.setState({userId: user.uid});
                 this.setState({userEmail: user.email});
@@ -54,12 +82,6 @@ class Main extends Component {
                 this.setState({userEmail: null});
                 this.getResourcesAxios();
             }
-            // if(this.state.userId == null) {
-            //     this.getResourcesAxios();
-            // }
-            // else {
-            //     this.getResourcesByUidAxios(this.state.userId);
-            // }
         });
     }
 
@@ -159,7 +181,7 @@ class Main extends Component {
 
         return (
             <div class="homepage">
-                <div className="background">
+                <div className="main_background">
                     <ScriptTag isHydrating={false} type='text/javascript' src='https://code.jquery.com/jquery-2.2.4.min.js?ver=2.2.4'/>
                     <ScriptTag isHydrating={false} type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js?ver=2.0.2'/>
                     <ScriptTag isHydrating={false} type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/plugins/AttrPlugin.min.js?ver=2.0.2'/>

@@ -37,16 +37,19 @@ class Resource extends Component{
         
 
         firebase.auth().onAuthStateChanged((user) => {
+            console.log(this.state.userId);
             if (user) {
                 // User logged in already or has just logged in.
                 this.setState({userId:user.uid});
                 this.setState({userName:user.email.substring(0, user.email.indexOf('@'))});
                 this.setState({userEmail: user.email});
+                this.getResourcesAxios();
             } else {
                 // User not logged in or has just logged out.
                 this.setState({userId: null});
                 this.setState({userName: "Please Log in to display user name"});
                 this.setState({userEmail: null});
+                this.getResourcesAxios();
         }});
     }
 
