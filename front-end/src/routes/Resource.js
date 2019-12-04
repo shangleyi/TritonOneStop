@@ -52,12 +52,8 @@ class Resource extends Component{
 
     async getResourcesAxios(){
         const response =
-<<<<<<< HEAD
           await axios.get("https://test2-plopyzswiq-uc.a.run.app/getResources")
         console.log(response.data)
-=======
-          await axios.get("http://localhost:8080/getResources")
->>>>>>> master
         let tiles = [];
         let currentComponent = this;
         let searchTiles = [];
@@ -249,7 +245,7 @@ class Resource extends Component{
     // }
     onClick(props)
     {
-        axios.get(`http://localhost:8080/getResourceIdsByUid/${this.state.userId}`).then((res) => {
+        axios.get(`https://test2-plopyzswiq-uc.a.run.app/${this.state.userId}`).then((res) => {
             console.log(res.data)
             let resourceIds = res.data;  
             resourceIds = resourceIds[0] 
@@ -259,7 +255,7 @@ class Resource extends Component{
             }
             alert("add current resource to main: "+ props[1]); //TODO pass tile title from child
             resourceIds = Array.from(new Set(resourceIds))
-            axios.post("http://localhost:8080/setUser", {
+            axios.post("https://test2-plopyzswiq-uc.a.run.app/setUser", {
                 email: this.state.userEmail,
                 name: this.state.userName,
                 resourceId: resourceIds,

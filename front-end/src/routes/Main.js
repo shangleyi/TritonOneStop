@@ -65,7 +65,7 @@ class Main extends Component {
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://localhost:8080/getResources")
+          await axios.get("https://test2-plopyzswiq-uc.a.run.app/getResources")
         let tiles = [];
         let currentComponent = this;
         response.data.forEach(function(doc) {
@@ -87,7 +87,7 @@ class Main extends Component {
         let currentComponent = this;
         const response =
             //(force test) await axios.get(`http://localhost:8080/getResourcesByUid/CwDv5zmB2CZlM3mZrk3EXlWq5eR2`).then(res => {
-            await axios.get(`http://localhost:8080/getResourcesByUid/${userId}`).then(res => {
+            await axios.get(`https://test2-plopyzswiq-uc.a.run.app/getResourcesByUid/${userId}`).then(res => {
                 console.log(res)
                 let tiles = [];
                 
@@ -124,7 +124,7 @@ class Main extends Component {
                 resourceIds.push(tile.id)
             })
             console.log(resourceIds);
-            axios.post("http://localhost:8080/setUser", {
+            axios.post("https://test2-plopyzswiq-uc.a.run.app/setUser", {
                   email: this.state.userEmail,
                   name: this.state.userName,
                   resourceId: resourceIds,
@@ -159,7 +159,7 @@ class Main extends Component {
 
         return (
             <div class="homepage">
-                <div className="background">
+                <div className="main_background">
                     <ScriptTag isHydrating={false} type='text/javascript' src='https://code.jquery.com/jquery-2.2.4.min.js?ver=2.2.4'/>
                     <ScriptTag isHydrating={false} type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js?ver=2.0.2'/>
                     <ScriptTag isHydrating={false} type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/plugins/AttrPlugin.min.js?ver=2.0.2'/>
