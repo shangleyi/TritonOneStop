@@ -33,7 +33,6 @@ class Events extends Component{
         let tiles = [];
         let currentComponent = this;
         response.data.forEach(function (doc) {
-            console.log(doc)
             tiles.push({
                 title: doc.Title,
                 content: doc.content,
@@ -41,9 +40,13 @@ class Events extends Component{
                 location: doc.Location,
                 date: doc.Month + " " + doc.Date,
                 time: doc.Time,
-                linkurl: doc.LinkUrl
+                linkurl: doc.LinkUrl,
+                startTime: doc.StartTime,
+                endTime: doc.EndTime,
+                calDate: doc.CalDate
             });
         });
+        console.log(tiles)
 
         currentComponent.setState({ tiles: tiles });
     }
