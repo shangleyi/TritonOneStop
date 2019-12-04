@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
 import { flexbox } from '@material-ui/system';
+import ScriptTag from 'react-script-tag';
+import zIndex from '@material-ui/core/styles/zIndex';
 
 const useStyles = makeStyles({
   card: {
@@ -28,12 +30,19 @@ const useStyles = makeStyles({
 export default function ImgMediaCard(props) {
   const classes = useStyles();
   const { tile } = props;
+  var start = tile.calDate + " " + tile.startTime;
+  var end = tile.calDate + " " + tile.endTime;
+
+  console.log(tile);
+  //console.log(end);
+
   return (
     <Card className={classes.card}>
       <Button target="_blank" href={'https://studentevents.ucsd.edu/all/'+`${tile.linkurl}`}>
+      <ScriptTag isHydrating={false} type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer/>
       <CardActionArea>
         <CardMedia><img style={{height:186, width:330}} src={`${tile.imgURL}`}/></CardMedia>
-        <CardContent>
+        <CardContent style={{height:150}}>
           <Typography gutterBottom variant="h5" component="h2">
             {tile.title}
           </Typography>
@@ -47,6 +56,15 @@ export default function ImgMediaCard(props) {
             {tile.time}
           </Typography>
         </CardContent>
+        <div title="Add to Calendar" class="addeventatc" style={{zIndex:1, textAlign:"center"}}>
+              <Typography>Add to Calendar</Typography>
+              <span class="date_format">MM/DD/YYYY</span>
+              <span class="start">{start}</span>
+              <span class="end">{end}</span>
+              <span class="timezone">America/Los_Angeles</span>
+              <span class="title">{tile.title}</span>
+              <span class="location">{tile.location}</span>
+            </div>
       </CardActionArea>
       </Button>
       {/* <CardActions>
