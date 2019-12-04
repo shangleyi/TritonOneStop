@@ -24,17 +24,6 @@ class Main extends Component {
             userEmail: null,
             tiles: [],
         };
-
-
-
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // User logged in already or has just logged in.
-                this.setState({userName:user.email.substring(0, user.email.indexOf('@'))});
-            } else {
-                // User not logged in or has just logged out.
-                this.setState({userName: "Log In to Display User Name"});
-            }});
     }
 
     componentDidMount() {
@@ -48,7 +37,7 @@ class Main extends Component {
                 this.getResourcesByUidAxios(this.state.userId);
             } else {
                 // User not logged in or has just logged out.
-                this.setState({userName: "Please Log in to display user name"});
+                this.setState({userName: "Log in to display user name"});
                 this.setState({userId: null});
                 this.setState({userEmail: null});
                 this.getResourcesAxios();
@@ -64,7 +53,7 @@ class Main extends Component {
 
     async getResourcesAxios(){
         const response =
-        await axios.get("http://localhost:5000/getResources")
+        await axios.get("http://localhost:8080/getResources")
         let tiles = [];
         let currentComponent = this;
         response.data.forEach(function(doc) {
@@ -86,7 +75,7 @@ class Main extends Component {
         // let currentComponent = this;
         const response =
             //(force test) await axios.get(`http://localhost:8080/getResourcesByUid/CwDv5zmB2CZlM3mZrk3EXlWq5eR2`).then(res => {
-            await axios.get(`http://localhost:5000/getResourcesByUid/${userId}`).then(res => {
+            await axios.get(`http://localhost:8080/getResourcesByUid/${userId}`).then(res => {
                 console.log(res)
                 let tiles = [];
                 let currentComponent = this;
@@ -108,7 +97,7 @@ class Main extends Component {
     //TODO: modify it to delete
     onClick(props)
     {
-        // axios.get(`http://localhost:5000/getResourceIdsByUid/${this.state.userId}`).then((res) => {
+        // axios.get(`http://:5000/getResourceIdsByUid/${this.state.userId}`).then((res) => {
         //     console.log(res.data)
         //     let resourceIds = res.data;
         //     resourceIds = resourceIds[0]
@@ -123,7 +112,7 @@ class Main extends Component {
                 resourceIds.push(tile.id)
             })
             console.log(resourceIds);
-            axios.post("http://localhost:5000/setUser", {
+            axios.post("http://localhost:8080/setUser", {
                   email: this.state.userEmail,
                   name: this.state.userName,
                   resourceId: resourceIds,
