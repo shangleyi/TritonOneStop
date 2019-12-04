@@ -97,8 +97,7 @@ class Main extends Component {
     //TODO: modify it to delete
     onClick(props)
     {
-        // axios.get(`http://
-        :5000/getResourceIdsByUid/${this.state.userId}`).then((res) => {
+        // axios.get(`http://:5000/getResourceIdsByUid/${this.state.userId}`).then((res) => {
         //     console.log(res.data)
         //     let resourceIds = res.data;
         //     resourceIds = resourceIds[0]
