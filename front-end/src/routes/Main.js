@@ -108,14 +108,9 @@ class Main extends Component {
     async getResourcesByUidAxios(userId){
         // let currentComponent = this;
         const response =
-<<<<<<< HEAD
             //(force test) await axios.get(`http://localhost:8080/getResourcesByUid/CwDv5zmB2CZlM3mZrk3EXlWq5eR2`).then(res => {
             await axios.get(`https://test2-plopyzswiq-uc.a.run.app/getResourcesByUid/${userId}`).then(res => {
                 console.log(res)
-=======
-            //(force test) await axios.get(`http://localhost:5000/getResourcesByUid/CwDv5zmB2CZlM3mZrk3EXlWq5eR2`).then(res => {
-            await axios.get(`http://localhost:8080/getResourcesByUid/${userId}`).then(res => {
->>>>>>> master
                 let tiles = [];
                 let currentComponent = this;
                 res.data.forEach(function(doc) {
@@ -149,12 +144,8 @@ class Main extends Component {
             tiles.map((tile)=>{
                 resourceIds.push(tile.id)
             })
-<<<<<<< HEAD
             console.log(resourceIds);
             axios.post("https://test2-plopyzswiq-uc.a.run.app/setUser", {
-=======
-            axios.post("http://localhost:8080/setUser", {
->>>>>>> master
                   email: this.state.userEmail,
                   name: this.state.userName,
                   resourceId: resourceIds,
