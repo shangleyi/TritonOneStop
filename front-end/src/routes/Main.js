@@ -25,6 +25,7 @@ class Main extends Component {
             tiles: [],
         };
 
+        this.isLogIn = this.isLogIn.bind(this);
 
 
         firebase.auth().onAuthStateChanged((user) => {
@@ -35,10 +36,10 @@ class Main extends Component {
             //     // User not logged in or has just logged out.
             //     this.setState({userName: "Log In to Display User Name"});
             // }});
-            console.log(user)
+            //console.log(user)
             if (user && localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
                   // User logged in already or has just logged in.
-                  console.log("get resource after login")
+                  //console.log("get resource after login")
                   this.setState({userName: user.email.substring(0, user.email.indexOf('@'))});
                   this.setState({userId: user.uid});
                   this.setState({userEmail: user.email});
@@ -51,26 +52,24 @@ class Main extends Component {
                   this.getResourcesAxios();
               }
         });
-        browser.storage.onChanged.addListener(this.componentDidMount);
-        window.addEventListener('storage', function(){
-              console.log(localStorage)
-            if (localStorage.getItem("isLogIn") == true) {
-                  this.getResourcesByUidAxios(this.state.userId);
-            }
-      });
+      //   browser.storage.onChanged.addListener(this.componentDidMount);
+      //   window.addEventListener('storage', function(){
+      //         console.log(localStorage)
+      //       if (localStorage.getItem("isLogIn") == true) {
+      //             this.getResourcesByUidAxios(this.state.userId);
+      //       }
+      // });
+    }
+    isLogIn(uid) {
+      this.setState({userId: uid})
+      this.getResourcesByUidAxios(uid);
     }
 
     componentDidMount() {
           
         firebase.auth().onAuthStateChanged((user) => {
-            //console.log("show user uid:    ");
-            //console.log(user.uid);
-            //console.log(this.state.userName);
-            console.log("localStorage result: ");
-            console.log(user && localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null");
              if (user && localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
                 // User logged in already or has just logged in.
-                console.log("Hi, i am here. ");
                 this.setState({userName: user.email.substring(0, user.email.indexOf('@'))});
                 this.setState({userId: user.uid});
                 this.setState({userEmail: user.email});
@@ -87,7 +86,7 @@ class Main extends Component {
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://localhost:8080/getResources")
+          await axios.get("http://localhost:5000/getResources")
         let tiles = [];
         let currentComponent = this;
         response.data.forEach(function(doc) {
@@ -108,9 +107,8 @@ class Main extends Component {
     async getResourcesByUidAxios(userId){
         let currentComponent = this;
         const response =
-            //(force test) await axios.get(`http://localhost:8080/getResourcesByUid/CwDv5zmB2CZlM3mZrk3EXlWq5eR2`).then(res => {
-            await axios.get(`http://localhost:8080/getResourcesByUid/${userId}`).then(res => {
-                console.log(res)
+            //(force test) await axios.get(`http://localhost:5000/getResourcesByUid/CwDv5zmB2CZlM3mZrk3EXlWq5eR2`).then(res => {
+            await axios.get(`http://localhost:5000/getResourcesByUid/${userId}`).then(res => {
                 let tiles = [];
                 
                 res.data.forEach(function(doc) {
@@ -139,14 +137,12 @@ class Main extends Component {
             const tiles = this.state.tiles.filter(tile => tile.id !== props[0]);
             alert("delete current resource from main: "+ props[1]); //TODO pass tile title from child
             //resourceIds = Array.from(new Set(resourceIds))
-            console.log("from main page onClick!!!");
             this.setState({tiles:tiles});
             let resourceIds = [];
             tiles.map((tile)=>{
                 resourceIds.push(tile.id)
             })
-            console.log(resourceIds);
-            axios.post("http://localhost:8080/setUser", {
+            axios.post("http://localhost:5000/setUser", {
                   email: this.state.userEmail,
                   name: this.state.userName,
                   resourceId: resourceIds,
@@ -3812,7 +3808,7 @@ class Main extends Component {
 
                 </div>
 
-                        <TOSNavBar/>
+                        <TOSNavBar isLogIn={this.isLogIn}/>
 
                         <section id="section06" className="demo">
                             <h1 className="welcomeStyle">
