@@ -24,6 +24,7 @@ class Events extends Component{
             tiles: []
         };
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.isLogIn = this.isLogIn.bind(this);
     }
 
     async getEventsAxios() {
@@ -49,6 +50,11 @@ class Events extends Component{
     }
     componentDidMount(){
         this.getEventsAxios()
+    }
+
+    //empty isLogIn method
+    isLogIn(uid, email) {
+
     }
 
     render() {
@@ -79,7 +85,7 @@ class Events extends Component{
         //overide
         return (
             <div>
-                <TOSNavBar />
+                <TOSNavBar isLogIn={this.isLogIn}/>
                 <div className="background" />
                 <div className={classes.root}>
                     <div className="events_content">
