@@ -60,8 +60,9 @@ class Main extends Component {
       //       }
       // });
     }
-    isLogIn(uid) {
-      this.setState({userId: uid})
+    isLogIn(uid, email) {
+      this.setState({userId: uid});
+      this.setState({userName: email.substring(0, email.indexOf('@'))});
       this.getResourcesByUidAxios(uid);
     }
 
@@ -3807,11 +3808,7 @@ class Main extends Component {
 
                 </div>
 
-<<<<<<< HEAD
-                <TOSNavBar/>
-=======
                         <TOSNavBar isLogIn={this.isLogIn}/>
->>>>>>> resource
 
                 <section id="section06" className="demo">
                     <h1 className="welcomeStyle">

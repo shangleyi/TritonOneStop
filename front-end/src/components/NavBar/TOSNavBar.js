@@ -66,7 +66,7 @@ class TOSNavBar extends React.Component {
             console.log("NavBar: Log-In: TRUE");
             this.setState({isLoggedIn: true});
             if(this.state.isSignUp) {
-                this.props.isLogIn(firebase.auth().currentUser.uid);
+                this.props.isLogIn(firebase.auth().currentUser.uid, this.state.userName);
             }
             
         } catch (error) {

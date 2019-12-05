@@ -33,6 +33,7 @@ class Resource extends Component{
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleCategoryClick = this.handleCategoryClick.bind(this);
         this.handleTextClick = this.handleTextClick.bind(this);
+        this.isLogIn = this.isLogIn.bind(this);
         // this.clear = this.clear.bind(this)
         
 
@@ -90,6 +91,10 @@ class Resource extends Component{
 
     componentDidMount() {
         this.getResourcesAxios();
+    }
+
+    isLogIn(uid, email) {
+
     }
     
     // search() {
@@ -295,7 +300,7 @@ class Resource extends Component{
         //overide
         return (
             <div>
-                <NavBar/>
+                <NavBar isLogIn={this.isLogIn}/>
                 <div className="background"/>
                     <div className={classes.root}>
                         <div className="resource_searchbar">
