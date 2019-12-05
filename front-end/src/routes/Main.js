@@ -29,7 +29,7 @@ class Main extends Component {
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             console.log(user)
-            if (user) {
+            if (user && localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
                 // User logged in already or has just logged in.
                 this.setState({userName: user.email.substring(0, user.email.indexOf('@'))});
                 this.setState({userId: user.uid});
