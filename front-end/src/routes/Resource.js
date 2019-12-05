@@ -33,20 +33,24 @@ class Resource extends Component{
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleCategoryClick = this.handleCategoryClick.bind(this);
         this.handleTextClick = this.handleTextClick.bind(this);
+        this.isLogIn = this.isLogIn.bind(this);
         // this.clear = this.clear.bind(this)
         
 
         firebase.auth().onAuthStateChanged((user) => {
+            console.log(this.state.userId);
             if (user) {
                 // User logged in already or has just logged in.
                 this.setState({userId:user.uid});
                 this.setState({userName:user.email.substring(0, user.email.indexOf('@'))});
                 this.setState({userEmail: user.email});
+                this.getResourcesAxios();
             } else {
                 // User not logged in or has just logged out.
                 this.setState({userId: null});
                 this.setState({userName: "Please Log in to display user name"});
                 this.setState({userEmail: null});
+                this.getResourcesAxios();
         }});
     }
 
@@ -88,6 +92,10 @@ class Resource extends Component{
 
     componentDidMount() {
         this.getResourcesAxios();
+    }
+
+    isLogIn(uid, email) {
+
     }
     
     // search() {
@@ -293,7 +301,7 @@ class Resource extends Component{
         //overide
         return (
             <div>
-                <NavBar/>
+                <NavBar isLogIn={this.isLogIn}/>
                 <div className="background"/>
                     <div className={classes.root}>
                         <div className="resource_searchbar">

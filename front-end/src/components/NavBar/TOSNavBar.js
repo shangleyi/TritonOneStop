@@ -39,10 +39,10 @@ class TOSNavBar extends React.Component {
         console.log("");
         console.log("Notice");
         if(localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
-            this.state={isLoggedIn: true, userName: localStorage.getItem("UserName"), userPW: ""};
+            this.state={isLoggedIn: true, userName: localStorage.getItem("UserName"), userPW: "", isSignUp: false};
         }
         else {
-            this.state={isLoggedIn: false, userName: null, userPW: null};
+            this.state={isLoggedIn: false, userName: null, userPW: null, isSignUp: false};
         }
     }
 
@@ -62,17 +62,13 @@ class TOSNavBar extends React.Component {
         // Actual login
         try{
             firebase.auth().signInWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleLogInError);
-            // firebase.auth().signInWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleLogInError).then(res => {
-            //     axios.post("http://localhost:8080/setUser", {
-            //         email: res.user.email,
-            //         name: res.user.email.substring(0, res.user.email.indexOf('@')),
-            //         resourceId: [18, 11, 10, 8, 17, 15],
-            //         uid: res.user.uid,
-            //     });
-            // });
             localStorage.setItem("UserName", this.state.userName);
             console.log("NavBar: Log-In: TRUE");
             this.setState({isLoggedIn: true});
+            if(this.state.isSignUp) {
+                this.props.isLogIn(firebase.auth().currentUser.uid, this.state.userName);
+            }
+            
         } catch (error) {
             alert(error);
             console.log("NavBar: Log-In: FALSE");
@@ -99,21 +95,32 @@ class TOSNavBar extends React.Component {
         try{
             //firebase.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleSignUpError);
             firebase.auth().createUserWithEmailAndPassword(this.state.userName, this.state.userPW).catch(this.handleSignUpError).then(res => {
-
-                    //console.log("user email:   ");
-                    //console.log(firebase.auth().currentUser.email);
-                    //console.log("user id:     ");
-                    //console.log(firebase.auth().currentUser.uid);
-
-                    axios.post("http://localhost:8080/setUser", {
-                        email: firebase.auth().currentUser.email,
-                        name: firebase.auth().currentUser.email.substring(0, firebase.auth().currentUser.email.indexOf('@')),
-                        resourceId: [18, 11, 10, 8, 17, 15],
-                        uid: firebase.auth().currentUser.uid,
-                    });
+                console.log("display current user:    ");
+                console.log(firebase.auth().currentuser);
+                if(firebase.auth().currentUser!=null){
+                    console.log("user email:   ");
+                    console.log(firebase.auth().currentUser.email);
+                    console.log("user id:     ");
+                    console.log(firebase.auth().currentUser.uid);
+                }
+                    if(firebase.auth().currentUser!=null){
+                        axios.post("http://localhost:8080/setUser", {
+                            email: firebase.auth().currentUser.email,
+                            name: firebase.auth().currentUser.email.substring(0, firebase.auth().currentUser.email.indexOf('@')),
+                            resourceId: [18, 11, 10, 8, 17, 15],
+                            uid: firebase.auth().currentUser.uid,
+                        }).then(() => {
+                            this.setState({isSignUp: true});
+                            this.handleLogIn();
+                        });
+                    }
             });
             console.log("NavBar: SignUp");
             alert("Signing Up with email" + this.state.userName + ", if no error pops up, sign up is success");
+            //this.handleLogIn();
+            firebase.auth().signOut();
+            localStorage.setItem("UserName", null);
+        
         } catch (error) {
             alert(error);
             console.log("Failed to SignUp");
@@ -166,12 +173,13 @@ class TOSNavBar extends React.Component {
     };
 
     handleClickCoursePlanner = () => {
-        if(localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
-            this.props.history.push("/courseplanner");
-        }
-        else {
-            alert("Please login to access course planner");
-        }
+        this.props.history.push("/courseplanner");
+        // if(localStorage.getItem("UserName")!==null && localStorage.getItem("UserName")!=="null") {
+        //     this.props.history.push("/courseplanner");
+        // }
+        // else {
+        //     alert("Please login to access course planner");
+        // }
     };
 
     render() {
