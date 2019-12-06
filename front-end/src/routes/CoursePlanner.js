@@ -73,6 +73,7 @@ class CoursePlanner extends Component{
         this.popCourse6 = this.popCourse6.bind(this);
         this.popCredit6 =this.popCredit6.bind(this);
         this.setGrade = this.setGrade.bind(this);
+        this.isLogIn = this.isLogIn.bind(this);
     }
 
     /* Find the matching gpa, letter grade and time of the first course*/
@@ -169,6 +170,10 @@ class CoursePlanner extends Component{
         return "F"
     }
 
+    isLogIn(uid, email) {
+
+    }
+
     render() {
         const rows = [
             createData(
@@ -193,7 +198,7 @@ class CoursePlanner extends Component{
 
         return (
             <div className="App">
-                <TOSNavBarBar/>
+                <TOSNavBarBar isLogIn={this.isLogIn}/>
                 <Paper className={useStyles.root}>
                     <Table className={useStyles.table} aria-label="simple table">
                         <TableHead>

@@ -38,7 +38,6 @@ class Resource extends Component{
         
 
         firebase.auth().onAuthStateChanged((user) => {
-            console.log(this.state.userId);
             if (user) {
                 // User logged in already or has just logged in.
                 this.setState({userId:user.uid});
@@ -56,7 +55,7 @@ class Resource extends Component{
 
     async getResourcesAxios(){
         const response =
-          await axios.get("http://localhost:8080/getResources")
+          await axios.get("http://localhost:5000/getResources")
         let tiles = [];
         let currentComponent = this;
         let searchTiles = [];
@@ -252,9 +251,10 @@ class Resource extends Component{
     // }
     onClick(props)
     {
-        axios.get(`http://localhost:8080/getResourceIdsByUid/${this.state.userId}`).then((res) => {
+        axios.get(`http://localhost:5000/getResourceIdsByUid/${this.state.userId}`).then((res) => {
             console.log(res.data)
             let resourceIds = res.data;  
+
             resourceIds = resourceIds[0] 
             {resourceIds.length <= 5?
                 resourceIds.push(props[0]):
@@ -262,7 +262,7 @@ class Resource extends Component{
             }
             alert("add current resource to main: "+ props[1]); //TODO pass tile title from child
             resourceIds = Array.from(new Set(resourceIds))
-            axios.post("http://localhost:8080/setUser", {
+            axios.post("http://localhost:5000/setUser", {
                 email: this.state.userEmail,
                 name: this.state.userName,
                 resourceId: resourceIds,

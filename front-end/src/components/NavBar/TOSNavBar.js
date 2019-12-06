@@ -104,7 +104,7 @@ class TOSNavBar extends React.Component {
                     console.log(firebase.auth().currentUser.uid);
                 }
                     if(firebase.auth().currentUser!=null){
-                        axios.post("http://localhost:8080/setUser", {
+                        axios.post("http://localhost:5000/setUser", {
                             email: firebase.auth().currentUser.email,
                             name: firebase.auth().currentUser.email.substring(0, firebase.auth().currentUser.email.indexOf('@')),
                             resourceId: [18, 11, 10, 8, 17, 15],

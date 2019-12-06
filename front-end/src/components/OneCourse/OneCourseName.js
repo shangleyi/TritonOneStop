@@ -31,7 +31,7 @@ class OneCourseName extends Component{
 
     async fillInCourse(){
         const response =
-            await axios.get("http://localhost:8080/getCourse")
+            await axios.get("http://localhost:5000/getCourse")
         let courseArray = [];
         let deptArray = [];
         let currentComponent = this;
