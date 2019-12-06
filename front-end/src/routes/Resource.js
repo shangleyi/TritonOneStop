@@ -256,7 +256,7 @@ class Resource extends Component{
             let resourceIds = res.data;  
 
             resourceIds = resourceIds[0] 
-            {resourceIds.length <= 5?
+            {resourceIds.length <= 7?
                 resourceIds.push(props[0]):
                 alert("Main page is full!")
             }
