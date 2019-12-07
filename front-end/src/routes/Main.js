@@ -136,22 +136,26 @@ class Main extends Component {
         //     let resourceIds = res.data;
         //     resourceIds = resourceIds[0]
         //     resourceIds.push(props[0])
-            const tiles = this.state.tiles.filter(tile => tile.id !== props[0]);
-            alert("delete current resource from main: "+ props[1]); //TODO pass tile title from child
-            //resourceIds = Array.from(new Set(resourceIds))
-            this.setState({tiles:tiles});
-            let resourceIds = [];
-            tiles.map((tile)=>{
-                resourceIds.push(tile.id)
-            })
-            console.log(resourceIds);
-            axios.post("https://test2-plopyzswiq-uc.a.run.app/setUser", {
-                  email: this.state.userEmail,
-                  name: this.state.userName,
-                  resourceId: resourceIds,
-                  uid: this.state.userId}).then(res => {
-                      console.log(res)
-                  })
+            if (this.state.tiles.length <= 1) {
+                alert("Main page cannot be empty!")
+            }
+            else { 
+                const tiles = this.state.tiles.filter(tile => tile.id !== props[0]);
+                alert("delete current resource from main: "+ props[1]); //TODO pass tile title from child
+                //resourceIds = Array.from(new Set(resourceIds))
+                this.setState({tiles:tiles});
+                let resourceIds = [];
+                tiles.map((tile)=>{
+                    resourceIds.push(tile.id)
+                })
+                console.log(resourceIds);
+                axios.post("https://test2-plopyzswiq-uc.a.run.app/setUser", {
+                      email: this.state.userEmail,
+                      name: this.state.userName,
+                      resourceId: resourceIds,
+                      uid: this.state.userId
+                })
+           }
     }
 
     render() {
