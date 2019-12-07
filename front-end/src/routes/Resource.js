@@ -253,16 +253,26 @@ class Resource extends Component{
     // }
     onClick(props)
     {
-        axios.get(`https://test2-plopyzswiq-uc.a.run.app/getResourcesByUid/${this.state.userId}`).then((res) => {
+        axios.get(`https://test2-plopyzswiq-uc.a.run.app/getResourceIdsByUid/${this.state.userId}`).then((res) => {
             console.log(res.data)
             let resourceIds = res.data;  
             resourceIds = resourceIds[0] 
-            {resourceIds.length <= 5?
-                resourceIds.push(props[0]):
-                alert("Main page is full!")
+            if(resourceIds.length < 5){
+                resourceIds.push(props[0]);
+                alert("Added " + props[1] + " resource to the main page."); //TODO pass tile title from child
             }
-            alert("add current resource to main: "+ props[1]); //TODO pass tile title from child
-            console.log("here we are!!!");
+            else if(resourceIds.length == 5){
+                resourceIds.push(props[0]);
+                alert("Added " + props[1] + " resource to the main page. The main page is now at full capacity."); //TODO pass tile title from child
+            }
+            else{
+                alert("Main page is full! Please delete a resource to add a different one.")
+            }
+            // {resourceIds.length <= 5?
+            //     resourceIds.push(props[0]):
+                
+            // }
+            //console.log("here we are!!!");
             console.log(resourceIds)
             resourceIds = Array.from(new Set(resourceIds))
             axios.post("https://test2-plopyzswiq-uc.a.run.app/setUser", {
