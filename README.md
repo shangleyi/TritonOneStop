@@ -10,6 +10,13 @@ Triton OneStop is a website that aims to help newcomers to the UCSD community. T
   * https://drive.google.com/file/d/1FoP42N9MrctUmn0_e1DFdrW9dVeAZR56/view 
 * For the best experience, please turn on your audio 
 
+# System Requirements
+* Operating system: Windows 10
+* Browser: Google Chrome
+* Resolution: 1920*1080
+* Screen Scaling: 100%
+
+
 
 # TritonOneStop_Frontend
 installation guide for backend
