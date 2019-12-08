@@ -43,6 +43,14 @@ Triton OneStop is a website that aims to help newcomers to the UCSD community. T
 * Sometimes the Main Page’s button is not activated after user login. 
   * Solution: refresh the page. 
 
+# Technical Support
+* Jiawen Zeng - Project Manager
+  * Phone: 510-386-1829
+* Zijing Di - Algorithm Specialist
+  * Phone: 858-228-7153
+* Johnathan Huynh - Software Dev. Lead
+  *Phone: 714-787-9132
+
 
 
 
