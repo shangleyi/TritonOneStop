@@ -30,6 +30,9 @@ Triton OneStop is a website that aims to help newcomers to the UCSD community. T
 * Please refer to README of project
 
 # Known Issues
+* Whenever the user login and log out, the next time they log back in, system will generate a error message: 
+  "TypeError: i.auth(...).currentUser is null".
+  * Solution: Click "OK".
 * In resource page, sometimes search dropdown menu doesn’t respond to user’s ‘click’ on option.
   * Solution: User shall manually input what they want to search instead of clicking on the dropdown menu.
 * In CoursePlanner page, sometimes dropdown menu doesn’t load when the connection to firebase is lost.
