@@ -1,3 +1,9 @@
+![TOS Main](https://github.com/ouweifan/TritonOneStop/blob/master/TOSMAIN.jpg)
+
+# Introduction
+Triton OneStop is a website that aims to help newcomers to the UCSD community. The website provides guidance to useful resources, a list of upcoming events, and a course planner that estimates course loads for students. Students can customize their main page with their favourite resources so they can get easy access to the resources.
+
+
 # TritonOneStop_Frontend
 installation guide for backend
 1. install PyCharm using NetJetBeans account
@@ -13,5 +19,3 @@ gcloud
 sseclient
 pycrypto
 requests_toolbelt
-
-![TOS Main](https://github.com/ouweifan/TritonOneStop/blob/master/TOSMAIN.jpg)
