@@ -49,7 +49,7 @@ Triton OneStop is a website that aims to help newcomers to the UCSD community. T
 * Zijing Di - Algorithm Specialist
   * Phone: 858-228-7153
 * Johnathan Huynh - Software Dev. Lead
-  *Phone: 714-787-9132
+  * Phone: 714-787-9132
 
 
 
