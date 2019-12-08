@@ -4,6 +4,13 @@
 Triton OneStop is a website that aims to help newcomers to the UCSD community. The website provides guidance to useful resources, a list of upcoming events, and a course planner that estimates course loads for students. Students can customize their main page with their favourite resources so they can get easy access to the resources.
 
 
+# Video Demo
+* https://www.youtube.com/watch?v=cHzTWcyMiho&t=2s 
+* If the Youtube link fails, use this one from Google Drive:
+  * https://drive.google.com/file/d/1FoP42N9MrctUmn0_e1DFdrW9dVeAZR56/view 
+* For the best experience, please turn on your audio 
+
+
 # TritonOneStop_Frontend
 installation guide for backend
 1. install PyCharm using NetJetBeans account
