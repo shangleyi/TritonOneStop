@@ -14,4 +14,4 @@ sseclient
 pycrypto
 requests_toolbelt
 
-![TOS MAIN](/TOS MAIN.jpg)
+![TOS Main](https://github.com/ouweifan/TritonOneStop/master/TOS MAIN.jpg))
