@@ -31,17 +31,17 @@ Triton OneStop is a website that aims to help newcomers to the UCSD community. T
 
 # Known Issues
 * In resource page, sometimes search dropdown menu doesn’t respond to user’s ‘click’ on option.
- * Solution: User shall manually input what they want to search instead of clicking on the dropdown menu.
+  * Solution: User shall manually input what they want to search instead of clicking on the dropdown menu.
 * In CoursePlanner page, sometimes dropdown menu doesn’t load when the connection to firebase is lost.
- * Solution: contact tritononestop@gmail.com.
+  * Solution: contact tritononestop@gmail.com.
 * In Event page, sometimes the events are out of date or no event appears. This is because Student Events Insider website is down.
- * Solution: contact getinvolved@ucsd.edu.
+  * Solution: contact getinvolved@ucsd.edu.
 * In Main/Resource/CoursePlanner/Event page, sometimes the page is blank and no data gets loaded or sometimes users cannot login/signup/forgot password.
- * Solution: make sure the internet is connected.
+  * Solution: make sure the internet is connected.
 * After the user SignUp, if the user clicks Login in the middle of auto login, a window of “TypeError: Cannot read property ‘uid’ of null” would pop up, because the database need some time to get the information.
- * Solution: wait for a few seconds or refresh the website. 
+  * Solution: wait for a few seconds or refresh the website. 
 * Sometimes the Main Page’s button is not activated after user login. 
- * Solution: refresh the page. 
+  * Solution: refresh the page. 
 
 
 
